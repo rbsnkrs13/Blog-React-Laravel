@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_category')->nullable();  // Puede nulo porque un post puede no tener categoria. 
-            $table->foreign('id_category')->references('id')->on('category')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('id_categories')->nullable();  // Puede nulo porque un post puede no tener categoria. 
+            $table->foreign('id_categories')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('id_user')->nullable(false);  
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('title')->nullable(false);
