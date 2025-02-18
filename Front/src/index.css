@@ -91,3 +91,5 @@ button:focus-visible {
   font-weight: <weight>;
   font-style: normal;
 }*/
+
+@import "tailwindcss";
