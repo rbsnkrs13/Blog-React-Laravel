@@ -1,8 +1,12 @@
 import "./App.css";
-import Prueba from "./js/components/dev/prueba/prueba";
+import AppRoutes from "./js/router/AppRoutes";
 
 function App() {
-  return <Prueba />;
+  return (
+    <div className="App">
+      <AppRoutes />
+    </div>
+  );
 }
 
 export default App;
