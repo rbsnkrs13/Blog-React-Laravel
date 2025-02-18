@@ -1,0 +1,52 @@
+:root{
+    --grisClaro: #eef0f2;
+ --grisMeio: #c6c7c4;
+ --saturadoClaro: #a2999e; 
+ --saturadoOscuro: #846a6a;
+ --grisOscuro: #353b3c;
+ } 
+
+.item-title {
+    color: white;
+    background-color: var(--saturadoOscuro);
+    font-family: 'Abril Fatface', cursive;
+    padding: 20px;
+}
+
+.item-text{
+    font-family: Helvetica, sans-serif;
+}
+
+.item-content {
+    padding: 20px;
+}
+
+.item-text-with-image {
+    overflow: hidden; /* Clear floats */
+}
+
+.item-image {
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    max-width: 200px;
+    height: auto;
+}
+
+.item-text {
+    display: inline-block;
+    width: 100%; /* Adjust based on image width and margin */
+}
+
+.item-author{
+    color: white;
+    background-color: var(--saturadoClaro);
+    font-family: 'Dancing Script', cursive;
+    padding: 10px;
+}
+
+.item-tag{
+    font-family: 'Abril Fatface', cursive;
+    color: var(--grisOscuro);
+}
