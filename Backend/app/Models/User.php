@@ -1,4 +1,5 @@
-<?php
+<?php 
+// Los modelos de Roles y Permisos no son necesarios crealos puesto que estan en una carpeta: vendor/spatie/laravel-permision/src/models 
 
 namespace App\Models;
 
@@ -17,10 +18,13 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    protected $fillable = [ // Cambiamos configuración predeterminada ya que hemos añadido campos a la tabla USERS
+        'name_user',
+        'email_user',
+        'password_user',
+        'name_lastName',
+        'img_user',
+        'bio',
     ];
 
     /**
@@ -29,7 +33,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
+        'password_user',
         'remember_token',
     ];
 
@@ -42,7 +46,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password_user' => 'hashed',
         ];
     }
 }
