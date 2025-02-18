@@ -1,0 +1,17 @@
+.cardSinSeleccionar{
+    font-size: 1.5rem;
+    border: none !important;
+    font-family: special-elite-regular !important;
+}
+.cardsSeleccionadas{
+    font-size: 1.5rem;
+    border: none !important;
+    font-family: abril-fatface-regular !important;
+    color: #a2999e !important;
+}
+.search-input::placeholder {
+    background: url('../../../assets/search.svg') no-repeat left center;
+    background-size: 16px 16px;
+    padding-left: 20px;
+    /* Ajusta el padding según sea necesario */
+}
