@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 
 const Navigation = () => {
+<<<<<<< HEAD
   return (<div className="navbar">
+=======
+  return (
+    <div className="navbar">
+>>>>>>> c8ed577930c6fd2dacc1877d04404f17a4684554
     <nav>
       <ul>
         <li>
