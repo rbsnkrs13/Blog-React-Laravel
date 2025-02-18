@@ -15,6 +15,10 @@ class PostService {
         return Post::findOrFail($id); 
     }
     
+    public function createPost($data){ // Devuelve el post recién creado, la función create recibe un array y va rellenando la BBDD. 
+        return Post::create($data); 
+    }
+
 }
 
 
