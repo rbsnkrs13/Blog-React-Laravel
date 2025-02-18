@@ -1,9 +1,12 @@
 import "./App.css";
-import Prueba from "./js/components/dev/prueba/prueba";
-import Counter from "./js/components/dev/Counter";
+import AppRoutes from "./js/router/AppRoutes";
 
 function App() {
-  return <Counter />;
+  return (
+    <div className="App">
+      <AppRoutes />
+    </div>
+  );
 }
 
 export default App;
