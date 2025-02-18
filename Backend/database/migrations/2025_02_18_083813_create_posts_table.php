@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_category')->nullable();  // Puede nulo porque un post puede no tener categoria. 
+            $table->foreign('id_category')->references('id')->on('category')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('id_user')->nullable(false);  
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('title')->nullable(false);
+            $table->text('content')->nullable(false);
+            $table->enum('status', ['draft', 'published', 'deleted'])->default('draft'); // Enum para crear borrador, activo, y eliminado
             $table->timestamps();
         });
     }
