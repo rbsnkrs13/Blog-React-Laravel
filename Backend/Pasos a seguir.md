@@ -11,8 +11,11 @@
 -cambiar conexion a mysql
 -poner contraseña
 -crear base de datos en workbench
--poner laravel por el nombre que se le ha puesto
+-cambiar laravel por el nombre que se le ha puesto a la base de datos
 -php artisan migrate
+-php artisan db:seed
+(si por lo que sea se rompe la base de datos, quieres reiniciar los datos o algo por el estilo hacer este comando)
+*-php artisan migrate:fresh --seed
 
 # hacer que funcione(?)
 
@@ -21,6 +24,6 @@
 
 
 # cors
-esto esta en proceso, asi que no hacer aun
--php artisan config:publish cors
+(en principio no hace falta, si no funciona prueba a poner esto)
+-php artisan config:publish cors   <!-- puede que no haga falta -->
 -php artisan install:api
