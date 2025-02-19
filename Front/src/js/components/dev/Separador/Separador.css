@@ -1,4 +1,5 @@
-.separador-img {
-    width: 12.5rem; /* 1rem = 16px, so 200px / 16 = 12.5rem */
-    height: 7.5rem; /* 1rem = 16px, so 120px / 16 = 7.5rem */
+.separador-img{
+width: 50%;
+height: 5%;
+object-fit: cover;
 }
