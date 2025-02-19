@@ -2,59 +2,110 @@
 // Hemos creado dentro de la carpeta App, la carpeta Services, para añadir los servicios de cada modelo
 namespace App\Services;
 
-use App\Models\Categories;
-use App\Models\Post;
-use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use App\Models\User;
 
-class PostService {
-    
-    public function getAllPost(){ // Esta función recoge todos los datos de la tabla Post
-        return Post::all();
-    }
+class PermissionService
+{
+    /**
+     * Asigna un permiso a un rol específico.
+     *
+     * @param string $roleName
+     * @param string $permissionName
+     * @return void
+     */
+    public function assignPermissionToRole(string $roleName, string $permissionName)
+    {
+        // Busca el rol y el permiso por nombre
+        $role = Role::findByName($roleName);
+        $permission = Permission::findByName($permissionName);
 
-    public function getPostById($id){    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
-        return Post::findOrFail($id); 
-    }
-
-    public function createPost($data){ // Devuelve el post recién creado, la función create recibe un array y va rellenando la BBDD. 
-        return Post::create($data); 
-    }
-
-    public function deletePost($id){ // Devuelve V o F, si se le pasa un id de un post que no existe F y si el id existe, el post pasa a estar en estado 'delete'
-        if (Post::findOrFail($id)) {
-            $post = Post::findOrFail($id);
-            $post->status = "deleted";
-            return true; 
-        }else {
-            return false; 
+        // Asigna el permiso al rol
+        if ($role && $permission) {
+            $role->givePermissionTo($permission);
         }
     }
-    
 
-    public function getPostByCategory($cat){    // 
-        $post = Categories::findOrFail($cat);  
-        return Post::findOrFail($post->id); 
+    /**
+     * Asigna permisos por defecto a los roles.
+     *
+     * @return void
+     */
+    public function assignDefaultPermissionsToRoles()
+    {
+        // Asigna permisos predeterminados al rol "administrador"
+        $adminRole = Role::findByName('admin');
+        $adminPermissions = Permission::all();
+        $adminRole->givePermissionTo($adminPermissions);
+
+        // Asigna permisos predeterminados al rol "editor"
+        $editorRole = Role::findByName('editor');
+        $editorPermissions = ['create post','delete post','update post','publish post','view post','create user','delete user', 'update user','view user' ];
+        $editorRole->givePermissionTo($editorPermissions);
+
+        // Asigna permisos predeterminados al rol "lector"
+         $readerRole = Role::findByName('reader');
+         $readerPermissions = ['view post'];
+         $readerRole->givePermissionTo($readerPermissions);
     }
 
+    /**
+     * Verifica si un usuario tiene un permiso específico.
+     *
+     * @param User $user
+     * @param string $permission
+     * @return bool
+     */
+    public function userHasPermission(User $user, string $permission)
+    {
+        return $user->can($permission);
+    }
 
+    /**
+     * Verifica si un usuario tiene el rol de administrador.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function isAdmin(User $user)
+    {
+        return $user->hasRole('admin');
+    }
 
-    public function updatePost($data){    // Esta función recibe los datos del post actualizado, con los cambios indicados por el usuario, 
-        $post = Post::findOrFail($data->id); // si encuentra el id del post cambia los datos del antiguo. 
-        if ($post) {
-            $post->update([
-                'id_categories' => $data->id_categories,
-                'user_id' => $data->user_id,
-                'title' => $data->title,
-                'content' => $data->content,
-                'status' => $data->status,
+    /**
+     * Verifica si un usuario tiene el rol de editor.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function isEditor(User $user)
+    {
+        return $user->hasRole('editor');
+    }
+
+    /**
+     * Verifica si un usuario tiene el rol de lector.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function isReader(User $user)
+    {
+        return $user->hasRole('reader');
+    }
+
+    public function updatePermission($data){    // Esta función recibe los datos de los permisso actualizado, con los cambios indicados por el usuario, 
+        $permission = permission::findOrFail($data->id); // si encuentra el id del permission cambia los datos del antiguo. 
+        if ($permission) {
+            $permission->update([
+                'name' => $data->name,
             ]);
             return true; 
         }else {
             return false; 
         }
     }
-    
-
 }
 
 
