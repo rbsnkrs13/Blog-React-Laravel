@@ -16,14 +16,13 @@ return new class extends Migration
             $table->string('name_user')->nullable(false);
             $table->string('email_user')->unique()->nullable(false);
             $table->string('password_user')->nullable(false);
-            $table->unsignedBigInteger('id_role')->nullable(false);
-            $table->foreign('id_role')->references('id')->on('roles')->onDelete('cascade')->onUpdate('cascade');
             $table->dateTime('register_date')->nullable(false);
             $table->string('name_lastName')->nullable(false);
             $table->string('img_user')->nullable(false)->default('default.jpg');
             $table->text('bio')->nullable();
             $table->rememberToken(); //Campo para el "Recuerdame" de la sesión del usuario.
             $table->timestamps(); // Crea dos campos de cuando se crea y cuando se actualiza.
+            $table->softDeletes(); //Crea la columna delete_at
         });
         
         Schema::create('password_reset_tokens', function (Blueprint $table) {  // Se utiliza para guardar el token para restablecer la contraseña. 
@@ -33,13 +32,13 @@ return new class extends Migration
         });
 
         Schema::create('sessions', function (Blueprint $table) {
-            $table->id();
-            // $table->foreignId('id_user')->nullable();           -> Linea pordefecto de FK tabla sesiones de laravel
-            $table->unsignedBigInteger('id_user')->nullable(false);
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('id')->primary();
+            $table->foreignId('user_id')->nullable()->index();          // Linea pordefecto de FK tabla sesiones de laravel
             $table->longText('payload');
             $table->dateTime('session_start')->nullable(false);
-            $table->text('session_end')->nullable(false);
+            $table->integer('last_activity')->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
         });
     }
 
