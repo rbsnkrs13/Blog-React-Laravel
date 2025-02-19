@@ -4,12 +4,12 @@ import "./Footer.css";
 const Footer = () => {
   return (
     <footer className="footer py-3 text-center">
-      <ul className="list-unstyled d-flex justify-content-center align-items-center h-100 mb-0">
+      <ul className="list-unstyled  h-100 mb-0">
         <li className="mx-3">
-          <Link to="/cookies" className="text-decoration-none">Política de privacidad</Link>
+          <Link to="/cookies" >Política de privacidad</Link>
         </li>
         <li className="mx-3">
-          <Link to="/privacidad" className="text-decoration-none">Cookies</Link>
+          <Link to="/privacidad" >Política de Cookies</Link>
         </li>
       </ul>
     </footer>
