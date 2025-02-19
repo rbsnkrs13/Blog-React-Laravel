@@ -1,7 +1,3 @@
-body{
-    margin: none;
-}
-
 .cardSinSeleccionar {
     font-size: 1.25rem !important; /* Ajusta el tamaño de la fuente según el ancho de la ventana */
     background-color: #c6c7c4 !important;

@@ -1,33 +1,4 @@
-
-.cardSinSeleccionar {
-    font-size: 1.25rem !important; /* Ajusta el tamaño de la fuente según el ancho de la ventana */
-    background-color: #c6c7c4 !important;
-    border: none !important;
-    font-family: "Special Elite", serif !important;
-    padding: 0 !important; /* Añade padding 0 */
-    margin: 5px !important; /* Añade margen de 5px */
-    white-space: nowrap; /* Evita saltos de línea */
-}
-
-.cardsSeleccionadas {
-    font-size: 1.25rem !important; /* Ajusta el tamaño de la fuente según el ancho de la ventana */
-    background-color: #c6c7c4 !important;
-    border: none !important;
-    font-family: "Special Elite", serif !important;
-    color: #a2999e !important;
-    padding: 0 !important; /* Añade padding 0 */
-    margin: 5px !important; /* Añade margen de 5px */
-    white-space: nowrap; /* Evita saltos de línea */
-}
-
-.buscadorMovil {
-    width: 15.13rem;
-    height: 1.81rem;
-    text-align: center;
-}
-
-.buscadorWeb {
-    width: 3.75rem;
-    height: 0.016rem;
-    text-align: center;
+.separador-img {
+    width: 12.5rem; /* 1rem = 16px, so 200px / 16 = 12.5rem */
+    height: 7.5rem; /* 1rem = 16px, so 120px / 16 = 7.5rem */
 }
