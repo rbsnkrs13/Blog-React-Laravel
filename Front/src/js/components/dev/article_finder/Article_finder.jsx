@@ -1,15 +1,40 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Form, FormControl, Row, Col, Card } from 'react-bootstrap';
 import './Article_finder.css';
 
 const SearchPage = () => {
     const [selectedCard, setSelectedCard] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCardId, setSelectedCardId] = useState(''); // Nueva constante para almacenar el id de la tarjeta seleccionada
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // Estado para detectar si es móvil
 
     const handleCardClick = (card) => {
         setSelectedCard(card);
-        setSearchQuery(card); // Actualiza el valor del campo de búsqueda con el id de la tarjeta seleccionada
+        setSelectedCardId(card); // Actualiza el id de la tarjeta seleccionada
     };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (selectedCardId && searchQuery) {
+            // Realiza la búsqueda usando selectedCardId y searchQuery
+            console.log(`Buscando ${searchQuery} en ${selectedCardId}`);
+            // Aquí puedes agregar la lógica para realizar la búsqueda
+        } else {
+            console.log('Por favor, selecciona una categoría y escribe un término de búsqueda.');
+        }
+    };
+
+    // Hook para actualizar el estado isMobile cuando cambia el tamaño de la ventana
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <Container className="p-3">
@@ -17,11 +42,11 @@ const SearchPage = () => {
                 <h3 style={{color: '#846a6a'}}>Encuentra el artículo</h3>
             </div>
             <div>
-                <Form>
+                <Form onSubmit={handleSearchSubmit}>
                     <FormControl
                         type="text"
                         placeholder=""
-                        className="mb-3"
+                        className={isMobile ? 'buscadorMovil' : 'buscadorWeb'} // Cambia la clase según el estado isMobile
                         value={searchQuery} // Establece el valor del campo de búsqueda
                         onChange={(e) => setSearchQuery(e.target.value)} // Permite la edición manual del campo de búsqueda
                     />
@@ -37,7 +62,7 @@ const SearchPage = () => {
                             <Card.Body>Autor</Card.Body>
                         </Card>
                     </Col>
-                        <Col xs={4} lg={4} className="text-center">
+                    <Col xs={4} lg={4} className="text-center">
                         <Card
                             id="Título"
                             className={selectedCard === 'Título' ? 'cardsSeleccionadas' : 'cardSinSeleccionar'}
@@ -46,7 +71,7 @@ const SearchPage = () => {
                             <Card.Body>Título</Card.Body>
                         </Card>
                     </Col>
-                        <Col xs={4} lg={4} className="text-center">
+                    <Col xs={4} lg={4} className="text-center">
                         <Card
                             id="Contenido"
                             className={selectedCard === 'Contenido' ? 'cardsSeleccionadas' : 'cardSinSeleccionar'}
@@ -68,7 +93,6 @@ const SearchPage = () => {
                     </Col>
                 </Row>
                 </Container>
-
             </div>
         </Container>
     );

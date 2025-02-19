@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color: #c6c7c4;
+  background-color: #c6c7c4 !important;
 }
 
 
@@ -24,5 +24,3 @@ body {
   font-weight: <weight>;
   font-style: normal;
 }*/
-
-@import "tailwindcss";
