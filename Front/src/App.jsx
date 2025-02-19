@@ -1,9 +1,18 @@
 import "./App.css";
-import Prueba from "./js/components/dev/prueba/prueba";
-import Counter from "./js/components/dev/Counter";
+import NavigationFinal from "./js/components/dev/NavigationFinal/NavigationFinal";
+import AppRoutes from "./js/router/AppRoutes";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from "./js/components/dev/footer/Footer";
 
 function App() {
-  return <Counter />;
+
+  return (
+    <div className="App">
+      <NavigationFinal />
+      <AppRoutes />
+      <Footer />
+    </div>
+  );
 }
 
 export default App;

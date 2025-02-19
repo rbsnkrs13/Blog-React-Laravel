@@ -1,0 +1,64 @@
+/* #846a6a */
+.containerNav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: inherit;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar {
+    background-color: #353b3c;
+    height: 70px;
+    padding: 0px 0px !important;
+}
+
+.brand {
+    color: #846a6a !important;
+    font-family: 'Abril Fatface', serif;
+    font-weight: 500;
+    font-size: 3rem !important;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.navbarLogo {
+    width: 40px;
+    height: 40px;
+    right: 0px;
+}
+
+.collapseIcon {
+    background-color: #846a6a !important;
+    height: 70px;
+    width: 90px;
+    border-radius: 0px !important;
+}
+
+.navbar-toggler-icon {
+    width: 50px !important;
+    height: 40px;
+}
+
+.collapseNav {
+    background-color: #846a6a;
+    width: 100%;
+    border-top: 1px solid #a2999e;
+    font-family: "Helvetica, Arial,sans-serif";
+    font-size: 1.5rem;
+    color: #eef0f2 !important;
+}
+
+.collapseNav a {
+    border-top: 1px solid #a2999e;
+    color: #eef0f2 !important;
+    width: 100%;
+    padding-left: 30px;
+}
+
+.collapseNav a:hover {
+    background-color: #353b3c;
+    transform: scale(1.2);
+}
