@@ -1,3 +1,17 @@
-.link{
+footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
     font-family: Helvetica, sans-serif;
-}
+    background-color: #353b3c;
+  }
+
+  footer a {
+    color: #846a6a;
+    text-decoration: none;
+  }
+  
+  footer a:hover {
+    text-decoration: underline;
+  }

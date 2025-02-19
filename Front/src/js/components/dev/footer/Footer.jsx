@@ -3,13 +3,13 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer style={{ padding: '20px', textAlign: 'center', backgroundColor: '#f8f8f8' }}>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        <li className="link" style={{ display: 'inline', margin: '0 15px' }}>
-            <Link to="/cookies">Cookies</Link>
+    <footer className="py-3 text-center bg-light">
+      <ul className="list-unstyled d-inline-flex">
+        <li className="mx-3">
+          <Link to="/cookies" className="text-decoration-none">Cookies</Link>
         </li>
-        <li className="link" style={{ display: 'inline', margin: '0 15px' }}>
-            <Link to="/privacidad">Privacidad</Link>
+        <li className="mx-3">
+          <Link to="/privacidad" className="text-decoration-none">Privacidad</Link>
         </li>
       </ul>
     </footer>
