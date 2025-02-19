@@ -4,7 +4,7 @@ import './CreatePost.css';
 
 function CreatePost() {
     return (
-        <button className="writeButton">
+        <button className="writeButton" onClick={() => {window.location.href = "/createPost"}}>
             <img src= {logo} alt="write" />
         </button>
     );
