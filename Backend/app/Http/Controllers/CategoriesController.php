@@ -20,7 +20,7 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Mandamos lo que queremos ver como vista principal, en este caso los datos de todas las categorias.
      */
     public function index():JsonResponse
     {
@@ -28,7 +28,7 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guardamos una nueva categoría en la bbdd.
      */
     public function store(CategoriesRequest $request)
     {
@@ -36,23 +36,23 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Mostramos el dato de forma unitaria
      */
-    public function show(Categories $categories)
+    public function show(Categories $categories):JsonResponse
     {
-        //
+        return response()->json();
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizamos la categoría en la bbdd.
      */
-    public function update(CategoriesRequest $request, Categories $categories)
+    public function update(CategoriesRequest $request, Categories $categories):JsonResponse
     {
-        //
+        return response()->json();
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar categoría de la bbdd.
      */
     public function destroy(Categories $categories)
     {

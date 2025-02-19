@@ -4,16 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
+use App\Services\PostService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    protected $postService;
+
+    public function __construct(PostService $postService) {
+        $this->postService = $postService;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index():JsonResponse
     {
-        //
+        return response()->json([$this->postService->getAllPost()]);
     }
 
     /**
