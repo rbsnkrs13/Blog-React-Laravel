@@ -22,6 +22,10 @@ return new class extends Migration
             $table->enum('status', ['draft', 'published', 'deleted'])->default('draft'); // Enum para crear borrador, activo, y eliminado
             $table->timestamps();
         });
+        Schema::table('posts', function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
+        });
     }
 
     /**
