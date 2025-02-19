@@ -1,3 +1,7 @@
+import CreatePost from "../../components/dev/createPost/createPost";
+import Title from "../../components/dev/Title/Title";
+import BackToTop from "../../components/dev/BackToTop/BackToTop";
+
 
 const HomePage = () => {
   return (
