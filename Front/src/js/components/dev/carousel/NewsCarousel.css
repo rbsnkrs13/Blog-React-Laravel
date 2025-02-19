@@ -6,6 +6,33 @@
  --grisOscuro: #353b3c;
  } 
 
+.news-carousel {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.item-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.item-group > :first-child,
+.item-group > :last-child {
+    transform: scale(0.8);
+}
+
+.item-content {
+    /* flex: 0 0 32%; */
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
 .item-title {
     color: white;
     background-color: var(--saturadoOscuro);
@@ -13,16 +40,14 @@
     padding: 20px;
 }
 
-.item-text{
+.item-text {
     font-family: Helvetica, sans-serif;
-}
-
-.item-content {
-    padding: 20px;
+    display: inline-block;
+    width: 100%; /* Adjust based on image width and margin */
 }
 
 .item-text-with-image {
-    overflow: hidden; /* Clear floats */
+    overflow: hidden;
 }
 
 .item-image {
@@ -31,22 +56,17 @@
     height: 50px;
     margin-right: 20px;
     max-width: 200px;
-    height: auto;
 }
 
-.item-text {
-    display: inline-block;
-    width: 100%; /* Adjust based on image width and margin */
+.item-tag {
+    font-family: 'Abril Fatface', cursive;
+    color: var(--grisOscuro);
 }
 
-.item-author{
+.item-author {
     color: white;
     background-color: var(--saturadoClaro);
     font-family: 'Dancing Script', cursive;
     padding: 10px;
-}
-
-.item-tag{
-    font-family: 'Abril Fatface', cursive;
-    color: var(--grisOscuro);
+    font-size: 0.8em;
 }
