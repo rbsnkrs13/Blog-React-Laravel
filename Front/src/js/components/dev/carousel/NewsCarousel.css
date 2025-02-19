@@ -19,10 +19,10 @@
     width: 100%;
 }
 
-.item-group > :first-child,
+/* .item-group > :first-child,
 .item-group > :last-child {
     transform: scale(0.8);
-}
+} */
 
 .item-content {
     /* flex: 0 0 32%; */
