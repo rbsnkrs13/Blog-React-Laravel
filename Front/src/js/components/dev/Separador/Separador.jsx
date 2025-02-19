@@ -7,9 +7,9 @@ const Separador = () => {
    // const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // Estado para detectar si es móvil
 
     return (
-        <Container>
+        <>
             <img src={separador} alt="Separador" className="separador-img" />
-        </Container>
+        </>
     );
 };
 
