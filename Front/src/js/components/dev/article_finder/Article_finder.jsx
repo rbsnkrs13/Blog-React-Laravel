@@ -37,9 +37,9 @@ const SearchPage = () => {
     }, []);
 
     return (
-        <Container className="p-3">
+        <Container>
             <div style={{ backgroundColor: '#eef0f2' }}>
-                <h3 style={{color: '#846a6a'}}>Encuentra el artículo</h3>
+                <h3 style={{color: '#846a6a'}}>Encuentra el artículo:</h3>
             </div>
             <div>
                 <Form onSubmit={handleSearchSubmit}>
@@ -51,7 +51,7 @@ const SearchPage = () => {
                         onChange={(e) => setSearchQuery(e.target.value)} // Permite la edición manual del campo de búsqueda
                     />
                 </Form>
-                <Container>
+                
                 <Row>
                     <Col xs={4} lg={4} className="text-center">
                         <Card
@@ -91,8 +91,7 @@ const SearchPage = () => {
                             <Card.Body>Fecha de publicación</Card.Body>
                         </Card>
                     </Col>
-                </Row>
-                </Container>
+                </Row>                
             </div>
         </Container>
     );
