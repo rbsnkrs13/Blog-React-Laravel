@@ -2,60 +2,61 @@
 // Hemos creado dentro de la carpeta App, la carpeta Services, para añadir los servicios de cada modelo
 namespace App\Services;
 
-use App\Models\Categories;
-use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class PostService {
+class UserService {
     
-    public function getAllPost(){ // Esta función recoge todos los datos de la tabla Post
-        return Post::all();
+    public function getAllUser(){ // Esta función recoge todos los datos de la tabla User
+        return User::all();
     }
 
-    public function getPostById($id){    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
-        return Post::findOrFail($id); 
+    public function getUserById($id){    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
+        return User::findOrFail($id);
     }
 
-    public function createPost($data){ // Devuelve el post recién creado, la función create recibe un array y va rellenando la BBDD. 
-        return Post::create($data); 
+    public function createUser($data){ // Devuelve el usuario recién creado, la función create recibe un array y va rellenando la BBDD. 
+        $user = User::create($data);
+        $this->assignRoleUser($user, 'lector');
+        return $user;
     }
 
-    public function deletePost($id){ // Devuelve V o F, si se le pasa un id de un post que no existe F y si el id existe, el post pasa a estar en estado 'delete'
-        if (Post::findOrFail($id)) {
-            $post = Post::findOrFail($id);
-            $post->status = "deleted";
-            return true; 
-        }else {
-            return false; 
+    public function assignRoleById($id, $role){
+        $user = User::findOrFail($id);
+        $this->assignRoleUser($user, $role);
+    }
+
+    public function assignRoleUser($user, $role){
+        if($user->hasRole('admin'))
+            return(NULL);
+        if ($user->roles()->isNotEmpty()) {
+            $user->roles()->detach();
+        }
+        $user->assignRole($role);
+    }
+
+    public function deleteUser($id){ // Devuelve V o F, si se le pasa un id de un post que no existe F y si el id existe, el post pasa a estar en estado 'delete'
+        $user = User::findOrFail($id);
+        if ($user && !$user->hasRole('admin')) {
+            $user->delete();
+            return true;
         }
     }
-    
 
-    public function getPostByCategory($cat){    // 
-        $post = Categories::findOrFail($cat);  
-        return Post::findOrFail($post->id); 
-    }
-
-
-
-    public function updatePost($data){    // Esta función recibe los datos del post actualizado, con los cambios indicados por el usuario, 
-        $post = Post::findOrFail($data->id); // si encuentra el id del post cambia los datos del antiguo. 
-        if ($post) {
-            $post->update([
-                'id_categories' => $data->id_categories,
-                'user_id' => $data->user_id,
-                'title' => $data->title,
-                'content' => $data->content,
-                'status' => $data->status,
+    public function updateUser($data){    // Esta función recibe los usuario del post actualizado, con los cambios indicados por el usuario, 
+        $user = User::findOrFail($data->id); // si encuentra el id del ususario cambia los datos del antiguo. 
+        if ($user) {
+            $user->update([
+                'name_user' => $data->name_user,
+                'email_user' => $data->email_user,
+                'name_lastName' => $data->name_lastName,
+                'img_user' => $data->img_user,
+                'bio' => $data->bio,
             ]);
             return true; 
         }else {
             return false; 
         }
     }
-    
-
 }
-
-
 ?>
