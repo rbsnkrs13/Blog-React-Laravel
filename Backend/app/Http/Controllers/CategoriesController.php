@@ -4,25 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoriesRequest;
 use App\Models\Categories;
+use App\Services\CategoriesService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 
 class CategoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    protected $categoriesService;
+
+    public function __construct(CategoriesService $categoriesService)
     {
-        //
+        $this->categoriesService = $categoriesService;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      */
-    public function create()
+    public function index():JsonResponse
     {
-        //
+        return response()->json($this->categoriesService->getAllCategories());
     }
 
     /**
@@ -37,14 +39,6 @@ class CategoriesController extends Controller
      * Display the specified resource.
      */
     public function show(Categories $categories)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Categories $categories)
     {
         //
     }
