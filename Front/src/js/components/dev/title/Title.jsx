@@ -1,0 +1,1 @@
+import buttonImage from "../../../../assets/button-image.png;" // Asegúrate de que la ruta sea correcta

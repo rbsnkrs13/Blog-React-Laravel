@@ -1,9 +1,16 @@
-export default function CreatePost({name, value}) {
-    return (
+
+import logo from "../../../../assets/escribir.svg";
+/*function CreatePost({name, value}) {
+    /*return (
         <div>
             <div>{value}</div>
             <input type="text" placeholder="Type here" className="input input-bordered input-md w-full max-w-xs" />
             <div>{name}</div>
         </div>
     );
-}
+    
+}*/
+const Logo = () => {
+    return <img src={logo} alt="LogCBlog" />;
+  };
+export default Logo;

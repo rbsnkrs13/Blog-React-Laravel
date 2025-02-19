@@ -1,3 +1,5 @@
+import Logo from "../../components/dev/createPost/createPost";
+
 const HomePage = () => {
   return (
     <div>
