@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->rememberToken(); //Campo para el "Recuerdame" de la sesión del usuario.
             $table->timestamps(); // Crea dos campos de cuando se crea y cuando se actualiza.
+            $table->softDeletes(); //Crea la columna delete_at
         });
         
         Schema::create('password_reset_tokens', function (Blueprint $table) {  // Se utiliza para guardar el token para restablecer la contraseña. 
