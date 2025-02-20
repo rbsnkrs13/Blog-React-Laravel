@@ -12,7 +12,7 @@ const LoginForm = () => {
 
     return (
         <>
-            <Card className="cardForm">
+            {/* <Card className="cardForm">
                 <Card.Header className="headerForm d-flex align-items-center">
                     <img src={Logo} alt="Logo" />
                     <h1 className="text-center">C -Blog</h1>
@@ -70,7 +70,7 @@ const LoginForm = () => {
                                 <Form.Label className="formLabel" for="name_user">Usuario:</Form.Label>
                             </Col>
                             <Col xs={8} lg={7}>
-                                <Form.Control type="text" id="name_user" name= "name_user" />
+                                <Form.Control type="text" id="name_user" name="name_user" />
                             </Col>
                         </Row>
 
@@ -79,7 +79,7 @@ const LoginForm = () => {
                                 <Form.Label className="formLabel" for="password_user">Contraseña:</Form.Label>
                             </Col>
                             <Col xs={8} lg={7}>
-                                <Form.Control type="password_user" name= "password_user" />
+                                <Form.Control type="password_user" name="password_user" />
                             </Col>
                         </Row>
 
@@ -88,7 +88,7 @@ const LoginForm = () => {
                                 <Form.Label className="formLabel" for="password_user_confirmation">Repite Contraseña:</Form.Label>
                             </Col>
                             <Col xs={8} lg={7}>
-                                <Form.Control type="password" id="password_user_confirmation" name= "password_user_confirmation" />
+                                <Form.Control type="password" id="password_user_confirmation" name="password_user_confirmation" />
                             </Col>
                         </Row>
 
@@ -97,26 +97,26 @@ const LoginForm = () => {
                                 <Form.Label className="formLabel" for="email_user">Correo electrónico:</Form.Label>
                             </Col>
                             <Col xs={8} lg={7}>
-                                <Form.Control type="email" id="email_user" name= "email_user" />
+                                <Form.Control type="email" id="email_user" name="email_user" />
                             </Col>
                         </Row>
-                        
+
                         <Row className="mb-3 d-flex w-100">
                             <Col xs={12}>
-                                <Form.Check type="checkbox" id="terms" name= "terms" label="Acepto los términos de servicio, política de privacidad y servicio de notificaciones" />
+                                <Form.Check type="checkbox" id="terms" name="terms" label="Acepto los términos de servicio, política de privacidad y servicio de notificaciones" />
                             </Col>
                         </Row>
                         <Row className="mb-3">
                             <Col xs={4} className="d-flex align-items-center justify-content-center w-100 mx-auto">
-                              <Button type="submit" className="botonForm mt-3">
-                                  Registrarse
-                              </Button>   
-                          </Col>
+                                <Button type="submit" className="botonForm mt-3">
+                                    Registrarse
+                                </Button>
+                            </Col>
                         </Row>
                     </Form>
                 </Modal.Body>
-              
-            </Modal>
+
+            </Modal> */}
         </>
     );
 };

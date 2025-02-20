@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* <NavigationFinal /> */}
+      <NavigationFinal />
       <AppRoutes />
       <Footer />
     </div>

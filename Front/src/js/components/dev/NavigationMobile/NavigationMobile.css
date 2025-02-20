@@ -62,3 +62,62 @@
     background-color: #353b3c;
     transform: scale(1.2);
 }
+
+.containerNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: #353b3c;
+}
+
+.navbar {
+    background-color: #353b3c;
+    height: 70px;
+}
+
+.brand {
+    color: #846a6a;
+    font-family: 'Abril Fatface', serif;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+.navbarLogo {
+    width: 40px;
+    height: 40px;
+}
+
+.collapseIcon {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #846a6a;
+    cursor: pointer;
+}
+
+.collapseNav {
+    display: none;
+    flex-direction: column;
+    background-color: #846a6a;
+    width: 100%;
+    text-align: left;
+}
+
+.collapseNav a {
+    padding: 15px;
+    color: #eef0f2;
+    text-decoration: none;
+    border-top: 1px solid #a2999e;
+}
+
+.collapseNav a:hover {
+    background-color: #353b3c;
+    transform: scale(1.1);
+}
+
+.collapseNav.open {
+    display: flex;
+}
