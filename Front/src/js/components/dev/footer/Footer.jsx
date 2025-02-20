@@ -3,15 +3,11 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer className="footer py-3 text-center">
-      <ul className="list-unstyled  h-100 mb-0">
-        <li className="mx-3">
-          <Link to="/cookies" >Política de privacidad</Link>
-        </li>
-        <li className="mx-3">
-          <Link to="/privacidad" >Política de Cookies</Link>
-        </li>
-      </ul>
+    <footer className="footer footer-horizontal footer-center bg-base-200 text-base-content p-5">
+      <nav className="flex justify-around w-full">
+          <Link to="/cookies" className="link link-hover" id="lk01">Política de Cookies</Link>
+          <Link to="/privacidad" className="link link-hover" id="lk02">Política de Privacidad</Link>
+      </nav>
     </footer>
   );
 };
