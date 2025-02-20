@@ -1,0 +1,18 @@
+:root {
+    --grisClaro: #eef0f2;
+    --grisMeio: #c6c7c4;
+    --saturadoClaro: #a2999e; 
+    --saturadoOscuro: #846a6a;
+    --grisOscuro: #353b3c;
+}
+
+.carousel-item {
+    width: 580px !important;
+    height: 180px !important;
+    margin-bottom: 10px;
+}
+.carousel{
+    height: 500px !important;
+    width: 580px !important;
+        
+}
