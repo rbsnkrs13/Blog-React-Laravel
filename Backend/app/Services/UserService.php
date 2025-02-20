@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Contracts\Role;
 
 class UserService {
     
@@ -16,9 +17,19 @@ class UserService {
     }
 
     public function createUser($data){ // Devuelve el usuario recién creado, la función create recibe un array y va rellenando la BBDD. 
-        $user = User::create($data);
-        $this->assignRoleUser($user, 'lector');
-        return $user;
+        if(User::where('email_user', $data->email_user)->exists() || User::where('name_user', $data->name_user)->exists()){
+            return response()->json(['message' => 'El usuario ya está registrado'], 409); // 409, codigo de error de conflicto de datos
+        }
+        $user = User::create([
+            'name_user' => $data->name_user,
+            'email_user' => $data->email_user,
+            'password_user' => $data->password_user,
+            'name_lastName' => $data->name_lastName ?? null,
+            'img_user' => $data->img_user ?? null,
+            'bio' => $data->bio ?? null,
+        ]);
+        $this->assignRoleUser($user, 'reader');
+        return response()->json($user);
     }
 
     public function assignRoleById($id, $role){
@@ -52,6 +63,7 @@ class UserService {
                 'name_lastName' => $data->name_lastName,
                 'img_user' => $data->img_user,
                 'bio' => $data->bio,
+                'update_at' => now(),
             ]);
             return true; 
         }else {

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Categories;
 use App\Models\Post;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Facades\Auth;
 
 class CategoriesService {
@@ -33,7 +34,14 @@ class CategoriesService {
     }
     
     public function createCategories($data){ // Esta función recoge la categoria nueva creada
-        return Categories::create($data); 
+       
+        $category = Categories::create(
+            [
+                'name' => $data ->name,
+                'description' => $data->description
+            ]
+        );
+        return $category; 
     }
     
 

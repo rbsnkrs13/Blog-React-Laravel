@@ -4,17 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoriesRequest;
 use App\Models\Categories;
+use App\Services\RoleService;
 use Illuminate\Http\Request;
 
 
 class RoleController extends Controller
 {
+
+    protected $roleService;
+
+    public function __construct(RoleService $roleService)
+    {
+        $this->roleService = $roleService;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return response()->json($this->roleService->getAllRole());
     }
 
     /**
