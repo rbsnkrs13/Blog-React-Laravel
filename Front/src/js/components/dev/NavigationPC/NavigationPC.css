@@ -3,15 +3,16 @@
     height: 100vh;
     position: fixed;
     left: 0;
+    top: 0;
 }
 
-/* @media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
     :root {
         width: calc(100vw-200px);
         margin-left: 200px;
     }
 
-} */
+}
 
 
 
