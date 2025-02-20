@@ -25,10 +25,9 @@ class UserService {
             'email_user' => $data->email_user,
             'password_user' => $data->password_user,
             'name_lastName' => $data->name_lastName ?? null,
-            'img_user' => $data->img_user ?? null,
             'bio' => $data->bio ?? null,
         ]);
-        $this->assignRoleUser($user, 'reader');
+        //$this->assignRoleUser($user, 'reader');
         return response()->json($user);
     }
 

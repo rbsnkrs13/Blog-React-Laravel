@@ -21,6 +21,7 @@ Route::get('/user', function (Request $request) {
 //     Route::get('/users/{user}/edit', 'edit')->name('users.edit')->middleware(['auth'])->middleware(['role:administrador']);
 });
 
+
 Route::controller(CategoriesController::class)->group(function () {
     Route::get('/categories', 'index');
     Route::post('/categories/create', 'store')->name('categories.store');
