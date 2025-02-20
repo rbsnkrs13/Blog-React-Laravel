@@ -34,12 +34,13 @@ Route::controller(CategoriesController::class)->group(function () {
 // Route::post('/categories/create', [CategoriesController::class, 'store']);
 Route::controller(PostController::class)->group(function () {
     Route::get('/posts', 'index')->name('posts.index');
-    Route::post('/posts', 'store')->name('posts.store');
-    //Route::get('/posts/create',  'create')->name('posts.create')->middleware(['auth'])->middleware(['role:administrador']);
-    Route::get('/posts/{post}', 'show')->name('posts.show')->middleware(['auth']);
-    Route::put('/posts/{post}', 'update')->name('posts.update')->middleware(['auth'])->middleware(['role:administrador']);
-    Route::delete('/posts/{post}', 'destroy')->name('posts.destroy')->middleware(['auth'])->middleware(['role:administrador']);
-    //Route::get('/posts/{post}/edit', 'edit')->name('posts.edit')->middleware(['auth'])->middleware(['role:administrador']);
+    Route::get('/posts/showAll', 'show');
+    //Route::post('/posts', 'store')->name('posts.store');
+        //Route::get('/posts/create',  'create')->name('posts.create')->middleware(['auth'])->middleware(['role:administrador']);
+    //Route::get('/posts/{post}', 'show')->name('posts.show')->middleware(['auth']);
+    //Route::put('/posts/{post}', 'update')->name('posts.update')->middleware(['auth'])->middleware(['role:administrador']);
+    //Route::delete('/posts/{post}', 'destroy')->name('posts.destroy')->middleware(['auth'])->middleware(['role:administrador']);
+        //Route::get('/posts/{post}/edit', 'edit')->name('posts.edit')->middleware(['auth'])->middleware(['role:administrador']);
 });
 
 
