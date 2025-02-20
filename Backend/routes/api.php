@@ -24,14 +24,11 @@ Route::get('/user', function (Request $request) {
 
 Route::controller(CategoriesController::class)->group(function () {
     Route::get('/categories', 'index');
-    Route::post('/categories/create', 'store')->name('categories.store');
+    Route::post('/categories/store', 'store')->name('categories.store');//->middleware(['auth'])->middleware(['role:administrador']);
     //esta es para el formulario de creacion, no nos encargamos de eso
-    //Route::get('/categories/create',  'create')->name('categories.create')->middleware(['auth'])->middleware(['role:administrador']);
-    //Route::get('/categories/{category}', 'show')->name('categories.show')->middleware(['auth']);
-    //Route::put('/categories/{category}', 'update')->name('categories.update')->middleware(['auth'])->middleware(['role:administrador']);
-   // Route::delete('/categories/{category}', 'destroy')->name('categories.destroy')->middleware(['auth'])->middleware(['role:administrador']);
-    //esta es para el formulario de edicion, tampoco nos encargamos de eso
-    //Route::get('/categories/{category}/edit', 'edit')->name('categories.edit')->middleware(['auth'])->middleware(['role:administrador']);
+    Route::get('/categories/show/{categories}', 'show')->name('categories.show');//->middleware(['auth']);
+    Route::put('/categories/update/{categories}', 'update')->name('categories.update');//->middleware(['auth'])->middleware(['role:administrador']);
+    Route::delete('/categories/destroy/{categories}', 'destroy')->name('categories.destroy');//->middleware(['auth'])->middleware(['role:administrador']);
 });
 
 // Route::post('/categories/create', [CategoriesController::class, 'store']);

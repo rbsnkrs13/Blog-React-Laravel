@@ -32,7 +32,7 @@ class CategoriesController extends Controller
      */
     public function store(CategoriesRequest $request):JsonResponse
     {
-        return response()->json($this->categoriesService->createCategories($request));
+        return $this->categoriesService->createCategories($request);
     }
 
     /**
@@ -46,9 +46,9 @@ class CategoriesController extends Controller
     /**
      * Actualizamos la categoría en la bbdd.
      */
-    public function update(CategoriesRequest $request, Categories $categories):JsonResponse
+    public function update(Request $request, Categories $categories):JsonResponse
     {
-        return response()->json($this->categoriesService->updateCategories($request,$categories));
+        return $this->categoriesService->updateCategories($request,$categories);
     }
 
     /**
@@ -56,6 +56,6 @@ class CategoriesController extends Controller
      */
     public function destroy(Categories $categories)
     {
-        
+        return $this->categoriesService->destroyCategories($categories);
     }
 }

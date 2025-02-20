@@ -18,7 +18,7 @@ class UserService {
 
     public function createUser($data){ // Devuelve el usuario recién creado, la función create recibe un array y va rellenando la BBDD. 
         if(User::where('email_user', $data->email_user)->exists() || User::where('name_user', $data->name_user)->exists()){
-            return response()->json(['message' => 'El usuario ya está registrado'], 409); // 409, codigo de error de conflicto de datos
+            return response()->json(['message' => 'El usuario ya esta registrado'], 409); // 409, codigo de error de conflicto de datos
         }
         $user = User::create([
             'name_user' => $data->name_user,
