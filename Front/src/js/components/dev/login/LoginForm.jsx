@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import Logo from "./../../../../assets/logo_pluma.svg";
-import { Form, Button, Row, Col, Card, Modal } from 'react-bootstrap';
+// import { Form, Button, Row, Col, Card, Modal } from 'react-bootstrap';
 import './LoginForm.css';
 
 const LoginForm = () => {
