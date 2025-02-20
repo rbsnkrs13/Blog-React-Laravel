@@ -2,7 +2,6 @@ import CreatePost from "../../components/dev/createPost/createPost";
 import Title from "../../components/dev/Title/Title";
 import BackToTop from "../../components/dev/BackToTop/BackToTop";
 
-
 const HomePage = () => {
   return (
     <div>
@@ -10,6 +9,7 @@ const HomePage = () => {
       <Title texto="Home Page" f_size = {40} h_num={1} />
       <BackToTop />
       <CreatePost />
+
 
     </div>
   );
