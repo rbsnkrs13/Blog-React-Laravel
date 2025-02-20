@@ -10,8 +10,8 @@
     cursor: pointer;
     overflow: hidden;
     position: fixed;
-    bottom: 5%;
-    left: 5%;
+    bottom: 35%;
+    right: 5%;
 }
 
 .writeButton:hover {
