@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
 import separador from '../../../../assets/separador.svg'; // Importa el archivo SVG
 import './Separador.css';
 

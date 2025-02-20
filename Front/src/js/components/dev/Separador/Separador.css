@@ -1,5 +1,6 @@
 .separador-img{
-width: 50%;
-height: 5%;
-object-fit: cover;
+    width: 20%;
+    height: 2%;
+    object-fit: cover;
+    margin: 0 auto;
 }
