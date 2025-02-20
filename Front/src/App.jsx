@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       {/* <NavigationFinal /> */}
       <AppRoutes />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

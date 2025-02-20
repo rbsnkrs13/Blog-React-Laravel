@@ -33,7 +33,7 @@ export default function CategoryCarrousel() {
     }, []);
 
     return (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center">
             <div className="carousel carousel-vertical rounded-box w-72 h-24">
                 {categories.map((category) => (<>
                     <div
