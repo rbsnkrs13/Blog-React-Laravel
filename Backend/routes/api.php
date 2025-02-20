@@ -22,19 +22,21 @@ Route::get('/user', function (Request $request) {
 Route::controller(CategoriesController::class)->group(function () {
     Route::get('/categories', 'index');
     Route::post('/categories', 'store')->name('categories.store');
-    Route::get('/categories/create',  'create')->name('categories.create')->middleware(['auth'])->middleware(['role:administrador']);
+    //esta en principio borrar
+    //Route::get('/categories/create',  'create')->name('categories.create')->middleware(['auth'])->middleware(['role:administrador']);
     Route::get('/categories/{category}', 'show')->name('categories.show')->middleware(['auth']);
     Route::put('/categories/{category}', 'update')->name('categories.update')->middleware(['auth'])->middleware(['role:administrador']);
     Route::delete('/categories/{category}', 'destroy')->name('categories.destroy')->middleware(['auth'])->middleware(['role:administrador']);
-    Route::get('/categories/{category}/edit', 'edit')->name('categories.edit')->middleware(['auth'])->middleware(['role:administrador']);
+    //esta tambien fuera
+    //Route::get('/categories/{category}/edit', 'edit')->name('categories.edit')->middleware(['auth'])->middleware(['role:administrador']);
 });
 
 Route::controller(PostController::class)->group(function () {
     Route::get('/posts', 'index')->name('posts.index');
     Route::post('/posts', 'store')->name('posts.store');
-    Route::get('/posts/create',  'create')->name('posts.create')->middleware(['auth'])->middleware(['role:administrador']);
+    //Route::get('/posts/create',  'create')->name('posts.create')->middleware(['auth'])->middleware(['role:administrador']);
     Route::get('/posts/{post}', 'show')->name('posts.show')->middleware(['auth']);
     Route::put('/posts/{post}', 'update')->name('posts.update')->middleware(['auth'])->middleware(['role:administrador']);
     Route::delete('/posts/{post}', 'destroy')->name('posts.destroy')->middleware(['auth'])->middleware(['role:administrador']);
-    Route::get('/posts/{post}/edit', 'edit')->name('posts.edit')->middleware(['auth'])->middleware(['role:administrador']);
+    //Route::get('/posts/{post}/edit', 'edit')->name('posts.edit')->middleware(['auth'])->middleware(['role:administrador']);
 });
