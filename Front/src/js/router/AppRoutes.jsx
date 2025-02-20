@@ -12,8 +12,8 @@ const AppRoutes = () => {
     <Routes>
       <Route path={"/"} element={<HomePage />} />
       <Route path={"/logIn"} element={<LogInPage />} />
-
-      <Route path={"/detallesBlog/:blog_id"} element={<DetallesBlogPage />} />
+      {/* <Route path={"/novedades"} element={<NovedadesPage />} /> */}
+      {/* <Route path={"/detallesBlog/:blog_id"} element={<DetallesPage />} /> */}
       <Route path={"/perfil/:id_usuario"} element={<PerfilPage />} />
       <Route path={"/blogs/:tipo_blog"} element={<h1>HOlaaaa</h1>} />
       <Route path={"/crearBlog"} element={<CrearBlogPage />} />

@@ -11,6 +11,7 @@ function App() {
       <NavigationFinal />
       <AppRoutes />
       <Footer />
+
     </div>
   );
 }
