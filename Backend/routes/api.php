@@ -14,7 +14,7 @@ Route::get('/user', function (Request $request) {
  Route::controller(ProfileController::class)->group(function () {
 //     Route::get('/users', 'index')->name('users.index');
 //     Route::post('/users', 'store')->name('users.store');
-     Route::post('/users/create',  'store')->name('users.store');//->middleware(['auth'])->middleware(['role:administrador']);
+     Route::post('/users/store',  'store')->name('users.store');//->middleware(['auth'])->middleware(['role:administrador']);
 //     Route::get('/users/{user}', 'show')->name('users.show')->middleware(['auth']);
 //     Route::put('/users/{user}', 'update')->name('users.update')->middleware(['auth'])->middleware(['role:administrador']);
 //     Route::delete('/users/{user}', 'destroy')->name('users.destroy')->middleware(['auth'])->middleware(['role:administrador']);

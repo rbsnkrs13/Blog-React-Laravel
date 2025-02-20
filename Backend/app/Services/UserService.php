@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\TryCatch;
 use Spatie\Permission\Contracts\Role;
 
 class UserService {
@@ -17,18 +19,33 @@ class UserService {
     }
 
     public function createUser($data){ // Devuelve el usuario recién creado, la función create recibe un array y va rellenando la BBDD. 
-        if(User::where('email_user', $data->email_user)->exists() || User::where('name_user', $data->name_user)->exists()){
-            return response()->json(['message' => 'El usuario ya esta registrado'], 409); // 409, codigo de error de conflicto de datos
+        try{
+            if(User::where('email_user', $data->email_user)->exists()){
+                return response()->json(['message' => 'El email ya esta registrado'], 409); // 409, codigo de error de conflicto de datos
+            }
+            if(User::where('name_user', $data->name_user)->exists()){
+                return response()->json(['message' => 'El nombre de ususario ya esta registrado'], 409); // 409, codigo de error de conflicto de datos
+            }
+            
+                $user = User::create([
+                'name_user' => $data->name_user,
+                'email_user' => $data->email_user,
+                'password_user' => $data->password_user,
+                'name_lastName' => $data->name_lastName ?? null,
+                'bio' => $data->bio ?? null,
+            ]);
+            if($user){
+                try{
+                    $user->assignRole('reader');
+                }catch(\Exception $e){
+                    return response()->json(["mensaje"=>"Error al asignar el role", 400]);
+                }
+                return response()->json($user, 201);
+            }
+        }catch (\Exception $e) {
+            return response()->json(["mensaje"=>"Error al crear el usuario", 400]);
         }
-        $user = User::create([
-            'name_user' => $data->name_user,
-            'email_user' => $data->email_user,
-            'password_user' => $data->password_user,
-            'name_lastName' => $data->name_lastName ?? null,
-            'bio' => $data->bio ?? null,
-        ]);
-        //$this->assignRoleUser($user, 'reader');
-        return response()->json($user);
+         
     }
 
     public function assignRoleById($id, $role){
