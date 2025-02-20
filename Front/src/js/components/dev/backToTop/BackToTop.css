@@ -1,15 +1,14 @@
 .backtoTopButton {
-    width: 11vh;
-    height: 11vh;
-    background-color: #353b3c;
-    border: none;
+    width: 8vw;
+    height: 8vw;
     border-radius: 50%;
+    border: none;
+    background-color: #846a6a;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     overflow: hidden;
-    padding: 1.5%;
     position: fixed;
     bottom: 6%;
     right: 5%;
@@ -20,42 +19,7 @@
 }
 
 .backtoTopButton img {
-    width: 100%;
-    height: auto;
-    /* Mantiene la proporción original */
-    object-fit: cover;
-    /* Asegura que no se deforme */
-}
-
-/* Media query para móviles */
-@media (max-width: 768px) {
-    .backtoTopButton {
-        width: 10vh;
-        /* Ajuste de tamaño */
-        height: 10vh;
-    }
-
-    .backtoTopButton img {
-        width: 70%;
-        /* Ajuste de tamaño */
-        height: auto;
-        /* Mantiene la proporción */
-        object-fit: contain;
-        /* Evita deformaciones */
-    }
-}
-
-/* Media query para pantallas grandes */
-@media (min-width: 1025px) {
-    .backtoTopButton {
-        width: 11vh;
-        height: 11vh;
-    }
-
-    .backtoTopButton img {
-        width: 100%;
-        height: auto;
-        /* Mantiene proporción */
-        object-fit: cover;
-    }
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
 }

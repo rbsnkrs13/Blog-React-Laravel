@@ -1,6 +1,6 @@
-.writeButton {
-    width: 8vw;
-    height: 8vw;
+.likeButton {
+    width: 3vw;
+    height: 3vw;
     border-radius: 50%;
     border: none;
     background-color: #846a6a;
@@ -11,16 +11,15 @@
     overflow: hidden;
     position: fixed;
     bottom: 5%;
-    left: 5%;
+    right: 5%;
 }
 
-.writeButton:hover {
+.likeButton:hover {
     transform: scale(1.1);
 }
 
-.writeButton img {
-    width: 70%;
-    height: 70%;
+.likeButton img {
+    width: 95%;
+    height: 95%;
     object-fit: contain;
-    transform: translateX(5%);
 }
