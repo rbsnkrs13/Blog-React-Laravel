@@ -16,8 +16,11 @@ class CategoriesService {
         return Categories::findOrFail($id); 
     }
 
-    public function updateCategories($data){    // Esta función recibe los datos del post actualizado, con los cambios indicados por el usuario, 
-        $categories = Categories::findOrFail($data->id); // si encuentra el id del post cambia los datos del antiguo. 
+    public function getIdCategoriesByName($data){    // Devuelve el id especificado con el nombre de la categoria, o lanza un error 404 si no existe
+        return Categories::findOrFail($data); 
+    }
+
+    public function updateCategories($data,$categories){    // Esta función recibe los datos del post actualizado, con los cambios indicados por el usuario, 
         if ($categories) {
             $categories->update([
                 'name' => $data->name,
@@ -27,6 +30,10 @@ class CategoriesService {
         }else {
             return false; 
         }
+    }
+    
+    public function createCategories($data){ // Esta función recoge la categoria nueva creada
+        return Categories::create($data); 
     }
     
 

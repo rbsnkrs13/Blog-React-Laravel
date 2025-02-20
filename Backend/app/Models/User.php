@@ -24,6 +24,7 @@ class User extends Authenticatable
     protected $fillable = [ // Cambiamos configuración predeterminada ya que hemos añadido campos a la tabla USERS
         'name_user',
         'email_user',
+        'password_user',
         'name_lastName',
         'img_user',
         'bio',
