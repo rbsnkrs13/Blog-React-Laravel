@@ -1,84 +1,105 @@
-/* Paleta de color: 
-
-#eef0f2 → Gris claro 
-#c6c7c4 → Gris medio 
-#a2999e → Saturado claro 
-#846a6a → Saturado oscuro 
-#353b3c → Gris oscuro */
-.cardForm, .modal-content{
-    border-radius: 1.5rem !important;
-    box-shadow: 2px 2px 5px 5px grey;
-    padding: 0;
-    border: none !important;
-    font-family: 'Helvetica' , 'sans-serif';
+:root{
+    --font-header: 'Abril Fatface', cursive;
+    --font: helvetica, sans-serif;
+    --bg-color: #c6c7c4;
+    --header-bg-color: #353b3c;
+    --header-text-color: #846a6a;
+    --form-bg-color: #eef0f2;
+    --input-bg-color: #c6c7c4;
+    --input-font-size: 1.2rem;
+    --input-font-color: #846a6a;
+    --btn-bg-color: #846a6a;
+    --btn-font-size: 1rem;
+    --hr-color: #c6c7c4;
+    --p-font-size: 0.833rem;
+    --p-color: black;
 }
 
-/* img{
-    width: 2rem;
-} */
+*{
+    font-family: var(--font);
+}
 
-.headerForm{
+form{
+    width: 40%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
     display: flex;
-    justify-content: start;
-    align-items: center;
-    background-color: #353b3c !important;
-    border-radius: 1.5rem 1.5rem 0 0  !important;
-    padding-right: 1.5rem !important;
-}
-.headerForm>h1{
-    color: #846a6a ;
-    font-family: 'Abril Fatface';
-}
-
-.modal-header{
-    padding: 0;
-}
-
-.formLabel{
-    color: #846a6a ;
-    font-size: 1.3rem;
-}
-
-.botonForm{
-    background-color:  #846a6a !important;
-    border: none !important;
-    border-radius: 1.2rem !important;
-    width: 14rem !important;
-}
-
-.crearCuenta{
-    color: #846a6a ;
-}
-.footerForm{
-    font-size: 0.8rem;
-    padding: 0;
-    width: 100%;
-    display: flex;
+    flex-direction: column;
+    gap: 10px;
     justify-content: center;
+    align-items: center;
+    background-color: var(--form-bg-color);
 }
 
-.footerForm p{
+.img-container{
     width: 100%;
-    margin: 0;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background-color: var(--header-bg-color);
 }
 
-#rememberMe{
-    box-shadow: 1px 1px 3px grey , -1px -1px 3px grey;
-}
-#terms{
-    box-shadow: 1px 1px 3px grey , -1px -1px 3px grey;
-}
-input{
-    background-color: #c6c7c4 !important;
+.img-container img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
 }
 
-button[aria-label="Close"] {
-    background-color: #eef0f2 !important;
+.img-container h1{
+    font-family: var(--font-header);
+    font-size: 2rem;
+    color: var(--header-text-color);
 }
 
+.form-container{
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
 
-@media (min-width: 992px){
-    .cardForm{
-        width: 30rem;
+label{
+    font-size: var(--input-font-size);
+    color: var(--input-font-color); 
+}
+
+input, .form-checkbox{
+    background-color: var(--input-bg-color);
+    font-size: var(--input-font-size);
+    color: var(--input-font-color);
+}
+
+button{
+    cursor: pointer;
+}
+button:not(p>button){
+    font-size: var(--btn-font-size);
+    background-color: var(--btn-bg-color);
+    align-self: flex-end;
+}
+
+hr{
+    background-color: var(--hr-color);
+}
+
+p{
+    text-align: center;
+    color: var(--p-color);
+    font-size: var(--p-font-size);
+}
+p>button{
+    color: var(--btn-bg-color);
+}
+
+@media screen and (max-width: 768px){
+    form{
+        width: 90%;
     }
+/* 
+    .form-container{
+
+    } */
 }
