@@ -7,12 +7,16 @@
 }
 
 .carousel-item {
-    width: 580px !important;
+    width: 100% !important;
+    max-width: 580px;
     height: 180px !important;
     margin-bottom: 10px;
 }
-.carousel{
-    height: 500px !important;
-    width: 580px !important;
-        
+
+.carousel {
+    height: auto !important;
+    max-height: 500px;
+    width: 100% !important;
+    max-width: 580px;
+    margin: 0 auto;
 }
