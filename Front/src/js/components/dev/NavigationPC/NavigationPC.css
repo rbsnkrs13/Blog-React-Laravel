@@ -11,10 +11,7 @@
         width: calc(100vw-200px);
         margin-left: 200px;
     }
-
 }
-
-
 
 .logoDiv {
     height: 200px;
@@ -60,5 +57,16 @@
 }
 
 .listaPc ul li:hover a {
+    transform: scale(1.1);
+}
+
+.linksNavMob {
+    font-size: 1.4rem;
+    text-decoration: none !important;
+    display: inline-block;
+    transition: transform 0.1s ease;
+}
+
+.linksNavMob:hover {
     transform: scale(1.1);
 }

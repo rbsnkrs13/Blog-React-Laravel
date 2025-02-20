@@ -13,7 +13,7 @@ const AppRoutes = () => {
       <Route path={"/"} element={<HomePage />} />
       <Route path={"/logIn"} element={<LogInPage />} />
       {/* <Route path={"/novedades"} element={<NovedadesPage />} /> */}
-      {/* <Route path={"/detallesBlog/:blog_id"} element={<DetallesPage />} /> */}
+      <Route path={"/detallesBlog/:blog_id"} element={<DetallesBlogPage />} />
       <Route path={"/perfil/:id_usuario"} element={<PerfilPage />} />
       <Route path={"/blogs/:tipo_blog"} element={<h1>HOlaaaa</h1>} />
       <Route path={"/crearBlog"} element={<CrearBlogPage />} />

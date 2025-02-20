@@ -1,0 +1,38 @@
+.detallesBlog h3 {
+    color: #846a6a;
+    font-family: 'Abril Fatface', serif, cursive;
+    text-transform: capitalize;
+}
+
+.tag {
+    background-color: #eef0f2;
+    color: #353b3c;
+    font-weight: 550;
+    font-family: 'Special Elite', serif, cursive;
+    padding: 0px 10px;
+}
+
+.blogContenido {
+    font-family: Helvetica, sans-serif, Arial;
+    color: white;
+}
+
+.blogContImg {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.blogContenido {
+    font-family: Helvetica, sans-serif, Arial;
+    font-size: 16px;
+    color: #353b3c;
+    flex: 1;
+}
+
+.imagenBlog img {
+    width: 100px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+}

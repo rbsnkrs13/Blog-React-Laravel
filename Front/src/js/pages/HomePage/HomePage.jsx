@@ -1,5 +1,5 @@
 import CreatePost from "../../components/dev/createPost/createPost";
-import Title from "../../components/dev/Title/Title";
+import Title from "../../components/dev/title/TitleBlog";
 import BackToTop from "../../components/dev/BackToTop/BackToTop";
 
 
