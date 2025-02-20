@@ -1,4 +1,5 @@
-
+@import "tailwindcss";
+@plugin "daisyui";
 
 .abril-fatface-regular {
   font-family: "Abril Fatface", serif;

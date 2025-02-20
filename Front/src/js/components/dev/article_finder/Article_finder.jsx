@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Container, Form, FormControl, Row, Col, Card } from 'react-bootstrap';
+// import { Container, Form, FormControl, Row, Col, Card } from 'react-bootstrap';
 import './Article_finder.css';
 
 const SearchPage = () => {
