@@ -45,21 +45,18 @@ class UserService {
         }catch (\Exception $e) {
             return response()->json(["mensaje"=>"Error al crear el usuario", 400]);
         }
-         
     }
 
-    public function assignRoleById($id, $role){
-        $user = User::findOrFail($id);
-        $this->assignRoleUser($user, $role);
-    }
-
-    public function assignRoleUser($user, $role){
+    public function assignRoleUser($request, $user){
         if($user->hasRole('admin'))
-            return(NULL);
-        if ($user->roles()->isNotEmpty()) {
+            return(response()->json(["mensaje"=>"Error no se puede modificar el rol al usuario administrador"], 400));
+        if($request->role == 'admin')
+            return(response()->json(["mensaje"=>"Error no se puede asignar el rol de administrador a un usuario"], 400));
+        if ($user->roles()->get()->isNotEmpty()) {
             $user->roles()->detach();
         }
-        $user->assignRole($role);
+        $user->assignRole($request->role);
+        return(response()->json(["mensaje"=>"Rol asignado con exito"], 200));
     }
 
     public function deleteUser($id){ // Devuelve V o F, si se le pasa un id de un post que no existe F y si el id existe, el post pasa a estar en estado 'delete'

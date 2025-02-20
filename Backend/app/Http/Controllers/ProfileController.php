@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Post;
+use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -39,6 +41,11 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    public function changeRole(Request $request, User $user):JsonResponse
+    {
+        return $this->userService->assignRoleUser($request, $user);
     }
 
     /**

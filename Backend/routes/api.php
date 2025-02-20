@@ -16,6 +16,7 @@ Route::get('/user', function (Request $request) {
     Route::post('/users/store',  'store')->name('users.store');//->middleware(['auth'])->middleware(['role:administrador']);
     Route::get('/users/show/{user}', 'show')->name('users.show')->middleware(['auth']);
     Route::put('/users/update/{user}', 'update')->name('users.update')->middleware(['auth'])->middleware(['role:administrador']);
+    Route::put('/users/changeRole/{user}', 'changeRole')->name('users.changeRole');//->middleware(['auth'])->middleware(['role:administrador']);
     Route::delete('/users/destroy/{user}', 'destroy')->name('users.destroy')->middleware(['auth'])->middleware(['role:administrador']);
 });
 
