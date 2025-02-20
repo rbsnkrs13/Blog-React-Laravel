@@ -18,33 +18,19 @@ class PostService {
     }
 
     public function getPostById($id){    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
-        return Post::findOrFail($id); 
+        return Post::findOrFail($id);
     }
 
     public function createPost($data){ // Devuelve el post recién creado, la función create recibe un array y va rellenando la BBDD. 
-        return Post::create($data); 
+        return Post::create($data);
     }
-
-    public function deletePost($id){ // Devuelve V o F, si se le pasa un id de un post que no existe F y si el id existe, el post pasa a estar en estado 'delete'
-        if (Post::findOrFail($id)) {
-            $post = Post::findOrFail($id);
-            $post->status = "deleted";
-            return true; 
-        }else {
-            return false; 
-        }
-    }
-    
 
     public function getPostByCategory($cat){    // 
         $post = Categories::findOrFail($cat);  
         return Post::findOrFail($post->id); 
     }
 
-
-
-    public function updatePost($data){    // Esta función recibe los datos del post actualizado, con los cambios indicados por el usuario, 
-        $post = Post::findOrFail($data->id); // si encuentra el id del post cambia los datos del antiguo. 
+    public function updatePost($data, $post){    // Esta función recibe los datos del post actualizado, con los cambios indicados por el usuario, 
         if ($post) {
             $post->update([
                 'id_categories' => $data->id_categories,
@@ -53,14 +39,20 @@ class PostService {
                 'content' => $data->content,
                 'status' => $data->status,
             ]);
-            return true; 
+            return response()->json(["mensaje"=>"Post actualizado correctamente", 200]);
         }else {
-            return false; 
+            return response()->json(["Error al actualizar el post", 400]);
         }
     }
-    
 
+    public function destroyPost($post){ // Devuelve V o F, si se le pasa un id de un post que no existe F y si el id existe, el post pasa a estar en estado 'delete'
+        if ($post) {
+            $post->status = "deleted";
+            return response()->json(["mensaje"=>"Categoria actualizada correctamente", 200]);
+        }else {
+            return response()->json(["Error al actualizar la categoria", 400]);
+        }
+    }
 }
-
 
 ?>

@@ -26,14 +26,6 @@ class ProfileController extends Controller
     }
 
     /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): JsonResponse
-    {
-        return response()->json();
-    }
-
-    /**
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
