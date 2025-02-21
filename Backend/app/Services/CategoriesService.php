@@ -18,7 +18,8 @@ class CategoriesService {
         $category = Categories::create(
             [
                 'name' => $data->name,
-                'description' => $data->description
+                'description' => $data->description,
+                'img_url' => $data->img_url
             ]
         );
         if($category)
