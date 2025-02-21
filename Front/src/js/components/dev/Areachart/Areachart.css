@@ -1,0 +1,34 @@
+/* 🔥 Importar la tipografía */
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+
+/* 🔥 Asegurar que el fondo del gráfico sea transparente */
+.apexcharts-canvas {
+  background: transparent !important;
+}
+
+/* Línea del gráfico */
+.apexcharts-line path {
+  stroke: #846a6a !important;
+}
+
+/* 🔥 Color del círculo en hover */
+.apexcharts-marker {
+  fill: #eef0f2 !important;
+  stroke: #846a6a !important;
+}
+
+/* 🔥 Aplicar la tipografía "Abril Fatface" al título */
+h5.leading-none {
+  font-family: "Abril Fatface", cursive !important;
+  color: #846a6a !important;
+}
+
+/* 🔥 Centrar el título y subtítulo con respecto a la gráfica */
+.area-chart-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center !important; /* Centra horizontalmente */
+    justify-content: center !important; /* Centra verticalmente */
+    text-align: center !important;
+  }
