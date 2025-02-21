@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Categorycarousel.css';
-import Category from '../Category/Category';
+import Category from '../CategoryCarouselItem/CategoryItem';
 import Ciencia from '../../../../assets/categorias/Ciencia.webp';
 import Cultura from '../../../../assets/categorias/Cultura.webp';
 import Deportes from '../../../../assets/categorias/Deportes.webp';
