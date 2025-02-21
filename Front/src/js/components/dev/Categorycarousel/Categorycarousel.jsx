@@ -25,12 +25,12 @@ const provisionalCategories = [
     { id: 10, title: 'Economia', image: economia, description: 'Noticias de economia' },
 ];
 
-export default function CategoryCarrousel() {
-    const [categories, setCategories] = useState([]);
+// export default function CategoryCarrousel() {
+//     const [categories, setCategories] = useState([]);
 
-    useEffect(() => {
-        setCategories(provisionalCategories);
-    }, []);
+//     useEffect(() => {
+//         setCategories(provisionalCategories);
+//     }, []);
 
     return (
         <div className="flex justify-center items-center">
