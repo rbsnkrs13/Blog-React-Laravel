@@ -1,10 +1,10 @@
-:root{
+:root {
     --grisClaro: #eef0f2;
- --grisMeio: #c6c7c4;
- --saturadoClaro: #a2999e; 
- --saturadoOscuro: #846a6a;
- --grisOscuro: #353b3c;
- } 
+    --grisMeio: #c6c7c4;
+    --saturadoClaro: #a2999e;
+    --saturadoOscuro: #846a6a;
+    --grisOscuro: #353b3c;
+}
 
 .news-carousel {
     width: 100%;
@@ -43,7 +43,8 @@
 .item-text {
     font-family: Helvetica, sans-serif;
     display: inline-block;
-    width: 100%; /* Adjust based on image width and margin */
+    width: 100%;
+    /* Adjust based on image width and margin */
 }
 
 .item-text-with-image {
