@@ -17,6 +17,10 @@ return new class extends Migration
             $table->text('description')->nullable(false);
             $table->timestamps();
         });
+        Schema::table('categories', function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
+        });
     }
 
     /**

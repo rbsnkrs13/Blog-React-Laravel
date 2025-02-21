@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Contracts\Role;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -24,6 +25,7 @@ class User extends Authenticatable
     protected $fillable = [ // Cambiamos configuración predeterminada ya que hemos añadido campos a la tabla USERS
         'name_user',
         'email_user',
+        'password_user',
         'name_lastName',
         'img_user',
         'bio',

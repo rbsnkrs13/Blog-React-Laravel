@@ -11,7 +11,7 @@ class CategoriesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,7 @@ class CategoriesRequest extends FormRequest
     {
         return [
             'name'=>['required', 'string', 'max:100'],
+            'description'=>['required', 'string', 'max:100']
         ];
     }
 
@@ -33,4 +34,5 @@ class CategoriesRequest extends FormRequest
             'name.max'=> 'El nombre no puede superar los 100 carácteres.',
         ];
     }
+    
 }
