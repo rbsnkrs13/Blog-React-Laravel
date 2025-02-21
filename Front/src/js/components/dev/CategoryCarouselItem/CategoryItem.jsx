@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './Category.css';
+import './CategoryPageItem.css';
 
 const images = import.meta.glob('../../../../assets/carouselVertical/*.webp', { eager: true });
 
@@ -14,7 +14,7 @@ export default function Category({ title, imageUrl, description }) {
         }
     }, [imageUrl]);
     return (
-        <div className="relative category-container">
+        <div className="relative category-Carrousel-container">
             <a href={`#${title}`}>
                 <img
                     src={loadedImage}
@@ -22,7 +22,7 @@ export default function Category({ title, imageUrl, description }) {
                     className="grayscale w-full"
                 />
             </a>
-            <div className="absolute bottom-0 left-0 right-0  bg-black bg-opacity-50 text-custom-color text-center p-2">
+            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-custom-color text-center p-2">
                 {title}
             </div>
         </div>

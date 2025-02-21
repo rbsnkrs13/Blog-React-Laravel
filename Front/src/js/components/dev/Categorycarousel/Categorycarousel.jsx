@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './Categorycarousel.css';
-import Category from '../Category/Category';
 // import Ciencia from '../../../../assets/carouselVertical/Ciencia.webp';
 // import Cultura from '../../../../assets/carouselVertical/Cultura.webp';
 // import Deportes from '../../../../assets/carouselVertical/Deportes.webp';
@@ -12,7 +11,7 @@ import Category from '../Category/Category';
 // import Tecnologia from '../../../../assets/carouselVertical/Tecnologia.webp';
 // import Viajes from '../../../../assets/carouselVertical/Viajes.webp';
 import servicioCategorias from '../../../services/categoriesService';
-import { data } from 'autoprefixer';
+import Category from '../CategoryCarouselItem/CategoryItem';
 
 
 // const provisionalCategories = [

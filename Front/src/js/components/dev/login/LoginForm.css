@@ -19,7 +19,7 @@
     font-family: var(--font);
 }
 
-form {
+.login-form{
     width: 40%;
     max-width: 600px;
     margin: 0 auto;
@@ -33,7 +33,7 @@ form {
     background-color: var(--form-bg-color);
 }
 
-.img-container {
+.login-img-container{
     width: 100%;
     padding: 10px;
     display: flex;
@@ -41,13 +41,13 @@ form {
     background-color: var(--header-bg-color);
 }
 
-.img-container img {
+.login-img-container img{
     width: 50px;
     height: 50px;
     object-fit: cover;
 }
 
-.img-container h1 {
+.login-img-container h1{
     font-family: var(--font-header);
     font-size: 2rem;
     color: var(--header-text-color);
@@ -61,13 +61,12 @@ form {
     flex-direction: column;
 }
 
-label {
+.login-form-label{
     font-size: var(--input-font-size);
     color: var(--input-font-color);
 }
 
-input,
-.form-checkbox {
+.login-form-input, .form-checkbox{
     background-color: var(--input-bg-color);
     font-size: var(--input-font-size);
     color: var(--input-font-color);
@@ -76,24 +75,22 @@ input,
 button {
     cursor: pointer;
 }
-
-button:not(p>button) {
+.submit-btn{
     font-size: var(--btn-font-size);
     background-color: var(--btn-bg-color);
     align-self: flex-end;
 }
 
-hr {
+.login-divider{
     background-color: var(--hr-color);
 }
 
-p {
+.bottom-text{
     text-align: center;
     color: var(--p-color);
     font-size: var(--p-font-size);
 }
-
-p>button {
+.bottom-text>button{
     color: var(--btn-bg-color);
 }
 
