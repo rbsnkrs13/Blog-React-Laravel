@@ -31,7 +31,7 @@ const SearchPage = () => {
 
     return (
         <div className="container mx-auto p-4 mt-10">
-            <div className="bg-gray-200 p-4 rounded text-center">
+            <div className="p-4 rounded text-center">
                 <h2 className="Titulo">Encuentra el artículo:</h2>
             </div>
             <div className='text-center mt-10 '>
