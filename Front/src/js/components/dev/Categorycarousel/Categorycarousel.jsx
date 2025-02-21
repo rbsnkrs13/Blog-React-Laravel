@@ -12,6 +12,7 @@ import Category from '../Category/Category';
 // import Tecnologia from '../../../../assets/carouselVertical/Tecnologia.webp';
 // import Viajes from '../../../../assets/carouselVertical/Viajes.webp';
 import servicioCategorias from '../../../services/categoriesService';
+import { data } from 'autoprefixer';
 
 
 // const provisionalCategories = [
@@ -34,7 +35,13 @@ export default function CategoryCarrousel() {
     //     setCategories(provisionalCategories);
     // }, []);
 
-    const categoriesCall = servicioCategorias.getCategorias().then()
+    servicioCategorias.
+        getCategorias()
+        .then(({ data }) => {
+
+            setCategories(data)
+        })
+        .catch(err => console.log(err))
 
 
     // .then((categories) => {
@@ -42,7 +49,7 @@ export default function CategoryCarrousel() {
     //     console.log(categories);
     // })
     // .catch((error) => console.error(error));
-    setCategories(categoriesCall)
+
     return (
         <div className="flex justify-center items-center">
             <div className="carousel carousel-vertical rounded-box carousel-Category">
@@ -52,8 +59,8 @@ export default function CategoryCarrousel() {
                         className="carousel-item carousel-item-Category cursor-pointer relative"
                     >
                         <Category
-                            title={category.title}
-                            imageUrl={category.image} // Ajusta la ruta según tu estructura de carpetas
+                            title={category.name}
+                            imageUrl={category.img_url} // Ajusta la ruta según tu estructura de carpetas
                             description={category.description} // Añade la descripción
                         />
                     </div>
