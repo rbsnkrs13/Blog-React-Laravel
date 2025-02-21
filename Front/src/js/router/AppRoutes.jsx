@@ -6,6 +6,7 @@ import LogInPage from "../pages/LogInPage/LogInPage";
 import PerfilPage from "../pages/PerfilPage/PerfilPage";
 import HomePage from "../pages/HomePage/HomePage";
 import NovedadesPage from "../pages/NovedadesPage/NovedadesPage";
+import FavPage from "../pages/FavPage/FavPage";
 // import EditarBlogPage from "../pages/EditarBlogPage/EditarBlogPage";
 
 const AppRoutes = () => {
@@ -20,6 +21,8 @@ const AppRoutes = () => {
       <Route path={"/crearBlog"} element={<CrearBlogPage />} />
       <Route path={"/autor/:id_usuario"} element={<AutorPage />} />
       <Route path={"/novedades"} element={<NovedadesPage />} />
+      <Route path={"/favoritos"} element={<FavPage />} />
+
       {/* <Route path={"/signUp"} element={<h1>Sing up</h1>} /> */}
       {/* <Route path={"/editarBlog/:blog_id"} element={<h1>editar</h1>} /> */}
       {/* <Route path={"/contador"} element={<Counter />} /> */}
