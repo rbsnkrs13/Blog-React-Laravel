@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Post;
+use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -26,14 +28,6 @@ class ProfileController extends Controller
     }
 
     /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): JsonResponse
-    {
-        return response()->json();
-    }
-
-    /**
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
@@ -47,6 +41,11 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    public function changeRole(Request $request, User $user):JsonResponse
+    {
+        return $this->userService->assignRoleUser($request, $user);
     }
 
     /**

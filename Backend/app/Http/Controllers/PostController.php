@@ -25,52 +25,40 @@ class PostController extends Controller
         return response()->json($this->postService->getLastTenPosts());
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(PostRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show():JsonResponse
+    public function showAll():JsonResponse
     {
         return response()->json($this->postService->getAllPost());
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Store a newly created resource in storage.
      */
-    public function edit(Post $post)
+    public function store(PostRequest $request):JsonResponse
     {
-        //
+        return $this->postService->createPost($request);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Post $post):JsonResponse
+    {
+        return response()->json($post);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(PostRequest $request, Post $post)
+    public function update(PostRequest $request, Post $post):JsonResponse
     {
-        //
+        return $this->postService->updatePost($request,$post);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post):JsonResponse
     {
-        //
+        return $this->postService->destroyPost($post);
     }
 }

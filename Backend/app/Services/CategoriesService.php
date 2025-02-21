@@ -27,7 +27,7 @@ class CategoriesService {
         return response()->json(["mensaje"=>"Error al crear la categoria", 400]);
     }
     
-    public function updateCategories($data, $categories){    // Esta función recibe los datos del post actualizado, con los cambios indicados por el usuario, 
+    public function updateCategories($data, $categories){ // Esta función recibe los datos del post actualizado, con los cambios indicados por el usuario, 
         if ($categories) {
             $categories->update([
                 'name' => $data->name ?? $categories->name,
@@ -40,14 +40,10 @@ class CategoriesService {
     }
 
     public function destroyCategories($category){ // Esta función recoge la categoria nueva creada
-       
         if(Categories::destroy($category->id))
             return response()->json(["mensaje"=>"Categoria eliminada correctamente", 204]);
-        
         return response()->json(["mensaje"=>"Error al eliminar la categoria", 400]);
-    } 
-    
-
+    }
     /* Por ahora sin uso
     public function getCategoriestById($id){    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
         return Categories::findOrFail($id); 
@@ -59,6 +55,5 @@ class CategoriesService {
     }
     */
 }
-
 
 ?>
