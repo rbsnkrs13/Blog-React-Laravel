@@ -6,36 +6,36 @@ function Profile() {
     return (
         <div className="profileContainer">
             <div className="grid place-content-center h-full">
-                <div className="card bg-base-100 w-96 shadow-xl">
+                <div className="card bg-base-100 w-[40vw] shadow-xl border-2 border-black">
                     <div className="card-body flex flex-col items-center text-center">
                         <h1 className="card-title text-3xl font-bold ">Perfil</h1>
                         <h2 className="text-xl font-semibold text-gray-500 mt-3 ">Nombre de usuario:</h2>
                         <p>{credenciales[0]}</p>
-                        <label class="input input-bordered flex items-center gap-2">
+                        <label className="input input-bordered flex items-center gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 16 16"
                                 fill="currentColor"
-                                class="h-4 w-4 opacity-70">
+                                className="h-4 w-4 opacity-70">
                                 <path
                                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                             </svg>
-                            <input type="text" class="grow" placeholder="Nombre de usuario" defaultValue={credenciales[0]}/>
+                            <input type="text" className="grow" placeholder="Nombre de usuario" defaultValue={credenciales[0]}/>
                         </label>
                         <h2 className="text-xl font-semibold text-gray-500 mt-3 ">Email:</h2>
                         <p>{credenciales[1]}</p>
-                        <label class="input input-bordered flex items-center gap-2">
+                        <label className="input input-bordered flex items-center gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 16 16"
                                 fill="currentColor"
-                                class="h-4 w-4 opacity-70">
+                                className="h-4 w-4 opacity-70">
                                 <path
                                 d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
                                 <path
                                 d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
                             </svg>
-                            <input type="text" class="grow" placeholder="Email" defaultValue={credenciales[1]}/>
+                            <input type="text" className="grow" placeholder="Email" defaultValue={credenciales[1]}/>
                         </label>
                         <h2 className="text-xl font-semibold text-gray-500 mt-3 ">Intro contraseña:</h2>
                         <label className="input input-bordered flex items-center gap-2">
