@@ -4,6 +4,9 @@ import DraftTab from "../../components/dev/draft/DraftTab";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import PostTable from "../../components/dev/postsTable/PostTable";
+import Editor from "../../components/dev/editor/Editor";
+import Separador from "../../components/dev/separador/Separador";
+
 // import Separador from "../../components/dev/separador/Separador";
 const provDataDraft = [
   {
@@ -78,9 +81,9 @@ const CrearBlogPage = () => {
       <Box title="Borrador">
         <DraftTab tabs={dataDraft} />
       </Box>
-      <h1>SEPARADOR</h1>
-      <h1>YOOPTA</h1>
-      <h1>SEPARADOR</h1>
+      <Separador />
+      <Editor />
+      <Separador />
       <Box title="Mis publicaciones">
         <PostTable posts={posts} />
       </Box>
