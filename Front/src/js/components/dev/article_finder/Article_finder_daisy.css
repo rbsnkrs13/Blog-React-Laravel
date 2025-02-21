@@ -1,16 +1,16 @@
-#buscador_lab{
+#buscador_lab {
     background-color: #eef0f2 !important;
 }
 
-#input_busc{
+#input_busc {
     background-color: #eef0f200 !important;
 }
 
-.icon-color{
+.icon-color {
     color: #846a6a !important;
 }
 
-.btn {
+.finderBtn {
     background-color: transparent !important;
     border: none !important;
     color: #353b3c !important;
@@ -19,17 +19,18 @@
 
 }
 
-.btn:hover {
+.finderBtn:hover {
     background-color: transparent !important;
     color: #846a6a !important;
     font-family: "Special Elite", serif !important;
     box-shadow: none !important;
 }
 
-.btn-selected {
+.finderBtn-selected {
     color: #846a6a !important;
 }
 
 .input-bigger {
-    transform: scale(1.3); /* Hace la caja más o menos grande */
+    transform: scale(1.3);
+    /* Hace la caja más o menos grande */
 }

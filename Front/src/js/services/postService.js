@@ -24,4 +24,6 @@ class PostService {
         return this.api.delete(`/${id}`)
     }
 }
-export default PostService;
+const postService = new PostService();
+
+export default postService;

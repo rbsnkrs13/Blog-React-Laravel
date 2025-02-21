@@ -22,5 +22,5 @@ class userService {
         return this.api.delete(`/${id}`)
     }
 }
-
-export default userService;
+const UserService = new userService();
+export default UserService;
