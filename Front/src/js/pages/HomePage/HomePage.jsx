@@ -5,8 +5,7 @@ import LikeButton from "../../components/dev/likeButton/LikeButton";
 import Categorycarousel from "../../components/dev/Categorycarousel/Categorycarousel";
 import Separador from "../../components/dev/Separador/Separador";
 import ArticleFinder from "../../components/dev/article_finder/Article_finder_daisy";
-
-import Authors from "./js/components/dev/authors/Authors";
+import Authors from "../../components/dev/authors/Authors";
 
 const HomePage = () => {
   return (
@@ -27,4 +26,4 @@ const HomePage = () => {
   );
 };
 
-// export default HomePage;
+export default HomePage;

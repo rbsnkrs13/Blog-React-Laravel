@@ -1,3 +1,11 @@
+:root {
+    --grisClaro: #eef0f2;
+    --grisMeio: #c6c7c4;
+    --saturadoClaro: #a2999e;
+    --saturadoOscuro: #846a6a;
+    --grisOscuro: #353b3c;
+}
+
 #buscador_lab{
     background-color: #eef0f2 !important;
 }

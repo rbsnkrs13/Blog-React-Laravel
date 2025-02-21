@@ -30,4 +30,4 @@ function Title({ texto, f_size = 40, h_num = 1 }) {
   );
 }
 
-// export default Title;
+export default Title;
