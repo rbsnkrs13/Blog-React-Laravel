@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import { useState, useEffect } from 'react';
->>>>>>> postCreation
 import separador from '../../../../assets/separador.svg'; // Importa el archivo SVG
 import './Separador.css';
 
