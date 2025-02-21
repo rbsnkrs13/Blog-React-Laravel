@@ -2,7 +2,6 @@ import CreatePost from "../../components/dev/createPost/createPost";
 import Title from "../../components/dev/Title/Title";
 import BackToTop from "../../components/dev/BackToTop/BackToTop";
 import LikeButton from "../../components/dev/likeButton/LikeButton";
-import Profile from "../../components/dev/profileC/ProfileC";
 
 
 
@@ -14,7 +13,6 @@ const HomePage = () => {
       <BackToTop />
       <CreatePost />
       <LikeButton />
-      <Profile />
     </div>
   );
 };
