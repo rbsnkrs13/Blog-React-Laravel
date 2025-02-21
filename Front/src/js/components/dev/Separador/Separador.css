@@ -1,10 +1,5 @@
 .separador-img{
-<<<<<<< HEAD
-    width: 20%;
-    height: 2%;
-    object-fit: cover;
-    margin: 0 auto;
-=======
+
 width: 50%;
 min-width: 200px;
 max-width: 600px;
@@ -12,5 +7,4 @@ height: 5%;
 object-fit: cover;
 aspect-ratio: 4 / 1;
 margin: 0 auto;
->>>>>>> postCreation
 }
