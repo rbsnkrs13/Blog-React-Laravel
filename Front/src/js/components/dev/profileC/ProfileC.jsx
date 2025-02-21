@@ -52,7 +52,7 @@ function Profile() {
                             <input type="password" className="grow"/>
                         </label>
                         <div className="card-actions flex flex-col items-center w-full mt-4">
-                        <button className="btn btn-primary " >Guardar cambios</button>
+                        <button className="btn bg-[#846a6a] text-white" >Guardar cambios</button>
                         <a href="#" className="text-red-600 underline mt-2" onClick={()=>document.getElementById('my_modal_5').showModal()}>Eliminar perfil</a>
                         </div>
                     </div>
