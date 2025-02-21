@@ -1,5 +1,5 @@
 import React from 'react';
-import './Category.css';
+import './CategoryItem.css';
 
 export default function Category({ title, imageUrl }) {
     return (
