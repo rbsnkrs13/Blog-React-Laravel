@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoritesService {
     
-    public function addFavorite(User $user, $postID){
+    public function addFavorite(User $user, $postId){
         $post = Post::find($postId); // Encuentra el post
 
         if($post){
