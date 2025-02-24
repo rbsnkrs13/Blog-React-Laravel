@@ -14,8 +14,8 @@ class PostService {
     createPost(data) {
         return this.api.post('/', data)
     }
-    getOnePost(id) {
-        return this.api.get(`/${id}`)
+    getOnePost(blog_id) {
+        return this.api.get(`/show/${blog_id}`)
     }
     editPost(id, data) {
         return this.api.put(`/${id}`, data)

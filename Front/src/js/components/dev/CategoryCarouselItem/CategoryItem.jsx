@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './CategoryPageItem.css';
+import './CategoryItem.css';
 
 const images = import.meta.glob('../../../../assets/carouselVertical/*.webp', { eager: true });
 
@@ -7,12 +7,13 @@ export default function Category({ title, imageUrl, description }) {
     const [loadedImage, setLoadedImage] = useState(null);
 
     useEffect(() => {
-        // Buscar la imagen que coincide con la ruta
+
         const matchedImage = Object.entries(images).find(([path]) => path.includes(imageUrl));
         if (matchedImage) {
             setLoadedImage(matchedImage[1].default);
         }
     }, [imageUrl]);
+
     return (
         <div className="relative category-Carrousel-container">
             <a href={`#${title}`}>
