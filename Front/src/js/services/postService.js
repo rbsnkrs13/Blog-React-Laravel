@@ -21,7 +21,9 @@ class PostService {
         return this.api.post('/posts/store', data)
     }
 
-
+    getLastTenPost() {
+        return this.api.get('')
+    }
 
     /* Editar post */
     editPost(id, data) {

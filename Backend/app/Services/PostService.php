@@ -16,8 +16,10 @@ class PostService
 
     public function getLastTenPosts()
     {
-        // Ordena los posts por created_at en orden descendente y toma los 10 primeros
-        return Post::orderBy('created_at', 'desc')->take(10)->get();
+        // Ordena los posts por created_at en orden ascendente y toma los 10 últimos
+        return Post::orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
     }
 
     public function getPostById($id)
