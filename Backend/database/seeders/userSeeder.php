@@ -19,6 +19,6 @@ class userSeeder extends Seeder
             'password_user' => 'djewrukhkdew3',
             'name_lastName' => 'Botas',
             'bio' => 'bifidus con fibra'
-        ]);
+        ])->assignRole(['admin']);
     }
 }

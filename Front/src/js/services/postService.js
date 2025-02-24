@@ -22,7 +22,7 @@ class PostService {
     }
     /* Publicar */
     createPost(data) {
-        return this.api.post('/posts/store', data)
+        return this.api.post('/store', data)
     }
 
     /* Show post */
