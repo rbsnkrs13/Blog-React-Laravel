@@ -33,6 +33,11 @@ return new class extends Migration
 
             $table->unique(['name', 'guard_name']); // La combinación de ambos es única
         });
+        Schema::table($tableNames['permissions'], function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
+        });
+        
 
         Schema::create($tableNames['roles'], static function (Blueprint $table) use ($teams, $columnNames) {
             // $table->engine('InnoDB');
@@ -49,6 +54,10 @@ return new class extends Migration
             } else {
                 $table->unique(['name', 'guard_name']);
             }
+        });
+        Schema::table($tableNames['roles'], function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
         });
 
         // Tabla predefinida por Spatie, NO TOCAR 

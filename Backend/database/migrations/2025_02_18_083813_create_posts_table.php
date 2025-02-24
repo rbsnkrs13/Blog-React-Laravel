@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_categories')->nullable();  // Puede nulo porque un post puede no tener categoria. 
+            $table->unsignedBigInteger('id_categories')->nullable(false);
             $table->foreign('id_categories')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('user_id')->nullable(false);  
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
@@ -21,6 +21,10 @@ return new class extends Migration
             $table->text('content')->nullable(false);
             $table->enum('status', ['draft', 'published', 'deleted'])->default('draft'); // Enum para crear borrador, activo, y eliminado
             $table->timestamps();
+        });
+        Schema::table('posts', function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
         });
     }
 

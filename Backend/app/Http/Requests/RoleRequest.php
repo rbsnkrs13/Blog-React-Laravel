@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoriesRequest extends FormRequest
+class RoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,17 +22,7 @@ class CategoriesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>['required', 'string', 'max:100'],
-            'description'=>['required', 'string', 'max:100']
+            'name'=>['required','string','max:255']
         ];
     }
-
-    public function messages():array{
-        return [
-            'name.required'=> 'El nombre es un campo necesario.',
-            'name.string'=> 'El nombre debe ser una cadena de carácteres.',
-            'name.max'=> 'El nombre no puede superar los 100 carácteres.',
-        ];
-    }
-    
 }

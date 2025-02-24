@@ -4,63 +4,67 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
+use App\Services\PostService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+
+    protected $postService;
+
+    public function __construct(PostService $postService) {
+        $this->postService = $postService;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      */
-    public function create()
+    public function index():JsonResponse
     {
-        //
+        return response()->json($this->postService->getLastTenPosts());
+    }
+
+    public function show():JsonResponse
+    {
+        return response()->json($this->postService->getAllPost());
+    }
+
+    public function showOne($id):JsonResponse
+    {
+        return response()->json($this->postService->getPostById($id));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PostRequest $request)
+    public function store(Request $request):JsonResponse
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Post $post)
-    {
-        //
+        return $this->postService->createPost($request);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(PostRequest $request, Post $post)
+    public function update(Request $request, Post $post):JsonResponse
     {
-        //
+        return $this->postService->updatePost($request, $post);
     }
+
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post):JsonResponse
     {
-        //
+        return $this->postService->destroyPost($post);
     }
+
+    public function postUser($userId): JsonResponse
+    {
+    return response()->json($this->postService->getPostsByUser($userId)); //Route::get('/posts/user/{id}', [PostController::class, 'getPostsByUser']);
+    }
+
+
 }

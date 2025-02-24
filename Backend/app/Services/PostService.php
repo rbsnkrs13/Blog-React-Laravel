@@ -12,50 +12,75 @@ class PostService {
         return Post::all();
     }
 
+    public function getLastTenPosts() {
+        // Ordena los posts por created_at en orden descendente y toma los 10 primeros
+        return Post::orderBy('created_at', 'desc')->take(10)->get();
+    }
+
     public function getPostById($id){    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
-        return Post::findOrFail($id); 
+        return Post::findOrFail($id);
     }
+    // COMENTAMOS POR UN ERROR 500, UTILIZAMOS OTRO
+    // public function createPost($data){ // Devuelve el post recién creado, la función create recibe un array y va rellenando la BBDD. 
+    //     if(Post::create($data))
+    //         return response()->json(["mensaje"=>"Post creado correctamente", 204]);
+    //     return response()->json(["mensaje"=>"Error al crear el post", 400]);
 
-    public function createPost($data){ // Devuelve el post recién creado, la función create recibe un array y va rellenando la BBDD. 
-        return Post::create($data); 
-    }
+    // }
 
-    public function deletePost($id){ // Devuelve V o F, si se le pasa un id de un post que no existe F y si el id existe, el post pasa a estar en estado 'delete'
-        if (Post::findOrFail($id)) {
-            $post = Post::findOrFail($id);
-            $post->status = "deleted";
-            return true; 
-        }else {
-            return false; 
+    public function createPost($data){ // Esta función recoge el post y lo crea
+        if($data){
+            $data = Post::create(
+                [
+                    'id_categories' => $data->id_categories,
+                    'user_id' => $data->user_id,
+                    'title' => $data->title,
+                    'content' => $data->content
+                ]
+            );
+            return response()->json(["mensaje"=>"Post creado con exito", 201]);
+
+        }else{
+            return response()->json(["mensaje"=>"Error al crear el post", 400]);
         }
     }
     
+    // public function getPostsByCategory($categoryId) {    
+    //     return Post::where('id_categories', $categoryId)->latest()->get(); //devuelve todos los posts de la categoria seleccionada
+    // }
 
     public function getPostByCategory($cat){    // 
         $post = Categories::findOrFail($cat);  
         return Post::findOrFail($post->id); 
     }
 
+    public function getPostsByUser($userId) { //function para enseñar los post de cada usuario a traves de su ID
+        return Post::where('user_id', $userId)->latest()->get();
+    }
 
-
-    public function updatePost($data){    // Esta función recibe los datos del post actualizado, con los cambios indicados por el usuario, 
-        $post = Post::findOrFail($data->id); // si encuentra el id del post cambia los datos del antiguo. 
+    public function updatePost($data, $post) {    
         if ($post) {
             $post->update([
-                'id_categories' => $data->id_categories,
-                'user_id' => $data->user_id,
-                'title' => $data->title,
-                'content' => $data->content,
-                'status' => $data->status,
+                'id_categories' => $data['id_categories'] ?? $post->id_categories,
+                'user_id' => $data['user_id'] ?? $post->user_id,
+                'title' => $data['title'] ?? $post->title,
+                'content' => $data['content'] ?? $post->content,
+                'status' => $data['status'] ?? $post->status
             ]);
-            return true; 
-        }else {
-            return false; 
+            return response()->json(["mensaje" => "Post actualizado correctamente"], 200);
+        } else {
+            return response()->json(["mensaje" => "Error al actualizar el post"], 400);
         }
     }
-    
 
+    public function destroyPost($post){ // cambia el post a estado delete
+        if ($post) {
+            $post->update(['status' => 'deleted']);
+            return response()->json(["mensaje"=>"Post Cambiado a estado borrado", 200]);
+        }else {
+            return response()->json(["mensaje"=>"Error al cambiar el estado borrado", 400]);
+        }
+    }
 }
-
 
 ?>

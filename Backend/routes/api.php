@@ -4,37 +4,46 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
-})->middleware('auth:sanctum');
+})->middleware('auth:passport');
 //cambiar cuando lo tengamos hecho
-// Route::controller(UserController::class)->group(function () {
-//     Route::get('/users', 'index')->name('users.index');
-//     Route::post('/users', 'store')->name('users.store');
-//     Route::get('/users/create',  'create')->name('users.create')->middleware(['auth'])->middleware(['role:administrador']);
-//     Route::get('/users/{user}', 'show')->name('users.show')->middleware(['auth']);
-//     Route::put('/users/{user}', 'update')->name('users.update')->middleware(['auth'])->middleware(['role:administrador']);
-//     Route::delete('/users/{user}', 'destroy')->name('users.destroy')->middleware(['auth'])->middleware(['role:administrador']);
-//     Route::get('/users/{user}/edit', 'edit')->name('users.edit')->middleware(['auth'])->middleware(['role:administrador']);
-// });
+Route::controller(ProfileController::class)->group(function () {
+    Route::get('/users', 'index')->name('users.index'); //muestra todos los usuarios
+    Route::get('/users/{user}', 'show')->name('users.show'); //muestra el usuario por el id
+    Route::post('/users/store',  'store')->name('users.store');//->middleware(['auth'])->middleware(['role:administrador']);
+    Route::put('/users/update/{user}', 'update')->name('users.update'); //->middleware(['auth'])->middleware(['role:administrador']);
+    Route::put('/users/changeRole/{user}', 'changeRole')->name('users.changeRole');//->middleware(['auth'])->middleware(['role:administrador']);
+    Route::delete('/users/destroy/{user}', 'destroy')->name('users.destroy');//->middleware(['auth'])->middleware(['role:administrador']);
+});
 
 Route::controller(CategoriesController::class)->group(function () {
     Route::get('/categories', 'index');
-    Route::post('/categories', 'store')->name('categories.store');
-    Route::get('/categories/create',  'create')->name('categories.create')->middleware(['auth'])->middleware(['role:administrador']);
-    Route::get('/categories/{category}', 'show')->name('categories.show')->middleware(['auth']);
-    Route::put('/categories/{category}', 'update')->name('categories.update')->middleware(['auth'])->middleware(['role:administrador']);
-    Route::delete('/categories/{category}', 'destroy')->name('categories.destroy')->middleware(['auth'])->middleware(['role:administrador']);
-    Route::get('/categories/{category}/edit', 'edit')->name('categories.edit')->middleware(['auth'])->middleware(['role:administrador']);
+    Route::post('/categories/store', 'store')->name('categories.store');//->middleware(['auth'])->middleware(['role:administrador']);
+    Route::get('/categories/show/{categories}', 'show')->name('categories.show');//->middleware(['auth']);
+    Route::put('/categories/update/{categories}', 'update')->name('categories.update');//->middleware(['auth'])->middleware(['role:administrador']);
+    Route::delete('/categories/destroy/{categories}', 'destroy')->name('categories.destroy');//->middleware(['auth'])->middleware(['role:administrador']);
+});
+
+Route::controller(RoleController::class)->group(function () {
+    Route::get('/role', 'index'); // Enseña todos los roles 
+    Route::post('/role/store', 'store')->name('role.store');//->middleware(['auth'])->middleware(['role:administrador']); // crea un nuevo rol
+    Route::get('/role/show/{role}', 'show')->name('role.show');//->middleware(['auth']); // Enseña un rol 
+    Route::put('/role/update/{role}', 'update')->name('role.update');//->middleware(['auth'])->middleware(['role:administrador']); // Modifica un roll
+    Route::delete('/role/destroy/{role}', 'destroy')->name('role.destroy');//->middleware(['auth'])->middleware(['role:administrador']); // Elimina un roll
 });
 
 Route::controller(PostController::class)->group(function () {
-    Route::get('/posts', 'index')->name('posts.index');
-    Route::post('/posts', 'store')->name('posts.store');
-    Route::get('/posts/create',  'create')->name('posts.create')->middleware(['auth'])->middleware(['role:administrador']);
-    Route::get('/posts/{post}', 'show')->name('posts.show')->middleware(['auth']);
-    Route::put('/posts/{post}', 'update')->name('posts.update')->middleware(['auth'])->middleware(['role:administrador']);
-    Route::delete('/posts/{post}', 'destroy')->name('posts.destroy')->middleware(['auth'])->middleware(['role:administrador']);
-    Route::get('/posts/{post}/edit', 'edit')->name('posts.edit')->middleware(['auth'])->middleware(['role:administrador']);
+    Route::get('/posts', 'index')->name('posts.index'); // enseña los 10 últimos
+    Route::get('/posts/show', 'show'); // Enseña todos los posts
+    Route::get('/posts/show/{id}', 'showOne'); // Enseña un post por un id
+    Route::get('/posts/user/{id}', 'postUser');    //Enseña los post a traves del id del usuario
+    Route::post('/posts/store', 'store')->name('posts.store');//->middleware(['auth'])->middleware(['role:administrador']); //Crea un post
+    Route::put('/posts/update/{post}', 'update')->name('posts.update');//->middleware(['auth'])->middleware(['role:administrador']); //Actualiza Post
+    Route::delete('/posts/destroy/{post}', 'destroy')->name('posts.destroy');//->middleware(['auth'])->middleware(['role:administrador']); //Borra 
 });
+
+?>

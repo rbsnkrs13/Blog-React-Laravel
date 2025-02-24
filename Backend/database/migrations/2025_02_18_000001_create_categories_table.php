@@ -15,7 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable(false)->unique();
             $table->text('description')->nullable(false);
+            $table->string('img_url')->nullable(false);
             $table->timestamps();
+        });
+        Schema::table('categories', function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
         });
     }
 
