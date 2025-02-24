@@ -39,7 +39,7 @@ Route::controller(RoleController::class)->group(function () {
 Route::controller(PostController::class)->group(function () {
     Route::get('/posts', 'index')->name('posts.index'); // enseña los 10 últimos
     Route::get('/posts/show', 'show'); // Enseña todos los posts
-    Route::get('/posts/show/{id}', 'showOne'); // Enseña un post por un id
+    Route::get('/posts/show/{post}', 'showOne'); // Enseña un post por un id
     Route::get('/posts/user/{id}', 'postUser');    //Enseña los post a traves del id del usuario
     Route::post('/posts/store', 'store')->name('posts.store');//->middleware(['auth'])->middleware(['role:administrador']); //Crea un post
     Route::put('/posts/update/{post}', 'update')->name('posts.update');//->middleware(['auth'])->middleware(['role:administrador']); //Actualiza Post

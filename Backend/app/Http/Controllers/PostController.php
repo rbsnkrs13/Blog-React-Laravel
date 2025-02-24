@@ -30,9 +30,9 @@ class PostController extends Controller
         return response()->json($this->postService->getAllPost());
     }
 
-    public function showOne($id):JsonResponse
+    public function showOne(Post $post):JsonResponse
     {
-        return response()->json($this->postService->getPostById($id));
+        return response()->json($post);
     }
 
     /**
@@ -50,8 +50,6 @@ class PostController extends Controller
     {
         return $this->postService->updatePost($request, $post);
     }
-
-
 
     /**
      * Remove the specified resource from storage.
