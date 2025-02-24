@@ -15,10 +15,7 @@ class PostService {
     getPosts() {
         return this.api.get('/showAll')
     }
-    /* User posts */
-    getPosts(id) {
-        return this.api.get(`/user/${id}`)
-    }
+
     /* Publicar */
     createPost(data) {
         return this.api.post('/posts/store', data)

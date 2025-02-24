@@ -48,37 +48,20 @@ const SearchPage = () => {
             </div>
 
             <div className="flex flex-wrap justify-around mt-10">
-<<<<<<< HEAD
                 <button
-                    className={`btn finderBtn btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Autor' ? 'btn-selected' : ''}`}
-                    onClick={() => handleCardClick('Autor')}
-                >Autor</button>
-                <button
-                    className={`btn  finderBtn btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Título' ? 'btn-selected' : ''}`}
-                    onClick={() => handleCardClick('Título')}
-                >Título</button>
-                <button
-                    className={`btn finderBtn btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Contenido' ? 'btn-selected' : ''}`}
-                    onClick={() => handleCardClick('Contenido')}
-                >Contenido</button>
-                <button
-                    className={`btn finderBtn btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Fecha de publicación' ? 'btn-selected' : ''}`}
-=======
-                <button 
                     className={`btn-articulo btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Autor' ? 'btn-selected' : ''}`}
                     onClick={() => handleCardClick('Autor')}
                 >Autor</button>
-                <button 
+                <button
                     className={`btn-articulo btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Título' ? 'btn-selected' : ''}`}
                     onClick={() => handleCardClick('Título')}
                 >Título</button>
-                <button 
+                <button
                     className={`btn-articulo btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Contenido' ? 'btn-selected' : ''}`}
                     onClick={() => handleCardClick('Contenido')}
                 >Contenido</button>
-                <button 
+                <button
                     className={`btn-articulo btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Fecha de publicación' ? 'btn-selected' : ''}`}
->>>>>>> dc92248476bc5745c511e3078bd9fd6514b292e0
                     onClick={() => handleCardClick('Fecha de publicación')}
                 >Fecha de publicación</button>
             </div>

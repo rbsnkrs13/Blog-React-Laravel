@@ -13,7 +13,6 @@ export default function CategoryCarrousel() {
     servicioCategorias.
         getCategorias()
         .then(({ data }) => {
-            console.log(data)
             setCategories(data)
         })
         .catch(err => console.log(err))
@@ -29,8 +28,8 @@ export default function CategoryCarrousel() {
 
                         <Category
                             title={category.name}
-                            imageUrl={category.img_url} // Ajusta la ruta según tu estructura de carpetas
-                            description={category.description} // Añade la descripción
+                            imageUrl={category.img_url}
+                            description={category.description}
                         />
                     </div>
                 )) : <Loader />}
