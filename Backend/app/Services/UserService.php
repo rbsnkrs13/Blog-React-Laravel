@@ -48,7 +48,7 @@ class UserService {
         }
     }
 
-    public function assignRoleUser($request, $user){
+    public function assignRoleUser($request, $user){ // Esta función, hace un shoftDelete de un usuario, devuelve mesaje OK o mensaje KO
         if($user->hasRole('admin'))
             return(response()->json(["mensaje"=>"Error no se puede modificar el rol al usuario administrador"], 400));
         if($request->role == 'admin')
@@ -60,22 +60,14 @@ class UserService {
         return(response()->json(["mensaje"=>"Rol asignado con exito"], 200));
     }
 
-    public function deleteUser($user){ // Devuelve V o F, si se le pasa un id de un post que no existe F y si el id existe, el post pasa a estar en estado 'delete'
-
-        if (User::softDeleted($user->id)) {
+    public function deleteUser($user){ // Esta función, hace un shoftDelete de un usuario, devuelve mesaje OK o mensaje KO
+        if ($user && !$user->hasRole('admin')) {
+            $user->delete();
             return(response()->json(["mensaje"=>"Usuario eliminado con exito"], 200));
         } else {
             return(response()->json(["mensaje"=>"Error al borrar el usuario"], 201));
 
         }
-        // PRIMERO VALIDA SI EL USUARIO ES ADMIN ANTES DEL BORRADO
-        // if ($user && !$user->hasRole('admin')) { 
-        //     $user->delete();
-        //     return(response()->json(["mensaje"=>"Usuario eliminado con exito"], 200));
-        // } else {
-        //     return(response()->json(["mensaje"=>"Error al borrar el usuario"], 201));
-
-        // }
     }
 
     public function updateUser($data, $user){    // Esta función actualiza un usuario 
