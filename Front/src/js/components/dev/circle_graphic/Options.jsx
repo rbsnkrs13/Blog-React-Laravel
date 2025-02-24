@@ -21,7 +21,7 @@ export default function getChartOptions  ()  {
           },
           size: "100%",
           dataLabels: {
-            offset: -25
+            offset: -10
           }
         },
       },
@@ -31,7 +31,7 @@ export default function getChartOptions  ()  {
         style: {
           fontFamily: "Inter, sans-serif",
           colors: ["black"],
-          fontSize: "1.05rem"
+          fontSize: "0.8rem"
         },
       },
       legend: {

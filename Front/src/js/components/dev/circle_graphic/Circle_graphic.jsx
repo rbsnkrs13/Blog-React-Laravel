@@ -37,7 +37,7 @@ export default function Circle_graphic() {
 
   return (
     <div className="graphiCircle max-w-sm w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 p-4 md:p-6">
-      <h3 className="articulosMasLeidos">Los artículos más leidos</h3>
+      <h5 className="articulosMasLeidos">Los artículos más leidos</h5>
       <div className="flex justify-between items-start w-full">
         <div className="flex-col items-center">
           <div className="flex items-center mb-1">

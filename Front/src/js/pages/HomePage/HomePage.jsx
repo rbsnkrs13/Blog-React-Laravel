@@ -3,9 +3,11 @@ import Title from "../../components/dev/title/TitleBlog";
 import BackToTop from "../../components/dev/backToTop/BackToTop";
 import LikeButton from "../../components/dev/likeButton/LikeButton";
 import Categorycarousel from "../../components/dev/Categorycarousel/Categorycarousel";
-import Separador from "../../components/dev/Separador/Separador";
+import Separador from "../../components/dev/separador/Separador";
 import ArticleFinder from "../../components/dev/article_finder/Article_finder_daisy";
-import Authors from "../../components/dev/authors/Authors";
+// import Authors from "../../components/dev/authors/Authors";
+import NewsCarousel from "../../components/dev/carousel/NewsCarousel";
+import Counter from "../../components/dev/counter/Counter";
 
 const HomePage = () => {
   return (
@@ -19,6 +21,7 @@ const HomePage = () => {
       <Separador />
       <Authors/>
       <Separador />
+      <Counter />
       <BackToTop />
       <CreatePost />
       <LikeButton />
