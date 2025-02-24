@@ -8,6 +8,7 @@ import PerfilPage from "../pages/PerfilPage/PerfilPage";
 import NovedadesPage from "../pages/NovedadesPage/NovedadesPage";
 import FavPage from "../pages/FavPage/FavPage";
 // import EditarBlogPage from "../pages/EditarBlogPage/EditarBlogPage";
+import DashboardPage from "../pages/DashboardPage/DashboardPage";
 
 const AppRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
       {/* <Route path={"/"} element={<HomePage />} /> */}
       <Route path={"/logIn"} element={<LogInPage />} />
       {/* <Route path={"/novedades"} element={<NovedadesPage />} /> */}
+      <Route path={"/dashboard"} element={<DashboardPage />} />
       <Route path={"/detallesBlog/:blog_id"} element={<DetallesBlogPage />} />
       <Route path={"/perfil/:id_usuario"} element={<PerfilPage />} />
       <Route path={"/blogs/:tipo_blog"} element={<h1>HOlaaaa</h1>} />

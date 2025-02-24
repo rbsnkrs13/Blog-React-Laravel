@@ -1,0 +1,17 @@
+.dashboardTitle{
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    color: #846a6a;
+    font-family: 'Abril Fatface', 'cursive';
+    text-align: center;
+}
+
+
+
+.dashboardGraphics{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
