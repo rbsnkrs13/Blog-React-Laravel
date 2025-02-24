@@ -20,13 +20,6 @@ class PostService {
     public function getPostById($id){    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
         return Post::findOrFail($id);
     }
-    // COMENTAMOS POR UN ERROR 500, UTILIZAMOS OTRO
-    // public function createPost($data){ // Devuelve el post recién creado, la función create recibe un array y va rellenando la BBDD. 
-    //     if(Post::create($data))
-    //         return response()->json(["mensaje"=>"Post creado correctamente", 204]);
-    //     return response()->json(["mensaje"=>"Error al crear el post", 400]);
-
-    // }
 
     public function createPost($data){ // Esta función recoge el post y lo crea
         if($data){
@@ -44,10 +37,6 @@ class PostService {
             return response()->json(["mensaje"=>"Error al crear el post", 400]);
         }
     }
-    
-    // public function getPostsByCategory($categoryId) {    
-    //     return Post::where('id_categories', $categoryId)->latest()->get(); //devuelve todos los posts de la categoria seleccionada
-    // }
 
     public function getPostByCategory($cat){    // 
         $post = Categories::findOrFail($cat);  
