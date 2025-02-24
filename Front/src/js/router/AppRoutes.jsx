@@ -4,7 +4,7 @@ import CrearBlogPage from "../pages/CrearBlogPage/CrearBlogPage";
 import DetallesBlogPage from "../pages/DetallesBlogPage/DetallesBlogPage";
 import LogInPage from "../pages/LogInPage/LogInPage";
 import PerfilPage from "../pages/PerfilPage/PerfilPage";
-// import HomePage from "../pages/HomePage/HomePage";
+import HomePage from "../pages/HomePage/HomePage";
 import NovedadesPage from "../pages/NovedadesPage/NovedadesPage";
 import FavPage from "../pages/FavPage/FavPage";
 // import EditarBlogPage from "../pages/EditarBlogPage/EditarBlogPage";
@@ -13,7 +13,7 @@ import DashboardPage from "../pages/DashboardPage/DashboardPage";
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* <Route path={"/"} element={<HomePage />} /> */}
+      <Route path={"/"} element={<HomePage />} />
       <Route path={"/logIn"} element={<LogInPage />} />
       {/* <Route path={"/novedades"} element={<NovedadesPage />} /> */}
       <Route path={"/dashboard"} element={<DashboardPage />} />
