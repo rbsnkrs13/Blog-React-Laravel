@@ -64,9 +64,9 @@ function AreaChart() {
   }, []);
 
   return (
-    <div className="areaChartGraphic max-w-lg w-full  rounded-lg  p-6">
+    <div className="areaChartGraphic max-w-lg w-full  p-6">
       <div className="text-center">
-        <h5 className="leading-none font-bold pb-2">
+        <h5 className="titleAreaChart font-bold pb-2">
           Publicaciones Mensuales
         </h5>
       </div>
