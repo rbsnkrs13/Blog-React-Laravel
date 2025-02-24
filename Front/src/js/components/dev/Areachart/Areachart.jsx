@@ -43,7 +43,9 @@ function AreaChart() {
             "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
             "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
           ],
-          labels: { style: { colors: "#000" } },
+          labels: { 
+            style: { colors: "#000" } 
+          },
         },
         yaxis: { labels: { style: { colors: "#000" } } },
         markers: {
@@ -62,9 +64,9 @@ function AreaChart() {
   }, []);
 
   return (
-    <div className="max-w-lg w-full bg-gray-200 rounded-lg shadow-md p-6">
+    <div className="areaChartGraphic max-w-lg w-full  p-6">
       <div className="text-center">
-        <h5 className="leading-none text-3xl font-bold pb-2">
+        <h5 className="titleAreaChart font-bold pb-2">
           Publicaciones Mensuales
         </h5>
       </div>
