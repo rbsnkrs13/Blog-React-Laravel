@@ -2,18 +2,13 @@ import { useState, useEffect } from 'react'; // Importa los hooks useState y use
 import './Article_finder_daisy.css'; // Importa el archivo de estilos CSS
 
 const SearchPage = () => { // Define el componente funcional SearchPage
-    // Todo lo que se refiere como "card" es en realidad un botón
-    const [selectedCard, setSelectedCard] = useState(null); // Estado para almacenar el botón seleccionado
-    const [selectedCardId, setSelectedCardId] = useState(''); // Estado para almacenar el id del botón seleccionado
-    const [selectedButton, setSelectedButton] = useState(null); // Estado para controlar qué botón está seleccionado visualmente
+    
+    const [selectedCard, setSelectedCard] = useState(''); //boton seleccionado
 
-    const [searchQuery, setSearchQuery] = useState(''); // Estado para almacenar la consulta de búsqueda
-    const [results, setResults] = useState([]); // Estado para almacenar los resultados de búsqueda
+    const [results, setResults] = useState([]); //almacena los diferentes resultados de la busqueda
 
-    const handleCardClick = (card) => { // Función que se ejecuta cuando se hace clic en un botón
+    const handleCardClick = (card) => { //le llega un string
         setSelectedCard(card); // Guarda el botón seleccionado en el estado
-        setSelectedCardId(card); // Guarda el id del botón seleccionado
-        setSelectedButton(card); // Actualiza el estado del botón seleccionado para cambiar el estilo
         console.log(card);
 
     };
@@ -22,13 +17,12 @@ const SearchPage = () => { // Define el componente funcional SearchPage
         const query = e.target.value; // Obtiene el valor del input
         setSearchQuery(query); // Actualiza el estado con la consulta de búsqueda
 
-        if (selectedCardId && query) { // Verifica si hay un botón seleccionado y un término de búsqueda
-            console.log(`Buscando ${query} en ${selectedCardId}`); // Muestra en consola qué se está buscando y en qué categoría
-
-            // Aquí podrías agregar la lógica para realizar la búsqueda y actualizar los resultados
-            // Por ejemplo, podrías hacer una llamada a una API y actualizar el estado de resultados
-            // setResults(apiResults);
-        } else {
+        if (selectedCard && query) 
+        {
+            console.log(`Buscando ${query} en ${selectedCard}`); 
+        } 
+        else 
+        {
             setResults([]); // Si no hay botón seleccionado o la búsqueda está vacía, borra los resultados
         }
     };
@@ -54,7 +48,6 @@ const SearchPage = () => { // Define el componente funcional SearchPage
                         className="input-field" // Aplica estilos personalizados
                         required placeholder="Buscar..." // Placeholder del input
                         id="input_busc" // ID del input
-                        value={searchQuery} // Conecta el input con el estado de búsqueda
                         onChange={handleSearchChange} // Llama a la función al cambiar el valor del input
                     />
                 </label>
@@ -68,17 +61,17 @@ const SearchPage = () => { // Define el componente funcional SearchPage
                 >Autor</button>
 
                 <button 
-                    className={`btn-articulo btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Título' ? 'btn-selected' : ''}`}
+                    className="btn"
                     onClick={() => handleCardClick('Título')}
                 >Título</button>
 
                 <button 
-                    className={`btn-articulo btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Contenido' ? 'btn-selected' : ''}`}
+                    className="btn"
                     onClick={() => handleCardClick('Contenido')}
                 >Contenido</button>
 
                 <button 
-                    className={`btn-articulo btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Fecha de publicación' ? 'btn-selected' : ''}`}
+                    className="btn"
                     onClick={() => handleCardClick('Fecha de publicación')}
                 >Fecha de publicación</button>
             </div>

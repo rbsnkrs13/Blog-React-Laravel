@@ -10,7 +10,7 @@
     color: #846a6a !important;
 }
 
-.btn {
+.categorybutton {
     background-color: transparent !important;
     border: none !important;
     color: #353b3c !important;
@@ -19,14 +19,14 @@
 
 }
 
-.btn:hover {
+.categorybutton:hover {
     background-color: transparent !important;
     color: #846a6a !important;
     font-family: "Special Elite", serif !important;
     box-shadow: none !important;
 }
 
-.btn-selected {
+.categorybutton-selected {
     color: #846a6a !important;
 }
 
