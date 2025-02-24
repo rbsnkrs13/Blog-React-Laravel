@@ -87,7 +87,10 @@ export default function Editor( { isEditable = true, postTitle = "", postText = 
     const userId = localStorage.getItem('userId');
     const data = { id_categories: selectedCategory, user_id: userId, title: title, content: serializeHTML(), status:"published" };
     const request = postService.createPost(data);
-
+    if (!selectedCategory) {
+      alert('Please select a category before saving.');
+      return;
+    }
     request
       .then(response => {
         console.log('Published:', response.data);
@@ -102,7 +105,10 @@ export default function Editor( { isEditable = true, postTitle = "", postText = 
     const userId = localStorage.getItem('userId');
     const data = { id_categories: selectedCategory, user_id: userId, title: title, content: serializeHTML() };
     const request = postService.createPost(data);
-
+    if (!selectedCategory) {
+      alert('Please select a category before saving.');
+      return;
+    }
     request
       .then(response => {
         console.log('Published:', response.data);
@@ -140,6 +146,7 @@ export default function Editor( { isEditable = true, postTitle = "", postText = 
           defaultValue={value?.title || ''}
           onChange={(e) => changeTitle(e)}
         />
+            </div>
       <div className="categorie-dropdown">
       <label className="form-control w-full max-w-xs">
           <div className="label">
@@ -154,7 +161,6 @@ export default function Editor( { isEditable = true, postTitle = "", postText = 
             ))}
           </select>
         </label>
-      </div>
       </div>
       <div className="editor">
         <YooptaEditor
