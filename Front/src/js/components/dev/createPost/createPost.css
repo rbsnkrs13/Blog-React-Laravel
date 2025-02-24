@@ -1,18 +1,17 @@
 .writeButton {
-    width: 13vh; /* Usa width en lugar de max-width */
-    height: 13vh; /* Usa height en lugar de max-height */
-    background-color: #846a6a;
-    border: none;
+    width: 8vw;
+    height: 8vw;
     border-radius: 50%;
+    border: none;
+    background-color: #846a6a;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     overflow: hidden;
-    padding: 2%;
     position: fixed;
-    bottom: 5%;
-    left: 5%;
+    bottom: 35%;
+    right: 5%;
 }
 
 .writeButton:hover {
@@ -20,36 +19,8 @@
 }
 
 .writeButton img {
-    width: 80%;
-    height: auto; /* Mantiene la proporción original */
-    object-fit: contain; /* Asegura que no se deforme */
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    transform: translateX(5%);
 }
-
-/* Media query para móviles */
-@media (max-width: 768px) {
-    .writeButton {
-        width: 10vh; /* Ajuste de tamaño */
-        height: 10vh;
-    }
-    .writeButton img {
-        width: 70%; /* Ajuste de tamaño */
-        height: auto; /* Mantiene la proporción */
-        object-fit: contain; /* Evita deformaciones */
-        transform: translateX(5%);
-    }
-}
-
-/* Media query para pantallas grandes */
-@media (min-width: 1025px) {
-    .writeButton {
-        width: 13vh;
-        height: 13vh;
-    }
-    .writeButton img {
-        width: 95%;
-        height: auto; /* Mantiene proporción */
-        object-fit: contain;
-        transform: translateX(5%);
-    }
-}
-
