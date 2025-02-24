@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -47,7 +48,7 @@ Route::controller(PostController::class)->group(function () {
 });
 
 //Login
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
+Route::post('/users/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/users/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
 
 ?>
