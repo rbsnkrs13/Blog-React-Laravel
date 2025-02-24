@@ -4,7 +4,7 @@ import BackToTop from "../../components/dev/BackToTop/BackToTop";
 import LikeButton from "../../components/dev/likeButton/LikeButton";
 import Categorycarousel from "../../components/dev/Categorycarousel/Categorycarousel";
 import Separador from "../../components/dev/Separador/Separador";
-import ArticleFinder from "../../components/dev/article_finder/Article_finder_daisy";
+import ArticleFinder from "../../components/dev/article_finder/ArticleFinder";
 import CategoryFinder from "../../components/dev/categoryFinder/CategoryFinder";
 
 const HomePage = () => {
