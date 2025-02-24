@@ -19,12 +19,12 @@ class AuthenticatedSessionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email_user' => 'required|email',
+            'email_user' => 'required',
             'password_user' => 'required',
         ]);
 
         // Buscar el usuario por email
-        $user = \App\Models\User::where('email_user', $request->email_user)->first();
+        $user = \App\Models\User::where('email_user', $request->email_user)->first() ?? \App\Models\User::where('name_user', $request->email_user)->first() ;
 
         // Verificar si el usuario existe y la contraseña es válida
         if (!$user || !Hash::check($request->password_user, $user->password_user)) {

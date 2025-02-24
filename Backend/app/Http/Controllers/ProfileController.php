@@ -26,7 +26,6 @@ class ProfileController extends Controller
     {
         return $this->userService->createUser($request);
     }
-
     
     public function index():JsonResponse // Muestra todos los usuarios
     {

@@ -31,8 +31,8 @@ class UserService {
                 'name_user' => $data->name_user,
                 'email_user' => $data->email_user,
                 'password_user' => $data->password_user,
-                'name_lastName' => $data->name_lastName ?? null,
-                'bio' => $data->bio ?? null,
+                'name_lastName' => $data->name_lastName ?? 'abc',
+                'bio' => $data->bio ?? 'abc',
             ]);
             if($user){
                 try{
