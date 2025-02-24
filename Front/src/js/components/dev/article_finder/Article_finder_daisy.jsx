@@ -55,11 +55,7 @@ const SearchPage = () => {
                 <button 
                     className={`btn-articulo btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Título' ? 'btn-selected' : ''}`}
                     onClick={() => handleCardClick('Título')}
-                >Título</button>
-                <button 
-                    className={`btn-articulo btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Contenido' ? 'btn-selected' : ''}`}
-                    onClick={() => handleCardClick('Contenido')}
-                >Contenido</button>
+                >Título</button>              
                 <button 
                     className={`btn-articulo btn-xs sm:btn-sm md:btn-md lg:btn-lg ${selectedButton === 'Fecha de publicación' ? 'btn-selected' : ''}`}
                     onClick={() => handleCardClick('Fecha de publicación')}
