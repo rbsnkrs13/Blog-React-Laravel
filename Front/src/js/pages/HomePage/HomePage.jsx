@@ -5,7 +5,7 @@ import LikeButton from "../../components/dev/likeButton/LikeButton";
 import Categorycarousel from "../../components/dev/Categorycarousel/Categorycarousel";
 import Separador from "../../components/dev/Separador/Separador";
 import ArticleFinder from "../../components/dev/article_finder/Article_finder_daisy";
-//import CategoryFinder from "../../components/dev/categoryFinder/CategoryFinder";
+import CategoryFinder from "../../components/dev/categoryFinder/CategoryFinder";
 
 const HomePage = () => {
   return (
@@ -19,6 +19,7 @@ const HomePage = () => {
       <CreatePost />
       <LikeButton />
       <ArticleFinder />
+      <CategoryFinder />
       
     </div>
   );
