@@ -10,7 +10,7 @@ class UserService {
         return this.api.get('/')
     }
     createUser(data) {
-        return this.api.post('/', data)
+        return this.api.post('/store', data)
     }
     getOneUser(id) {
         return this.api.post(`/login`, id)
