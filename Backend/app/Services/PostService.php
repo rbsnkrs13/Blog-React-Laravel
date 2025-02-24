@@ -12,13 +12,21 @@ class PostService {
         return Post::all();
     }
 
-    public function getLastTenPosts() {
-        // Ordena los posts por created_at en orden descendente y toma los 10 primeros
-        return Post::orderBy('created_at', 'desc')->take(10)->get();
-    }
+    public function getLastTenPosts() {   // Ordena los posts por created_at en orden descendente (últimos primero)
 
-    public function getPostById($id){    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
-        return Post::findOrFail($id);
+        return Post::orderBy('created_at', 'desc')
+            ->take(10)  
+            ->get();
+    }
+    
+
+    public function getPostById($id){   // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
+        $post= Post::findOrFail($id);
+        $post->increment('views'); // contador para que cuando alguien entre en el post especificado aumenten las visitas en la tabla de post
+        return response()->json([
+            "post" => $post,
+            "message" => "Visita incrementada en 1"
+        ]);
     }
 
     public function createPost($data){ // Esta función recoge el post y lo crea
@@ -71,6 +79,66 @@ class PostService {
             return response()->json(["mensaje"=>"Error al cambiar el estado borrado", 400]);
         }
     }
+
+    public function searchPosts($searchTerm) // Faltan resultados
+    {
+        // Realiza una búsqueda en el modelo Post según el término de búsqueda
+        //return Post::where('title', 'like', '%' . $searchTerm . '%')->orWhere('content', 'like', '%' . $searchTerm . '%')->take(10)->get();
+
+        return Post::where('title', 'like', '%' . $searchTerm . '%')
+        ->orWhere('content', 'like', '%' . $searchTerm . '%')
+        ->paginate(10)->appends(['search' => $searchTerm]);  // Paginación con 10 posts por página
+
+        // $posts = Post::where('title', 'like', '%' . $searchTerm . '%')
+        // ->orWhere('content', 'like', '%' . $searchTerm . '%')
+        // ->paginate(10) // Pagina 10 resultados por página
+        // ->appends(['search' => $searchTerm]);
+        // return $posts->items();
+
+        // $posts = Post::where('title', 'like', '%' . $searchTerm . '%')
+        // ->orWhere('content', 'like', '%' . $searchTerm . '%')
+        // ->paginate(10)
+        // ->appends(['search' => $searchTerm]);  // Asegura que el parámetro 'search' esté en las URL de paginación
+
+    }
+
+    public function getPaginatedPosts($perPage = 10) { //function para enseñar los post de 10 en 10 en la pagina
+        return Post::latest()->paginate($perPage);
+    }
+    
+    
+    public function getPostsByUserOrderedByViews($userId)  // Obtenemos el total de visitas de todos los posts del user y también obtenemos los posts del usuario ordenados por vistas de mayor a menor, si hay empate ordena por id ascendente
+    {
+        $totalViews = Post::where('user_id', $userId)->sum('views');
+            $posts = Post::where('user_id', $userId)->orderBy('views', 'desc')->orderBy('id', 'asc')->get();
+    
+        $postsWithPercentage = $posts->map(function($post) use ($totalViews) { // Función para sacar el porcentaje de visitas de cada post a través de una regla de 3
+            $post->percentage = $totalViews > 0 ? ($post->views / $totalViews) * 100 : 0;
+            return $post;
+        });
+    
+        return $postsWithPercentage;
+    }
+    
+
+    public function getPostsByUserGroupedByMonth($userId) { // En esta función obtenemos la cantidad de post mensuales hechos por el user  
+        return Post::where('user_id', $userId)  
+            ->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as total_posts, ? as user_id', [$userId]) // Selecciona año, mes, total_posts y agrega el user_id
+            ->groupBy('year', 'month')             
+            ->orderByDesc('year')                
+            ->orderByDesc('month')                 
+            ->get();                               
+    }
+
+    public function getPostsByUserGroupedByMonthByViews($userId) { // En esta función obtenemos la cantidad de post mensuales y sus visitas totales no por cada post
+        return Post::where('user_id', $userId)  
+            ->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as total_posts, SUM(views) as total_views, ? as user_id', [$userId]) // Selecciona año, mes, total_posts, total_views y agrega el user_id
+            ->groupBy('year', 'month')            
+            ->orderByDesc('year')                 
+            ->orderByDesc('month')                
+            ->get();                              
+    }
+
 }
 
 ?>

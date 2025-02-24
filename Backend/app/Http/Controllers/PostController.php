@@ -61,8 +61,33 @@ class PostController extends Controller
 
     public function postUser($userId): JsonResponse
     {
-    return response()->json($this->postService->getPostsByUser($userId)); //Route::get('/posts/user/{id}', [PostController::class, 'getPostsByUser']);
+        return response()->json($this->postService->getPostsByUser($userId)); //Route::get('/posts/user/{id}', [PostController::class, 'getPostsByUser']);
     }
+
+    public function postSearch(Request $request): JsonResponse // FALTA resultados || 
+    {
+        // Obtener el término de búsqueda desde el menú
+        $searchTerm = $request->query('search');
+
+        // Buscar en el contenido de los posts
+        $posts = $this->postService->searchPosts($searchTerm);
+
+        // Pasar los resultados a la vista
+        return response()->json($posts);
+    } 
+    
+    public function getUserPostsOverview($userId):JsonResponse // Obtenemos los post ordenados por visitas y su porcentaje, también los posts agrupados por mes y por último obtenemos posts agrupados por mes y sus visitas
+    {    
+        $postsOrderedByViews = $this->postService->getPostsByUserOrderedByViews($userId);
+        $postsGroupedByMonth = $this->postService->getPostsByUserGroupedByMonth($userId);
+        $postsGroupedByMonthWithViews = $this->postService->getPostsByUserGroupedByMonthByViews($userId);
+
+        return response()->json([         // Devolvemos todos los resultados en una estructura organizada
+            'postsOrderedByViews' => $postsOrderedByViews,
+            'postsGroupedByMonth' => $postsGroupedByMonth,
+            'postsGroupedByMonthWithViews' => $postsGroupedByMonthWithViews
+        ]);
+    }    
 
 
 }
