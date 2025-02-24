@@ -13,6 +13,7 @@
     width: 80%;
     margin: 0 auto;
 }
+
 .editor-title > label, .categorie-dropdown > label > div > span{
     font-family: "Special Elite";
     font-size: 1.728rem;
@@ -28,6 +29,10 @@
     padding-inline-start: 5px;
     border-radius: 5px;
     border: 1px solid black;
+}
+
+.categorie-dropdown > label > select{
+    width: 200px;
 }
 
 .yoopta-editor{

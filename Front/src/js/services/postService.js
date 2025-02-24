@@ -17,7 +17,7 @@ class PostService {
         return this.api.get('/showAll')
     }
     /* User posts */
-    getPosts(id) {
+    getUserPosts(id) {
         return this.api.get(`/user/${id}`)
     }
     /* Publicar */

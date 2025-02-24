@@ -46,9 +46,11 @@ const TOOLS = {
   },
 };
 
-export default function Editor( { isEditable = true, postTitle = "", postText = "" } ) {
+export default function Editor( { isEditable = true, postTitle = {}, postText = {}} ) {
   const editor = useMemo(() => createYooptaEditor(), []);
-  const [value, setValue] = useState(postText);
+  // from html to @yoopta content
+
+  const [value, setValue] = useState(postText /* deserializeHTML(editor, postText) */);
   // const [isPreview, setIsPreview] = useState(false);
   const [title, setTitle] = useState(postTitle);
   const [categories, setCategories] = useState([]);
@@ -62,14 +64,12 @@ export default function Editor( { isEditable = true, postTitle = "", postText = 
     setValue(value);
   };
 
-  // from html to @yoopta content
-  // const deserializeHTML = () => {
-  //   const htmlString = '<h1>First title</h1>';
-  //   const content = html.deserialize(editor, htmlString);
-
-  //   editor.setEditorValue(content);
-  // };
-
+  const deserializeHTML = (editor, value) => {
+    const content = html.deserialize(editor, value);
+    
+    editor.setEditorValue(content);
+  };
+  
   // from @yoopta content to html string
   const serializeHTML = () => {
     const data = editor.getEditorValue();
@@ -138,7 +138,7 @@ export default function Editor( { isEditable = true, postTitle = "", postText = 
 
   return (
     <>
-      <div className="editor-title">
+      {isEditable && (<div className="editor-title">
         <label htmlFor="post-title">Title:</label>
         <input
           type="text"
@@ -146,14 +146,14 @@ export default function Editor( { isEditable = true, postTitle = "", postText = 
           defaultValue={value?.title || ''}
           onChange={(e) => changeTitle(e)}
         />
-            </div>
-      <div className="categorie-dropdown">
+            </div>)}
+            {isEditable && (<div className="categorie-dropdown">
       <label className="form-control w-full max-w-xs">
           <div className="label">
             <span className="label-text">Escoge categoria</span>
           </div>
-          <select className="select select-bordered" onChange={handleCategoryChange}>
-            <option disabled selected>Elige una categoria</option>
+          <select className="select select-bordered" onChange={handleCategoryChange} defaultValue={0}>
+            <option disabled>Elige una categoria</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -161,7 +161,7 @@ export default function Editor( { isEditable = true, postTitle = "", postText = 
             ))}
           </select>
         </label>
-      </div>
+      </div>)}
       <div className="editor">
         <YooptaEditor
           editor={editor}
