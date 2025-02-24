@@ -6,6 +6,7 @@ import axios from "axios";
 import PostTable from "../../components/dev/postsTable/PostTable";
 import Editor from "../../components/dev/editor/Editor";
 import Separador from "../../components/dev/separador/Separador";
+import postService from "../../services/postService";
 
 // import Separador from "../../components/dev/separador/Separador";
 const provDataDraft = [
@@ -58,23 +59,34 @@ const CrearBlogPage = () => {
   const [dataDraft, setDataDraft] = useState(provDataDraft);
   const [posts, setPosts] = useState(provPosts);
 
-  // useEffect(() => {
-  //   axios.get('/api/drafts')
-  //     .then(response => {
-  //       setDataDraft(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error("There was an error fetching the drafts!", error);
-  //     });
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    const request = postService.getUserPosts(userId);
 
-  //   axios.get('/api/posts')
-  //     .then(response => {
-  //       setPosts(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error("There was an error fetching the posts!", error);
-  //     });
-  // }, []);
+    request
+    .then(response => {
+      setDataDraft(response.data);
+    })
+    .catch(error => {
+      console.error('Error al obtener los posts:', error);
+    });
+
+  }, []);
+
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    const request = postService.getUserPosts(userId);
+
+    request
+    .then(response => {
+      console.log('DATOS:', response.data);
+      setPosts(response.data);
+    })
+    .catch(error => {
+      console.error('Error al obtener los posts:', error);
+    });
+
+  }, []);
 
   return (
     <div>
