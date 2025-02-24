@@ -23,7 +23,7 @@ const ArticleFinder = () => {
     return (
         <div className="container mx-auto p-4 mt-10">
             <div className="bg-gray-200 p-4 rounded text-center">
-                <h2 className="Titulo">Encuentra el artículo:</h2>
+                <h2 className="titleArticleFinder">Encuentra el artículo:</h2>
             </div>
 
             <div className='text-center mt-10'>
@@ -55,11 +55,6 @@ const ArticleFinder = () => {
                     className={`categorybutton ${selectedButton === 'Título' ? 'categorybutton-selected' : ''}`}
                     onClick={() => handleCardClick('Título')}
                 >Título</button>
-
-                <button 
-                    className={`categorybutton ${selectedButton === 'Contenido' ? 'categorybutton-selected' : ''}`}
-                    onClick={() => handleCardClick('Contenido')}
-                >Contenido</button>
 
                 <button 
                     className={`categorybutton ${selectedButton === 'FechaPublicacion' ? 'categorybutton-selected' : ''}`}

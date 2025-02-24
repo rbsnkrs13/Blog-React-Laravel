@@ -1,11 +1,14 @@
-#buscador_lab{
-    background-color: #eef0f2 !important;
+.titleArticleFinder {
+    background-color: var(--grisClaro);
+    color: var(--saturadoOscuro);
+    padding: 20px;
+    text-align: center;
+    font-size: 1.728rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Abril Fatface", serif !important;
 }
-
-#input_busc{
-    background-color: #eef0f200 !important;
-}
-
 .icon-color{
     color: #846a6a !important;
 }
