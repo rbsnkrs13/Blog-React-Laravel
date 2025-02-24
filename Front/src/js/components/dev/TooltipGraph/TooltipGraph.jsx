@@ -108,10 +108,10 @@ function TooltipGraph() {
   };
 
   return (
-    <div className="max-w-sm w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 p-4 md:p-6">
+    <div className="tooltipGraphic max-w-sm w-full bg-transparent dark:bg-gray-800 p-4 md:p-6">
       <div className="flex justify-center mb-5">
         <div>
-          <p className="text-base font-titulo text-gray-500 dark:text-gray-400">Lecturas mensuales autor</p>
+          <h5 className="text-base font-titulo text-gray-500 dark:text-gray-400">Relación publicaciones - visitas</h5>
         </div>
       </div>
       <div ref={chartRef} className='bg-color-tooltip-graph'></div>

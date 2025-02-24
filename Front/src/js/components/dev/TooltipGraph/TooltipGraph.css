@@ -3,7 +3,19 @@
 }
 
 .font-titulo{
-    font-family: "Abril Fatface";
+    font-family: "Abril Fatface", "cursive";
+    font-weight: bold;
     color: #846a6a;
-    font-size: 20px;
+    font-size: 1.2rem;
+}
+
+.tooltipGraphic{
+    width: 70%;
+}
+
+
+@media(min-width: 768px){
+    .tooltipGraphic{
+        width: 50%;
+    }
 }

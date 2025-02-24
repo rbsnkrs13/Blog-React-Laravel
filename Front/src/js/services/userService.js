@@ -13,7 +13,7 @@ class UserService {
         return this.api.post('/', data)
     }
     getOneUser(id) {
-        return this.api.get(`/${id}`)
+        return this.api.post(`/login`, id)
     }
     editUser(id, data) {
         return this.api.put(`/${id}`, data)

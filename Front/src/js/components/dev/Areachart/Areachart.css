@@ -18,9 +18,11 @@
 }
 
 /* 🔥 Aplicar la tipografía "Abril Fatface" al título */
-h5.leading-none {
-  font-family: "Abril Fatface", cursive !important;
-  color: #846a6a !important;
+.titleAreaChart {
+  font-family: "Abril Fatface", "cursive";
+  font-weight: bold;
+  color: #846a6a;
+  font-size: 1.2rem;
 }
 
 /* 🔥 Centrar el título y subtítulo con respecto a la gráfica */
@@ -31,4 +33,15 @@ h5.leading-none {
     align-items: center !important; /* Centra horizontalmente */
     justify-content: center !important; /* Centra verticalmente */
     text-align: center !important;
+  }
+
+  .areaChartGraphic{
+    width: 70%;
+  }
+
+
+  @media(min-width: 768px){
+    .areaChartGraphic{
+        width: 50%;
+    }
   }
