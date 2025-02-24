@@ -5,26 +5,21 @@ const SearchPage = () => { // Define el componente funcional SearchPage
     
     const [selectedCard, setSelectedCard] = useState(''); //boton seleccionado
 
+    const [inputValue, setInputValue] = useState('');
     const [results, setResults] = useState([]); //almacena los diferentes resultados de la busqueda
 
     const handleCardClick = (card) => { //le llega un string
-        setSelectedCard(card); // Guarda el botón seleccionado en el estado
-        console.log(card);
-
+        setSelectedCard(card);
     };
 
     const handleSearchChange = (e) => { // Función que maneja los cambios en el input de búsqueda
         const query = e.target.value; // Obtiene el valor del input
-        setSearchQuery(query); // Actualiza el estado con la consulta de búsqueda
+        setInputValue(query);
 
         if (selectedCard && query) 
         {
-            console.log(`Buscando ${query} en ${selectedCard}`); 
+            console.log(`Buscando ${inputValue} en ${selectedCard}`); 
         } 
-        else 
-        {
-            setResults([]); // Si no hay botón seleccionado o la búsqueda está vacía, borra los resultados
-        }
     };
     
     /*html------------------------------------------------------------------------------------------------- */
@@ -44,11 +39,12 @@ const SearchPage = () => { // Define el componente funcional SearchPage
                         </g>
                     </svg>
                     <input 
-                        type="search" // Define el input como tipo búsqueda
-                        className="input-field" // Aplica estilos personalizados
-                        required placeholder="Buscar..." // Placeholder del input
-                        id="input_busc" // ID del input
-                        onChange={handleSearchChange} // Llama a la función al cambiar el valor del input
+                        type="search"
+                        className="input-field"
+                        required placeholder="Buscar..."
+                        value={inputValue} //esto no se por que es realmente necesario???
+                        id="input_busc"
+                        onChange={handleSearchChange}
                     />
                 </label>
             </div>
