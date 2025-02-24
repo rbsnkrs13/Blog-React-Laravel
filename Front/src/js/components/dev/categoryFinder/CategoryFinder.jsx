@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import './Article_finder_daisy.css';
-const SearchPage = () => {
+import './CategoryFinder.css';
+const CategoryFinder = () => {
     //Todo lo que se refiere como card es en realidad referido a un botón
     const [selectedCard, setSelectedCard] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
@@ -31,7 +31,7 @@ const SearchPage = () => {
     return (
         <div className="container mx-auto p-4 mt-10">
             <div className="bg-gray-200 p-4 rounded text-center">
-                <h1>Hola23</h1>
+                <h1>Hola</h1>
             </div>
             <div className='text-center mt-10 '>
                 <label id="buscador_lab" className="input input-bigger">
@@ -76,4 +76,4 @@ const SearchPage = () => {
     );
 };
 
-export default SearchPage;
+export default CategoryFinder;
