@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CreatePost from "../../components/dev/createPost/createPost";
 import BackToTop from "../../components/dev/BackToTop/BackToTop";
-import ArticleFinder from "../../components/dev/article_finder/Article_finder_daisy";
+import ArticleFinder from "../../components/dev/article_finder/ArticleFinder";
 import DetallesBlog from "../../components/dev/DetallesBlog/DetallesBlog";
 import './CategoryPage.css';
 
