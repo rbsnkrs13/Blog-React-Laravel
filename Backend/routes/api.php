@@ -46,4 +46,8 @@ Route::controller(PostController::class)->group(function () {
     Route::delete('/posts/destroy/{post}', 'destroy')->name('posts.destroy');//->middleware(['auth'])->middleware(['role:administrador']); //Borra 
 });
 
+//Login
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
+
 ?>
