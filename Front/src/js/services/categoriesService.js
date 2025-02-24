@@ -34,4 +34,5 @@ class ServicioCategorias {
 }
 const servicioCategorias = new ServicioCategorias();
 
+
 export default servicioCategorias;
