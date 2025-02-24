@@ -61,8 +61,21 @@ class PostController extends Controller
 
     public function postUser($userId): JsonResponse
     {
-    return response()->json($this->postService->getPostsByUser($userId)); //Route::get('/posts/user/{id}', [PostController::class, 'getPostsByUser']);
+        return response()->json($this->postService->getPostsByUser($userId)); //Route::get('/posts/user/{id}', [PostController::class, 'getPostsByUser']);
     }
+
+    public function postSearch(Request $request): JsonResponse // FALTA resultados
+    {
+
+        // Obtener el término de búsqueda desde el menú
+        $searchTerm = $request->query('search');
+
+        // Buscar en el contenido de los posts
+        $posts = $this->postService->searchPosts($searchTerm);
+
+        // Pasar los resultados a la vista
+        return response()->json($posts);
+    }    
 
 
 }

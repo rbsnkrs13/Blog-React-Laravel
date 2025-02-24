@@ -13,8 +13,10 @@ class PostService {
     }
 
     public function getLastTenPosts() {
-        // Ordena los posts por created_at en orden descendente y toma los 10 primeros
-        return Post::orderBy('created_at', 'desc')->take(10)->get();
+        // Ordena los posts por created_at en orden ascendente y toma los 10 últimos
+        return Post::orderBy('created_at', 'asc')
+        ->skip(Post::count() - 10)
+        ->take(10)->get();        
     }
 
     public function getPostById($id){    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
@@ -70,6 +72,33 @@ class PostService {
             return response()->json(["mensaje"=>"Error al cambiar el estado borrado", 400]);
         }
     }
+
+    public function searchPosts($searchTerm) // Faltan resultados
+    {
+        // Realiza una búsqueda en el modelo Post según el término de búsqueda
+        //return Post::where('title', 'like', '%' . $searchTerm . '%')->orWhere('content', 'like', '%' . $searchTerm . '%')->take(10)->get();
+
+        return Post::where('title', 'like', '%' . $searchTerm . '%')
+        ->orWhere('content', 'like', '%' . $searchTerm . '%')
+        ->paginate(10)->appends(['search' => $searchTerm]);  // Paginación con 10 posts por página
+
+        // $posts = Post::where('title', 'like', '%' . $searchTerm . '%')
+        // ->orWhere('content', 'like', '%' . $searchTerm . '%')
+        // ->paginate(10) // Pagina 10 resultados por página
+        // ->appends(['search' => $searchTerm]);
+        // return $posts->items();
+
+        // $posts = Post::where('title', 'like', '%' . $searchTerm . '%')
+        // ->orWhere('content', 'like', '%' . $searchTerm . '%')
+        // ->paginate(10)
+        // ->appends(['search' => $searchTerm]);  // Asegura que el parámetro 'search' esté en las URL de paginación
+
+    }
+
+    public function getPaginatedPosts($perPage = 10) { //function para enseñar los post de 10 en 10 en la pagina
+        return Post::latest()->paginate($perPage);
+    }    
+
 }
 
 ?>
