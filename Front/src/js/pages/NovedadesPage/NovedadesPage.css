@@ -12,8 +12,6 @@
     align-items: center;
     margin-block: 2rem;
     width: 100%;
-    overflow: hidden;
-    height: 80vw;
 }
 
 
@@ -36,17 +34,29 @@
 
 .carousel-news {
     min-width: 70vw !important;
-    height: 50vh !important;
-
+    height: 70vh !important;
 }
 
 .carousel-news h3 {
     font-size: 1.2rem;
-    padding: 0px !important;
+    padding: 20px !important;
 }
 
 .carousel-news .tags {
     padding: 0px 20px !important;
+}
+
+.novedades-page .carousel-news .detallesBlog .contenidoEntero {
+    padding: 20px 80px !important;
+}
+
+@media screen and (min-width: 768px) {}
+
+
+.botones-novedades {
+    position: absolute !important;
+    width: 80vw;
+    margin-left: 15vw;
 }
 
 .carousel-item-news {
