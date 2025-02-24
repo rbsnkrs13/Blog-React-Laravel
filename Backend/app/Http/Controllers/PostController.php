@@ -26,31 +26,28 @@ class PostController extends Controller
         return response()->json($this->postService->getLastTenPosts());
     }
 
-    public function showAll(): JsonResponse
+    public function show(): JsonResponse
     {
         return response()->json($this->postService->getAllPost());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(PostRequest $request): JsonResponse
-    {
-        return $this->postService->createPost($request);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Post $post): JsonResponse
+    public function showOne(Post $post): JsonResponse
     {
         return response()->json($post);
     }
 
     /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request): JsonResponse
+    {
+        return $this->postService->createPost($request);
+    }
+
+    /**
      * Update the specified resource in storage.
      */
-    public function update(PostRequest $request, Post $post): JsonResponse
+    public function update(Request $request, Post $post): JsonResponse
     {
         return $this->postService->updatePost($request, $post);
     }
@@ -66,6 +63,19 @@ class PostController extends Controller
     public function postUser($userId): JsonResponse
     {
         return response()->json($this->postService->getPostsByUser($userId)); //Route::get('/posts/user/{id}', [PostController::class, 'getPostsByUser']);
+    }
+
+    public function postSearch(Request $request): JsonResponse // FALTA resultados
+    {
+
+        // Obtener el término de búsqueda desde el menú
+        $searchTerm = $request->query('search');
+
+        // Buscar en el contenido de los posts
+        $posts = $this->postService->searchPosts($searchTerm);
+
+        // Pasar los resultados a la vista
+        return response()->json($posts);
     }
 
 

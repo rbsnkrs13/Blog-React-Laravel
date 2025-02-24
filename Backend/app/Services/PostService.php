@@ -26,8 +26,21 @@ class PostService
     }
 
     public function createPost($data)
-    { // Devuelve el post recién creado, la función create recibe un array y va rellenando la BBDD. 
-        return Post::create($data);
+    { // Esta función recoge el post y lo crea
+        if ($data) {
+            $data = Post::create(
+                [
+                    'id_categories' => $data->id_categories,
+                    'user_id' => $data->user_id,
+                    'title' => $data->title,
+                    'content' => $data->content
+                ]
+            );
+            return response()->json(["mensaje" => "Post creado con exito", 201]);
+
+        } else {
+            return response()->json(["mensaje" => "Error al crear el post", 400]);
+        }
     }
 
     public function getPostByCategory($cat)
@@ -42,30 +55,58 @@ class PostService
     }
 
     public function updatePost($data, $post)
-    {    // Esta función recibe los datos del post actualizado, con los cambios indicados por el usuario, 
+    {
         if ($post) {
             $post->update([
-                'id_categories' => $data->id_categories,
-                'user_id' => $data->user_id,
-                'title' => $data->title,
-                'content' => $data->content,
-                'status' => $data->status,
+                'id_categories' => $data['id_categories'] ?? $post->id_categories,
+                'user_id' => $data['user_id'] ?? $post->user_id,
+                'title' => $data['title'] ?? $post->title,
+                'content' => $data['content'] ?? $post->content,
+                'status' => $data['status'] ?? $post->status
             ]);
-            return response()->json(["mensaje" => "Post actualizado correctamente", 200]);
+            return response()->json(["mensaje" => "Post actualizado correctamente"], 200);
         } else {
-            return response()->json(["Error al actualizar el post", 400]);
+            return response()->json(["mensaje" => "Error al actualizar el post"], 400);
         }
     }
 
     public function destroyPost($post)
-    { // Devuelve V o F, si se le pasa un id de un post que no existe F y si el id existe, el post pasa a estar en estado 'delete'
+    { // cambia el post a estado delete
         if ($post) {
-            $post->status = "deleted";
-            return response()->json(["mensaje" => "Categoria actualizada correctamente", 200]);
+            $post->update(['status' => 'deleted']);
+            return response()->json(["mensaje" => "Post Cambiado a estado borrado", 200]);
         } else {
-            return response()->json(["Error al actualizar la categoria", 400]);
+            return response()->json(["mensaje" => "Error al cambiar el estado borrado", 400]);
         }
     }
+
+    public function searchPosts($searchTerm) // Faltan resultados
+    {
+        // Realiza una búsqueda en el modelo Post según el término de búsqueda
+        //return Post::where('title', 'like', '%' . $searchTerm . '%')->orWhere('content', 'like', '%' . $searchTerm . '%')->take(10)->get();
+
+        return Post::where('title', 'like', '%' . $searchTerm . '%')
+            ->orWhere('content', 'like', '%' . $searchTerm . '%')
+            ->paginate(10)->appends(['search' => $searchTerm]);  // Paginación con 10 posts por página
+
+        // $posts = Post::where('title', 'like', '%' . $searchTerm . '%')
+        // ->orWhere('content', 'like', '%' . $searchTerm . '%')
+        // ->paginate(10) // Pagina 10 resultados por página
+        // ->appends(['search' => $searchTerm]);
+        // return $posts->items();
+
+        // $posts = Post::where('title', 'like', '%' . $searchTerm . '%')
+        // ->orWhere('content', 'like', '%' . $searchTerm . '%')
+        // ->paginate(10)
+        // ->appends(['search' => $searchTerm]);  // Asegura que el parámetro 'search' esté en las URL de paginación
+
+    }
+
+    public function getPaginatedPosts($perPage = 10)
+    { //function para enseñar los post de 10 en 10 en la pagina
+        return Post::latest()->paginate($perPage);
+    }
+
 }
 
 ?>
