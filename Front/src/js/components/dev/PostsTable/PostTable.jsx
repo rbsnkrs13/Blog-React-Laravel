@@ -2,8 +2,9 @@ import postService from "../../../services/postService";
 import { useEffect, useState } from "react";
 
 export default function PostTable({posts}) {    
-    return (<div className="overflow-x-auto">
-    <table className="table table-xs table-pin-rows table-pin-cols">
+    return (
+      <div className="overflow-x-auto">
+        <table>
       <thead>
         <tr>
           <th></th>
@@ -18,7 +19,7 @@ export default function PostTable({posts}) {
         {posts.slice(0,10).map((item, index) => (
           <tr key={index}>
             <th>{index + 1}</th>
-            <td>{item.title}</td>
+            <td><a href={`/detallesBlog/${index}`}>{item.title}</a></td>
             <td>{item.created_at}</td>
             <td>{item.content.length > 50 ? item.content.substring(0, 50) + "..." : item.content}</td>
             <td>{item.reach}</td>
