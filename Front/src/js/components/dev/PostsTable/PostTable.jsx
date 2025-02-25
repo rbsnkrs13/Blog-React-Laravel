@@ -19,7 +19,7 @@ export default function PostTable({posts}) {
         {posts.slice(0,10).map((item, index) => (
           <tr key={index}>
             <th>{index + 1}</th>
-            <td><a href={`/detallesBlog/${index}`}>{item.title}</a></td>
+            <td><a href={`/detallesBlog/${item.id}`}>{item.title}</a></td>
             <td>{item.created_at}</td>
             <td>{item.content.length > 50 ? item.content.substring(0, 50) + "..." : item.content}</td>
             <td>{item.reach}</td>
