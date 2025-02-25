@@ -78,6 +78,43 @@ class PostService {
             return response()->json(["mensaje"=>"Error al cambiar el estado borrado", 400]);
         }
     }
+    public function searchBarPosts($search, $perPage) { // Buscamos tanto por título como por contenido.
+        return Post::where('title', 'like', '%' . $search . '%')
+            ->orWhere('content', 'like', '%' . $search . '%')
+            ->latest()->paginate($perPage);
+    }    
+
+    public function getPostsByUserOrderedByViews($userId)  // Obtenemos el total de visitas de todos los posts del user y también obtenemos los posts del usuario ordenados por vistas de mayor a menor, si hay empate ordena por id ascendente
+    {
+        $totalViews = Post::where('user_id', $userId)->sum('views');
+            $posts = Post::where('user_id', $userId)->orderBy('views', 'desc')->orderBy('id', 'asc')->get();
+    
+        $postsWithPercentage = $posts->map(function($post) use ($totalViews) { // Función para sacar el porcentaje de visitas de cada post a través de una regla de 3
+            $post->percentage = $totalViews > 0 ? ($post->views / $totalViews) * 100 : 0;
+            return $post;
+        });
+    
+        return $postsWithPercentage;
+    }
+    
+
+    public function getPostsByUserGroupedByMonth($userId) { // En esta función obtenemos la cantidad de post mensuales hechos por el user  
+        return Post::where('user_id', $userId)  
+            ->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as total_posts, ? as user_id', [$userId]) // Selecciona año, mes, total_posts y agrega el user_id
+            ->groupBy('year', 'month')             
+            ->orderByDesc('year')                
+            ->orderByDesc('month')                 
+            ->get();                               
+    }
+
+    public function getPostsByUserGroupedByMonthByViews($userId) { // En esta función obtenemos la cantidad de post mensuales y sus visitas totales no por cada post
+        return Post::where('user_id', $userId)  
+            ->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as total_posts, SUM(views) as total_views, ? as user_id', [$userId]) // Selecciona año, mes, total_posts, total_views y agrega el user_id
+            ->groupBy('year', 'month')            
+            ->orderByDesc('year')                 
+            ->orderByDesc('month')                
+            ->get();                              
+    }
 }
 
 ?>
