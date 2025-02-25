@@ -31,7 +31,7 @@ class UserService {
                 'name_user' => $data->name_user,
                 'email_user' => $data->email_user,
                 'password_user' => $data->password_user,
-                'name_lastName' => $data->name_lastName ?? 'abc',
+                // 'name_lastName' => $data->name_lastName ?? 'abc',
                 'bio' => $data->bio ?? 'abc',
             ]);
             if($user){
@@ -75,7 +75,7 @@ class UserService {
             $user->update([
                 'name_user' => $data->name_user,
                 'email_user' => $data->email_user,
-                'name_lastName' => $data->name_lastName,
+                // 'name_lastName' => $data->name_lastName,
                 'img_user' => $data->img_user,
                 'bio' => $data->bio,
                 'update_at' => now(),

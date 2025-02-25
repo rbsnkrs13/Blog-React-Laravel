@@ -17,7 +17,7 @@ class userSeeder extends Seeder
             'name_user' => 'Pepe',
             'email_user' => 'pepe@gmail.com',
             'password_user' => '123456',
-            'name_lastName' => 'Botas',
+            // 'name_lastName' => 'Botas',
             'bio' => 'bifidus con fibra'
         ])->assignRole(['admin']);
     }
