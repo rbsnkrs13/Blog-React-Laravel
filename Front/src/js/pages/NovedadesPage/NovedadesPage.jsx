@@ -39,13 +39,18 @@ const NovedadesPage = () => {
       <div className="carousel w-full carousel-news">
         {newsItems && newsItems.length > 0 ? (
           newsItems.map((item, index) => (
+
+
             <div
               key={item.id}
               id={`slide${item.id}`}
               className={`carousel-item relative w-full ${index === currentSlide ? 'block' : 'hidden'}`}
             >
-              <DetallesBlog className="w-full" blog={item} />
+              <a key={item.id} href={`/detallesBlog/${item.id}`}>
+                <DetallesBlog className="w-full" blog={item} />
+              </a>
             </div>
+
           ))
         ) : (
           <Loader />

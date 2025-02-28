@@ -15,7 +15,8 @@ const DetallesBlogPage = () => {
     postService
       .getOnePost(blog_id)
       .then(({ data }) => {
-        setBlog(data)
+        console.log(data.original.post)
+        setBlog(data.original.post)
       })
       .catch(err => console.log(err))
   }

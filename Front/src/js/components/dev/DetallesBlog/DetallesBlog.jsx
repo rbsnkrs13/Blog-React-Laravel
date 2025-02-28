@@ -6,6 +6,7 @@ import useImageLoader from '../../../bootstrap/hooks/useImageLoader';
 import { findNearestSpace } from '../../../bootstrap/utils/textUtils';
 
 const DetallesBlog = ({ blog }) => {
+
     const [imagenCategoria, setImagenCategoria] = useState();
     const [nombreCategoria, setNombreCategoria] = useState()
     const isMobile = useResize();
@@ -22,9 +23,9 @@ const DetallesBlog = ({ blog }) => {
             .catch((err) => console.log(err));
     }, [blog.id_categories]);
 
-    const cutoffIndex = findNearestSpace(blog.content, isMobile ? 90 : 500);
-    const primerosCaracteres = blog.content.substring(0, cutoffIndex);
-    const resto = blog.content.substring(cutoffIndex);
+    const cutoffIndex = blog.content.length > 400 ? findNearestSpace(blog.content, isMobile ? 90 : 400) : null;
+    const primerosCaracteres = !cutoffIndex ? blog.content : blog.content.substring(0, cutoffIndex);
+    const resto = cutoffIndex ? blog.content.substring(cutoffIndex) : '';
 
     return (
         <div className="detallesBlog">
@@ -37,7 +38,7 @@ const DetallesBlog = ({ blog }) => {
                         {loadedImage && <img src={loadedImage} alt={blog.title} />}
                     </div>
                 </div>
-                <div className="blogContenido2 blogContenido">{resto}</div>
+                {resto ?? <div className="blogContenido2 blogContenido">{resto}</div>}
                 <div className="autorNombre">{blog.autor}</div>
             </div>
         </div>
