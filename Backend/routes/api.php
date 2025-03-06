@@ -53,4 +53,9 @@ Route::controller(PostController::class)->group(function () {
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
 
+Route::controller(FavoritesController::class)->group(function () {
+    Route::get('/favorites/{userId}', 'index')->name('favorites.index'); // enseña todos los favoritos
+    Route::post('/favorites/store/{postId}', 'store')->name('favorites.store');//->middleware(['auth'])->middleware(['role:administrador']); //Crea un nuevo fav
+    Route::delete('/favorites/destroy/{postId}', 'destroy')->name('favorites.destroy');//->middleware(['auth'])->middleware(['role:administrador']); //Borra un fav marcado
+});
 ?>
