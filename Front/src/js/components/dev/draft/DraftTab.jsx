@@ -6,7 +6,7 @@ export default function DraftTab({ tabs }) {
 
   return (
     <div role="tablist" className="tabs tabs-lifted draft-tabs">
-      {tabs.map((tab, index) => (
+      {tabs.slice(0, 10).map((tab, index) => (
         <React.Fragment key={index}>
           <input
             type="radio"

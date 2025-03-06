@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback } from "react";
+import React, { useEffect, useMemo, useState, useCallback, useRef } from "react";
 import axios from "axios";
 import postService from "../../../services/postService";
 import servicioCategorias from "../../../services/categoriesService";
@@ -124,8 +124,13 @@ export default function Editor({ isEditable = true, post = {} }) {
       });
   };
 
+  const hasFetched = useRef(false);
+
   useEffect(() => {
+    if (hasFetched.current || categories.length > 0) return;
+
     const request = servicioCategorias.getCategorias();
+    hasFetched.current = true;
 
     request
       .then(response => {
@@ -133,9 +138,8 @@ export default function Editor({ isEditable = true, post = {} }) {
       })
       .catch(error => {
         console.error('Error fetching categories:', error);
-
       });
-  }, []);
+  }, [categories.length]);
 
   useEffect(() => {
     if (post.content) {
