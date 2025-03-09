@@ -1,5 +1,3 @@
-
-
 <?php
 
 namespace App\Http\Requests\Auth;
@@ -29,8 +27,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email_user' => ['required', 'string', 'email'],
-            'password_user' => ['required', 'string'],
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
         ];
     }
 
@@ -43,10 +41,11 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt(['email_user' => $this->email_user, 'password_user' => $this->password_user], $this->boolean('remember'))) {
+        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
+
             throw ValidationException::withMessages([
-                'email_user' => trans('auth.failed'),
+                'email' => __('auth.failed'),
             ]);
         }
 
@@ -69,7 +68,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email_user' => trans('auth.throttle', [
+            'email' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -81,20 +80,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email_user')).'|'.$this->ip());
-    }
-
-    public function messages():array{
-        return [
-            'password_user.required'=> 'La contraseña es un campo necesario.',
-            'password_user.string'=> 'La contraseña debe ser una cadena de carácteres.',
-
-            'email_user.required'=> 'El correo electrónico es un campo necesario.',
-            'email_user.string'=> 'El correo electrónico debe ser una cadena de carácteres.',
-            'email_user.email'=> 'No has escrito una dirección de correo electrónico.',
-            'email_user.unique'=> 'Esta dirección de correo electrónico ya está siendo utilizada'
-        ];
+        return Str::transliterate(Str::lower($this->input('email')).'|'.$this->ip());
     }
 }
-
-
