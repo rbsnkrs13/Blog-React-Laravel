@@ -7,19 +7,28 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): Response
+    public function store(LoginRequest $request)
     {
-        $request->authenticate();
+        $credentials = $request->only('email', 'password');
 
-        $request->session()->regenerate();
+        if (Auth::attempt($credentials)) {
+            // Si la autenticación tiene éxito, generamos un token JWT
+            $user = Auth::user();
+            $token = JWTAuth::fromUser($user);
 
-        return response()->noContent();
+            // Devolvemos el token en la respuesta
+            return response()->json(['token' => $token]);
+        }
+
+        // Si las credenciales son incorrectas
+        return response()->json(['error' => 'Las credenciales no corresponden'], 401);
     }
 
     /**
@@ -27,11 +36,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): Response
     {
-        Auth::guard('web')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
+        Auth::logout();
 
         return response()->noContent();
     }
