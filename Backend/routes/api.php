@@ -15,7 +15,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:passport');
 //cambiar cuando lo tengamos hecho
-Route::controller(ProfileController::class)->group(function () {
+Route::controller(ProfileController::class)->middleware('auth:api')->group(function () {
     Route::get('/users', 'index')->name('users.index'); //muestra todos los usuarios
     Route::get('/users/{user}', 'show')->name('users.show'); //muestra el usuario por el id
     Route::post('/users/store',  'store')->name('users.store');//->middleware(['auth'])->middleware(['role:administrador']);
