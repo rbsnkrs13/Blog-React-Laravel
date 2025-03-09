@@ -11,9 +11,9 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\FavoritesController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:passport');
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// })->middleware('auth:passport');
 //cambiar cuando lo tengamos hecho
 Route::controller(ProfileController::class)->middleware('auth:api')->group(function () {
     Route::get('/users', 'index')->name('users.index'); //muestra todos los usuarios
