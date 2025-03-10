@@ -63,3 +63,4 @@ class RegisteredUserController extends Controller
         return response()->json(['message' => "Usuario creado correctamente",'user' => $user],201);
     }
 }
+}

@@ -41,14 +41,14 @@ class AuthenticatedSessionController extends Controller
         // Si las credenciales son incorrectas
     }
 
-    /**
-     * Destroy an authenticated session.
-     */
-    public function destroy(Request $request): Response
-    {
-        Auth::logout();
+    // /**
+    //  * Destroy an authenticated session.
+    //  */
+    // public function destroy(Request $request): Response
+    // {
+    //     Auth::logout(); Esta comentado porque lo realizan desde el front
 
-        return response()->noContent();
-    }
+    //     return response()->noContent();
+    // }
 
 }

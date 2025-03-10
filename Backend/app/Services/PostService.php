@@ -15,12 +15,13 @@ class PostService
     }
 
     public function getLastTenPosts()
-    {   // Ordena los posts por created_at en orden descendente (últimos primero)
-
-        return Post::orderBy('created_at', 'desc')
-            ->take(10)
-            ->get();
+    {
+    return Post::where('status', 'published') // Filtra solo los posts con el status 'published'
+        ->orderBy('created_at', 'desc') // Ordena los posts por 'created_at' en orden descendente
+        ->take(10) // Toma solo los últimos 10
+        ->get(); // Obtiene los posts
     }
+
 
     public function getPostById($id)
     {    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
@@ -66,20 +67,24 @@ class PostService
     }
 
     public function updatePost($data, $post)
-    {
-        if ($post) {
-            $post->update([
-                'id_categories' => $data['id_categories'] ?? $post->id_categories,
-                'user_id' => $data['user_id'] ?? $post->user_id,
-                'title' => $data['title'] ?? $post->title,
-                'content' => $data['content'] ?? $post->content,
-                'status' => $data['status'] ?? $post->status
-            ]);
-            return response()->json(["mensaje" => "Post actualizado correctamente"], 200);
-        } else {
-            return response()->json(["mensaje" => "Error al actualizar el post"], 400);
-        }
+{
+    if ($post) {
+        // Actualizar campos manualmente y guardar el modelo
+        $post->id_categories = $data['id_categories'] ?? $post->id_categories;
+        $post->user_id = $data['user_id'] ?? $post->user_id;
+        $post->title = $data['title'] ?? $post->title;
+        $post->content = $data['content'] ?? $post->content;
+        $post->status = $data['status'] ?? $post->status;
+
+        // Guardar el modelo actualizado
+        $post->save();
+
+        return response()->json(["mensaje" => "Post actualizado correctamente"], 200);
+    } else {
+        return response()->json(["mensaje" => "Error al actualizar el post"], 400);
     }
+}
+
 
     public function destroyPost($post)
     { // cambia el post a estado delete
