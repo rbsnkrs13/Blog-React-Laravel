@@ -63,14 +63,19 @@ return [
     |
     */
 
-    'providers' => [
+   'providers' => [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
             'table' => 'users',
             'email' => 'email_user',
-            'password_column' => 'password_user', // Esta opción no existe por defecto, lo corregimos abajo
-        ],
+            'password_column' => 'password_user', // Aquí usamos el Custom Provider
+    ],
+
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
     ],
 
 

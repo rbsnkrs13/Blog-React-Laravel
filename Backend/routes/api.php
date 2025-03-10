@@ -10,12 +10,13 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Middleware\JwtMiddleware;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:passport');
 //cambiar cuando lo tengamos hecho
-Route::controller(ProfileController::class)->middleware('auth:api')->group(function () {
+Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/users', 'index')->name('users.index'); //muestra todos los usuarios
     Route::get('/users/{user}', 'show')->name('users.show'); //muestra el usuario por el id
     Route::post('/users/store', 'store')->name('users.store');//->middleware(['auth'])->middleware(['role:administrador']);
@@ -55,8 +56,11 @@ Route::controller(PostController::class)->group(function () {
 //Login
 Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:api');
+//Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);//->middleware('auth:api');
 Route::get('/user', [ProfileController::class, 'getUser'])->middleware('auth:api');
+Route::get('/verify-token', function (Request $request) {
+    return response()->json(['message' => 'Token válido', 'user' => $request->user()]);
+});
 
 Route::controller(FavoritesController::class)->middleware('auth:api')->group(function () {
     Route::get('/favorites/{userId}', 'index')->name('favorites.index'); // enseña todos los favoritos

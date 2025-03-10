@@ -15,26 +15,29 @@ class PostService
     }
 
     public function getLastTenPosts()
-    {   // Ordena los posts por created_at en orden descendente (últimos primero)
-
-        return Post::orderBy('created_at', 'desc')
-            ->take(10)
-            ->get();
+    {
+        return Post::where('status', 'published') // Filtra solo los posts con el status 'published'
+            ->orderBy('created_at', 'desc') // Ordena los posts por 'created_at' en orden descendente
+            ->take(10) // Toma solo los últimos 10
+            ->get(); // Obtiene los posts
     }
 
+<<<<<<< HEAD
     public function getPostById($id)
     {    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
 
         $post = Post::find($id);
 
+=======
+
+    public function showPost($post)
+    {   // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
+>>>>>>> editor
         $post->increment('views'); // contador para que cuando alguien entre en el post especificado aumenten las visitas en la tabla de post
-        //  $post->refresh();           //actualiza el campo para mostrarlo correctamente
         return response()->json([
             "post" => $post,
             "message" => "Visita incrementada en 1"
         ]);
-
-
     }
 
     public function createPost($data)
@@ -50,7 +53,6 @@ class PostService
                 ]
             );
             return response()->json(["mensaje" => "Post creado con exito", 201]);
-
         } else {
             return response()->json(["mensaje" => "Error al crear el post", 400]);
         }
@@ -69,19 +71,21 @@ class PostService
 
     public function updatePost($data, $post)
     {
-        if ($post) {
-            $post->update([
+        // Usamos updateOrCreate para actualizar o crear un nuevo post
+        $updatedPost = Post::updateOrCreate(
+            ['id' => $post->id],  // Condición para encontrar el post
+            [                       // Valores a actualizar o crear
                 'id_categories' => $data['id_categories'] ?? $post->id_categories,
                 'user_id' => $data['user_id'] ?? $post->user_id,
                 'title' => $data['title'] ?? $post->title,
                 'content' => $data['content'] ?? $post->content,
                 'status' => $data['status'] ?? $post->status
-            ]);
-            return response()->json(["mensaje" => "Post actualizado correctamente"], 200);
-        } else {
-            return response()->json(["mensaje" => "Error al actualizar el post"], 400);
-        }
+            ]
+        );
+
+        return response()->json(["mensaje" => "Post actualizado correctamente", "post" => $updatedPost], 200);
     }
+
 
     public function destroyPost($post)
     { // cambia el post a estado delete
@@ -133,5 +137,3 @@ class PostService
             ->get();
     }
 }
-
-?>
