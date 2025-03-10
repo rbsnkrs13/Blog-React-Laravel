@@ -9,26 +9,36 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Handle an incoming authentication request.
-     */
+ 
     public function store(LoginRequest $request)
     {
-        $credentials = $request->only('email', 'password');
+
+        // $credentials = $request->only('email_user', 'password'); // No hagas Hash::make() aquí
+
+        // if (!$token = Auth::attempt($credentials)) {
+        //     return response()->json(['error' => 'Las credenciales no corresponden'], 401);
+        // }
+
+        // // Si la autenticación es correcta, devolvemos el token
+        // return response()->json(['token' => $token]);
+
+        $credentials = [
+            'email_user' => $request->input('email'),
+            'password' => $request->input('password'), // Deja la contraseña en texto plano
+        ];
 
         if (Auth::attempt($credentials)) {
-            // Si la autenticación tiene éxito, generamos un token JWT
             $user = Auth::user();
             $token = JWTAuth::fromUser($user);
-
-            // Devolvemos el token en la respuesta
             return response()->json(['token' => $token]);
+        } else {
+            return response()->json(['error' => 'Las credenciales no corresponden'], 401);
         }
 
         // Si las credenciales son incorrectas
-        return response()->json(['error' => 'Las credenciales no corresponden'], 401);
     }
 
     /**
@@ -40,4 +50,5 @@ class AuthenticatedSessionController extends Controller
 
         return response()->noContent();
     }
+
 }

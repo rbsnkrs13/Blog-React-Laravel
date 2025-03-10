@@ -55,7 +55,7 @@ Route::controller(PostController::class)->group(function () {
 //Login
 Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:api');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);//->middleware('auth:api');
 Route::get('/user', [ProfileController::class, 'getUser'])->middleware('auth:api');
 
 Route::controller(FavoritesController::class)->middleware('auth:api')->group(function () {
