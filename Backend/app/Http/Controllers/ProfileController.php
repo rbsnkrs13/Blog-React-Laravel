@@ -22,7 +22,7 @@ class ProfileController extends Controller
         $this->userService = $userService;
     }
 
-    public function store(Request $request):JsonResponse
+    public function store(Request $request)
     {
         return $this->userService->createUser($request);
     }
@@ -68,6 +68,12 @@ class ProfileController extends Controller
 
     //     return Redirect::to('/');
     // }
+
+    public function getUser(Request $request)
+    {
+        // Retorna la información del usuario autenticado
+        return response()->json($request->user());
+    }
 
     public function destroy(User $user):JsonResponse
     {

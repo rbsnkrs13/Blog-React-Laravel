@@ -4,56 +4,40 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
-use Illuminate\View\View;
-use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticatedSessionController extends Controller
 {
-
-    public function store(Request $request)
+    /**
+     * Handle an incoming authentication request.
+     */
+    public function store(LoginRequest $request)
     {
-        $request->validate([
-            'email_user' => 'required',
-            'password_user' => 'required',
-        ]);
+        $credentials = $request->only('email', 'password');
 
-        // Buscar el usuario por email
-        $user = \App\Models\User::where('email_user', $request->email_user)->first() ?? \App\Models\User::where('name_user', $request->email_user)->first() ;
+        if (Auth::attempt($credentials)) {
+            // Si la autenticación tiene éxito, generamos un token JWT
+            $user = Auth::user();
+            $token = JWTAuth::fromUser($user);
 
-        // Verificar si el usuario existe y la contraseña es válida
-        if (!$user || !Hash::check($request->password_user, $user->password_user)) {
-            return response()->json([
-                'message' => 'Invalid credentials'
-            ], 401);
+            // Devolvemos el token en la respuesta
+            return response()->json(['token' => $token]);
         }
 
-        // Crear un token de acceso
-        //$token = $user->createToken($user->email_user . '_Token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Login successful',
-            'user' => $user,
-            'role' => $user->roles()->pluck('name'),
-            //'token' => $token, // Devolver el token
-        ], 200);
+        // Si las credenciales son incorrectas
+        return response()->json(['error' => 'Las credenciales no corresponden'], 401);
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request): Response
     {
-        // Invalidar el token
-        Auth::user()->tokens->each(function ($token) {
-            $token->delete();
-        });
+        Auth::logout();
 
-        return response()->json(['message' => 'Sesión cerrada correctamente.']);
+        return response()->noContent();
     }
 }
