@@ -53,4 +53,13 @@ class User extends Authenticatable
             'password_user' => 'hashed',
         ];
     }
+
+    // Relación muchos a muchos con los posts
+    public function favorites()
+    {
+        return $this->belongsToMany(Post::class, 'favorites') // 'favorites' es la tabla intermedia
+                    ->withPivot('categories_id') // Si necesitas campos adicionales como category_id
+                    ->withTimestamps();
+    }
+    
 }

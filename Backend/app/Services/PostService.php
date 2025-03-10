@@ -22,14 +22,17 @@ class PostService
             ->get();
     }
 
-
-    public function showPost($post)
-    {   // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
+    public function getPostById($id)
+    {    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
+        $post = Post::findOrFail($id);
         $post->increment('views'); // contador para que cuando alguien entre en el post especificado aumenten las visitas en la tabla de post
+        //  $post->refresh();           //actualiza el campo para mostrarlo correctamente
         return response()->json([
             "post" => $post,
             "message" => "Visita incrementada en 1"
         ]);
+
+
     }
 
     public function createPost($data)
@@ -87,7 +90,6 @@ class PostService
             return response()->json(["mensaje" => "Error al cambiar el estado borrado", 400]);
         }
     }
-
     public function searchBarPosts($search, $perPage)
     { // Buscamos tanto por título como por contenido.
         return Post::where('title', 'like', '%' . $search . '%')
@@ -128,7 +130,6 @@ class PostService
             ->orderByDesc('month')
             ->get();
     }
-
 }
 
 ?>

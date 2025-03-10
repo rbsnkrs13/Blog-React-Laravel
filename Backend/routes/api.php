@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -43,14 +44,16 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/posts/show/{post}', 'showOne'); // Enseña un post por un id
     Route::get('/posts/user/{id}', 'postUser');    //Enseña los post a traves del id del usuario
     Route::get('/posts/searchPosts', 'searchPosts');    //Ruta para buscar posts BARRA DE BÚSQUEDA
-    Route::get('/posts/posts-overview/{userId}','getUserPostsOverview');    // Devuelve las estadísticas para el Dashboard
+    Route::get('/posts/posts-overview/{userId}', 'getUserPostsOverview');    // Devuelve las estadísticas para el Dashboard
     Route::post('/posts/store', 'store')->name('posts.store');//->middleware(['auth'])->middleware(['role:administrador']); //Crea un post
     Route::put('/posts/update/{post}', 'update')->name('posts.update');//->middleware(['auth'])->middleware(['role:administrador']); //Actualiza Post
     Route::delete('/posts/destroy/{post}', 'destroy')->name('posts.destroy');//->middleware(['auth'])->middleware(['role:administrador']); //Borra 
 });
 
-//Login
-Route::post('/users/login', [AuthenticatedSessionController::class, 'store']);
-Route::post('/users/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
+Route::controller(FavoritesController::class)->group(function () {
+    Route::get('/favorites/{userId}', 'index')->name('favorites.index'); // enseña todos los favoritos
+    Route::post('/favorites/store/{postId}', 'store')->name('favorites.store');//->middleware(['auth'])->middleware(['role:administrador']); //Crea un nuevo fav
+    Route::delete('/favorites/destroy/{postId}', 'destroy')->name('favorites.destroy');//->middleware(['auth'])->middleware(['role:administrador']); //Borra un fav marcado
+});
 
 ?>
