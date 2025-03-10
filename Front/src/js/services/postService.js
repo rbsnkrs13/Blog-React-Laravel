@@ -30,12 +30,12 @@ class PostService {
 
     /* Editar post */
     editPost(id, data) {
-        return this.api.put(`/posts/update/${id}`, data)
+        return this.api.put(`/update/${id}`, data)
     }
 
     /* Eliminar post no se si vale así */
     deletePost(id) {
-        return this.api.delete(`/posts/destroy/${id}`)
+        return this.api.delete(`/destroy/${id}`)
     }
 }
 const postService = new PostService();

@@ -46,7 +46,7 @@ const TOOLS = {
   },
 };
 
-export default function Editor({ isEditable = true, post = {} }) {
+export default function Editor({ isEditable = true, post = null }) {
   const editor = useMemo(() => createYooptaEditor(), []);
   const [value, setValue] = useState({});
   // const [isPreview, setIsPreview] = useState(false);
@@ -87,10 +87,14 @@ export default function Editor({ isEditable = true, post = {} }) {
   const handleSave = async (status) => {
     serializeHTML();
     const userId = localStorage.getItem('userId');
-    let data = { id_categories: selectedCategory, user_id: userId, title: title, content: serializeHTML(), status: status };
-    let request = postService.createPost(data);
-    if (post) {
-      data = { id_categories: post.id_categories, user_id: post.user_id, title: title, content: serializeHTML(), status: status };
+    let data = {};
+    let request = "";
+    if (!post) {
+      data = { id_categories: selectedCategory, user_id: userId, title: title, content: serializeHTML(), status: status };
+      request = postService.createPost(data);
+    } else {
+      console.log("POST", post);
+      data = { id_categories: post.id_categories, title: title, content: serializeHTML(), status: status };
       request = postService.editPost(post.id, data);
     }
     if (!selectedCategory) {
@@ -107,7 +111,7 @@ export default function Editor({ isEditable = true, post = {} }) {
   };
 
   const deletePost = async () => {
-    if (post = {}) {
+    if (!post) {
       setValue([]);
       editor.setEditorValue([]);
       return;
@@ -142,7 +146,7 @@ export default function Editor({ isEditable = true, post = {} }) {
   }, [categories.length]);
 
   useEffect(() => {
-    if (post.content) {
+    if (post && post.content) {
       const deserializedValue = deserializeHTML(post.content);
       setValue(deserializedValue);
       editor.setEditorValue(deserializedValue);
@@ -170,8 +174,14 @@ export default function Editor({ isEditable = true, post = {} }) {
           <div className="label">
             <span className="label-text">Escoge categoria</span>
           </div>
-          <select className="select select-bordered" onChange={handleCategoryChange} value={selectedCategory}>
-            <option disabled>Elige una categoria</option>
+          <select
+            className="select select-bordered"
+            onChange={handleCategoryChange}
+            value={selectedCategory || ""}
+          >
+            <option value="" disabled>
+              Elige una categoría
+            </option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -197,9 +207,7 @@ export default function Editor({ isEditable = true, post = {} }) {
           <button className="btn" onClick={() => handleSave("published")}>Publicar</button>
           <button className="btn" onClick={() => handleSave("draft")}>Guardar</button>
           <button className="btn btn-error" onClick={deletePost}>Borrar</button>
-          {/* <button className="btn" onClick={handlePreview}>Previsualizar</button> */}
         </div>)}
-      {/* {isPreview && (serializeHTML())} */}
     </>
   );
 }
