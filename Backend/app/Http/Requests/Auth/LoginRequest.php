@@ -24,7 +24,7 @@ class LoginRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules(): array //hemos cambiado el que venia por que la tabla user que venia de 0 tenia otros valores
     {
         return [
             'email_user' => ['required', 'string', 'email'],
