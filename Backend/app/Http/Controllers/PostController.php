@@ -33,7 +33,7 @@ class PostController extends Controller
 
     public function showOne(Post $id): JsonResponse
     {
-        return response()->json($this->postService->getPostById(id: $id));
+        return response()->json($this->postService->showPost(post: $id));
     }
 
     /**
@@ -91,7 +91,4 @@ class PostController extends Controller
             'postsGroupedByMonthWithViews' => $postsGroupedByMonthWithViews
         ]);
     }
-
-
-
 }

@@ -22,17 +22,8 @@ class PostService
             ->get(); // Obtiene los posts
     }
 
-<<<<<<< HEAD
-    public function getPostById($id)
-    {    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
-
-        $post = Post::find($id);
-
-=======
-
     public function showPost($post)
     {   // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
->>>>>>> editor
         $post->increment('views'); // contador para que cuando alguien entre en el post especificado aumenten las visitas en la tabla de post
         return response()->json([
             "post" => $post,
