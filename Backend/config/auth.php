@@ -41,8 +41,8 @@ return [
             'provider' => 'users',
         ],
         'api' => [
-        'driver' => 'jwt',
-        'provider' => 'users',
+            'driver' => 'jwt',
+            'provider' => 'users',
         ],
     ],
 
@@ -66,14 +66,13 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\User::class,
+            'table' => 'users',
+            'email' => 'email_user',
+            'password_column' => 'password_user', // Esta opción no existe por defecto, lo corregimos abajo
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Los modelos de Roles y Permisos no son necesarios crealos puesto que estan en una carpeta: vendor/spatie/laravel-permision/src/models 
 
 namespace App\Models;
@@ -11,8 +11,9 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Contracts\Role;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles, HasPermissions, SoftDeletes;
@@ -53,13 +54,29 @@ class User extends Authenticatable
             'password_user' => 'hashed',
         ];
     }
-
+    public function getAuthPassword()
+    {
+        return $this->password_user;
+    }
     // Relación muchos a muchos con los posts
     public function favorites()
     {
         return $this->belongsToMany(Post::class, 'favorites') // 'favorites' es la tabla intermedia
-                    ->withPivot('categories_id') // Si necesitas campos adicionales como category_id
-                    ->withTimestamps();
+            ->withPivot('categories_id') // Si necesitas campos adicionales como category_id
+            ->withTimestamps();
     }
-    
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [
+            'id' => $this->id, // Agrega 'id' al payload
+            'name' => $this->name_user,
+            'role' => $this->roleClass
+        ];
+    }
+
 }
