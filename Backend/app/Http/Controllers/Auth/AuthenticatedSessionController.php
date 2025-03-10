@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Illuminate\Support\Facades\Hash;
 
 
 class AuthenticatedSessionController extends Controller
@@ -36,7 +35,7 @@ class AuthenticatedSessionController extends Controller
             $token = JWTAuth::fromUser($user);
             return response()->json(['token' => $token]);
         } else {
-            return response()->json(['error' => 'Las credenciales no corresponden'], 401);
+            return response()->json(['error' => 'Las credenciales no corresponden',$credentials], 401);
         }
 
         // Si las credenciales son incorrectas

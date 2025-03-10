@@ -48,6 +48,14 @@ class RegisteredUserController extends Controller
                 'password_user' => Hash::make($request->input('password_user')),
                 'img_user' => $imgPath, // Guardamos la ruta en la base de datos
             ]);
+            if ($user) {
+                try {
+                    $user->assignRole('reader');
+
+                } catch (\Exception $e) {
+                    return response()->json(["mensaje" => "Error al asignar el role", 400]);
+                }
+                return response()->json($user, 201);
         }
 
        // $token = JWTAuth::fromUser($user);

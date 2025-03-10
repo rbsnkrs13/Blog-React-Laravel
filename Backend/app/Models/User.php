@@ -77,5 +77,9 @@ class User extends Authenticatable implements JWTSubject  // Implementamos la in
     {
         return [];  // Puedes agregar claims personalizados si lo necesitas
     }
+    public function getImgUserAttribute($value)
+{
+    return $value ? asset('avatars/' . $value) : asset('avatars/default.png');
+}
 }
 
