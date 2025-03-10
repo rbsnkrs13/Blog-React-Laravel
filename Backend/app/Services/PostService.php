@@ -24,7 +24,9 @@ class PostService
 
     public function getPostById($id)
     {    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
-        $post = Post::findOrFail($id);
+
+        $post = Post::find($id);
+
         $post->increment('views'); // contador para que cuando alguien entre en el post especificado aumenten las visitas en la tabla de post
         //  $post->refresh();           //actualiza el campo para mostrarlo correctamente
         return response()->json([

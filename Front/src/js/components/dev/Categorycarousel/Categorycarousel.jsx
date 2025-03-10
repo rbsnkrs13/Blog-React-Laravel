@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Categorycarousel.css';
 import servicioCategorias from '../../../services/categoriesService';
 import Category from '../CategoryCarouselItem/CategoryItem';
@@ -9,14 +9,14 @@ import Loader from '../Loader/Loader';
 
 export default function CategoryCarrousel() {
     const [categories, setCategories] = useState([]);
-
-    servicioCategorias.
-        getCategorias()
-        .then(({ data }) => {
-            setCategories(data)
-        })
-        .catch(err => console.log(err))
-
+    useEffect(() => {
+        servicioCategorias
+            .getCategorias()
+            .then(({ data }) => {
+                setCategories(data);
+            })
+            .catch(err => console.log(err));
+    }, []);
     return (
         <div className="flex justify-center items-center">
             <div className="carousel carousel-vertical rounded-box carousel-Category">

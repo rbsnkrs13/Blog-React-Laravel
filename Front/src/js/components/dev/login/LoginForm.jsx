@@ -34,13 +34,8 @@ export default function LoginForm() {
 
         request
             .then(data => {
-                console.log(data)
                 localStorage.setItem("authToken", data.authToken)
-                // Navigate("/")
-                // localStorage.setItem('userId', response.data.user.id);
-                // localStorage.setItem('userRole', response.data.role[0]);
-                // window.location.href = '/';
-
+                Navigate("/")
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -67,7 +62,7 @@ export default function LoginForm() {
                 <h1 className="text-2xl font-bold">C-Blog</h1>
             </div>
             <div className='form-container'>
-                <LoginFormInput id="username" label="Usuario" type="text" placeholder="Usuario" onChange={handleUsernameChange} />
+                <LoginFormInput id="username" label="Email" type="text" placeholder="ej@gmail.com" onChange={handleUsernameChange} />
                 <LoginFormInput id="password" label="Contraseña" type="password" placeholder="Contraseña" onChange={handlePasswordChange} />
                 {!login &&
                     <><LoginFormInput id="password" label="Confirmar contraseña" type="password" placeholder="Confirmar contraseña" onChange={handleConfirmPasswordChange} />
