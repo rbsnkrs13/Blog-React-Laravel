@@ -16,7 +16,6 @@ const AppRoutes = () => {
     <Routes>
       <Route path={"/"} element={<HomePage />} />
       <Route path={"/logIn"} element={<LogInPage />} />
-      {/* <Route path={"/novedades"} element={<NovedadesPage />} /> */}
       <Route path={"/detallesblog/:blog_id"} element={<DetallesBlogPage />} />
       <Route path={"/perfil/:id_usuario"} element={<PerfilPage />} />
       <Route path={"/blogs/:tipo_blog"} element={<h1>HOlaaaa</h1>} />
@@ -24,10 +23,9 @@ const AppRoutes = () => {
       <Route path={"/autor/:id_usuario"} element={<AutorPage />} />
       <Route path={"/novedades"} element={<NovedadesPage />} />
       <Route path={"/favoritos"} element={<FavPage />} />
+      <Route path={"/dashboard"} element={<DashboardPage />} />
       <Route path={"/categorias/:id_categoria"} element={<CategoryPage />} />
-      {/* <Route path={"/signUp"} element={<h1>Sing up</h1>} /> */}
       {/* <Route path={"/editarBlog/:blog_id"} element={<h1>editar</h1>} /> */}
-      {/* <Route path={"/contador"} element={<Counter />} /> */}
     </Routes>
   );
 };
