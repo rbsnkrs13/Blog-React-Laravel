@@ -23,24 +23,27 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $validator= Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()], //ojo cuidao con eso que podria estar mal
+        $validator = Validator::make($request->all(), [
+            'name_user' => ['required', 'string', 'max:255'],
+            'email_user' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password_user' => ['required', 'confirmed', Rules\Password::min(6)], //ojo cuidao con eso que podria estar mal
         ]);
+
+
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
+        } else {
+            $user = User::create([
+                'name_user' => $request->input('name_user'),
+                'email_user' => $request->input('email_user'),
+                'password_user' => Hash::make($request->input('password_user')),
+            ]);
         }
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->string('password')),
-        ]);
 
         $token = JWTAuth::fromUser($user);
 
-       return response()->json(['token' => $token]);
+        return response()->json(['token' => $token]);
     }
 }
