@@ -78,21 +78,35 @@ class UserService
 
     public function updateUser($data, $user)
     {    // Esta función actualiza un usuario 
-        if ($user) {
-            $user->update([
-                'name_user' => $data->name_user,
-                'email_user' => $data->email_user,
-                // 'name_lastName' => $data->name_lastName,
-                'img_user' => $data->img_user,
-                'bio' => $data->bio,
-                'update_at' => now(),
-            ]);
-            return response()->json(["mensaje" => "Usuario actualizado correctamente", 200]);
-            ;
-        } else {
-            return response()->json(["mensaje" => "Error al actualizar el usuario", 200]);
-            ;
+        if (!$user) {
+            return response()->json(["mensaje" => "Error al actualizar el usuario"], 404);
         }
-    }
+    
+        // Manejo de la imagen
+        if (isset($data->img_user) && $data->hasFile('img_user')) {
+            $image = $data->file('img_user');
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('avatars'), $imageName);
+    
+            // Borrar la imagen anterior si no es la default
+            if ($user->img_user && $user->img_user !== 'avatars/default.png') {
+                $oldImagePath = public_path($user->img_user);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+    
+            $user->img_user = 'avatars/' . $imageName;
+        }
+    
+        // Actualizar usuario con la nueva info
+        $user->update([
+            'name_user' => $data->name_user,
+            'email_user' => $data->email_user,
+            'bio' => $data->bio,
+            'updated_at' => now(),
+        ]);
+    
+        return response()->json(["mensaje" => "Usuario actualizado correctamente"], 200);
 }
 ?>
