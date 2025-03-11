@@ -8,26 +8,35 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoritesService {
     
-    public function addFavorite(User $user, $postId){
-        $post = Post::find($postId); // Encuentra el post
-
-        if($post){
-            $user->favorites()->attach($post->id, ['categories_id' => $post->categories_id]); //metodo para añadir las filas en la tabla favoritos, solo funciona si marcamos las relaciones de las tablas en los Models
-            return response()->json(['mensaje','Post marcado como favorito']);
-        }
-        return response()->json(['mensaje','Post no encontrado']);
-    }
-
-    public function removeFavorite(User $user, $postId)
+    public function addFavorite(User $user, $postId)
     {
         $post = Post::find($postId); // Encuentra el post
-
+    
         if ($post) {
-            $user->favorites()->detach($post->id); //metodo detach para eliminar de la tabla favoritos la fila cuando ya no es tu post el favorito
-            return response()->json(['mensaje','Post eliminado de favorito']);
+            // Solo pasamos el post_id ahora
+            $user->favorites()->create([
+                'post_id' => $post->id,
+            ]);
+            return response()->json(['mensaje' => 'Post marcado como favorito']);
         }
-        return response()->json(['mensaje','Post no encontrado']);
+    
+        return response()->json(['mensaje' => 'Post no encontrado']);
     }
+
+
+    
+        public function removeFavorite(User $user, $postId)
+        {
+            $post = Post::find($postId); // Encuentra el post
+        
+            if ($post) {
+                // Eliminar manualmente de la tabla favorites
+                $user->favorites()->where('post_id', $post->id)->delete();
+                return response()->json(['mensaje' => 'Post eliminado de favoritos']);
+            }
+        
+            return response()->json(['mensaje' => 'Post no encontrado']);
+        }
 
     public function getFavoritesByID($userId)
     {
