@@ -35,7 +35,7 @@ Route::controller(ProfileController::class)->group(function () {
 });
 
 Route::controller(CategoriesController::class)->group(function () {
-    Route::get('/categories', 'index')->middleware('role:admin|editor|viewer');//ver todas categorias
+    Route::get('/categories', 'index');//->middleware('role:admin|editor|viewer');//ver todas categorias
     Route::post('/categories/store', 'store')->name('categories.store')->middleware('role:admin');//crear una categoria
     Route::get('/categories/show/{categories}', 'show')->name('categories.show')->middleware('role:admin|editor|viewer');//motrar todos los post de una categoria
     Route::put('/categories/update/{categories}', 'update')->name('categories.update')->middleware('role:admin');//modificar una categoria

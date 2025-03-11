@@ -63,6 +63,7 @@ class User extends Authenticatable implements JWTSubject  // Implementamos la in
     {
         return $this->getKey();  // Usamos el ID del usuario como identificador único
     }
+    
     public function getAuthPassword()
     {
         return $this->password_user;
