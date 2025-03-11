@@ -35,6 +35,11 @@ class FavoritesService {
             return response()->json(['mensaje' => 'Post no encontrado']);
         }
 
+     public function getFavoritesForUser($user)
+        {
+            return $user->favorites()->with('post')->get();
+        }
+
     public function getFavoritesByID($userId)
     {
         $user = User::find($userId); //no hace falta poner ID ya que find es un metodo predefinido de laravel que busca la PK
