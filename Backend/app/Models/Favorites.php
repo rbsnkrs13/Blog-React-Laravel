@@ -14,7 +14,7 @@ class Favorites extends Model
     protected $table = 'favorites'; // Define la tabla
 
     protected $fillable = ['user_id', 'post_id']; // Campos permitidos
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function user()
     {

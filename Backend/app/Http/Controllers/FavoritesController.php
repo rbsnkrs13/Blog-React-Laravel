@@ -27,22 +27,16 @@ class FavoritesController extends Controller
 
     public function store(Request $request, $postId): JsonResponse
     {
-       // $user = auth()->user(); // Obtiene el usuario autenticado automáticamente
-        //return response()->json($this->favoritesService->addFavorite($user, $postId));
-       // return response()->json($this->favoritesService->addFavorite($postId));
        $user = auth()->user(); // Obtiene el usuario autenticado desde el token
         if (!$user) {
         return response()->json(['error' => 'Usuario no autenticado'], 401);
     }
-
     return $this->favoritesService->addFavorite($user, $postId);
-
     }
 
     public function destroy(Request $request, $postId): JsonResponse
     {
         $user = auth()->user(); // Obtiene el usuario autenticado automáticamente
         return response()->json($this->favoritesService->removeFavorite($user, $postId));
-        //return response()->json($this->favoritesService->removeFavorite($postId));
     }
 }
