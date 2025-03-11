@@ -39,8 +39,5 @@ class rolesSeeder extends Seeder
         $editorRole->givePermissionTo(['create_post', 'update_post', 'publish_post', 'view_post']);
         $readerRole->givePermissionTo(['view_post']);
 
-        // foreach ($adminRole->permissions as $permission) {
-        //     $adminRole->permissions()->updateExistingPivot($permission->id, ['assing_date' => now()]);
-        // }
     }
 }
