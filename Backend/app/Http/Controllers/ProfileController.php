@@ -20,7 +20,7 @@ class ProfileController extends Controller
 
     public function __construct(UserService $userService)
     {
-        $this->middleware('JwtMiddleware');
+        
         $this->userService = $userService;
     }
     
