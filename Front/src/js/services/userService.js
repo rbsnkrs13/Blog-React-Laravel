@@ -22,6 +22,11 @@ class UserService {
     deleteUser(id) {
         return this.api.delete(`/${id}`)
     }
+    verifyUser(token) {
+        return this.api.get('/verify-token',
+            { headers: { Authorization: `Bearer ${token}` } }
+        )
+    }
 }
 
 const userService = new UserService();

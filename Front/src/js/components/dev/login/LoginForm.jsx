@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import logo from '../../../../assets/logo_pluma.svg';
 import './LoginForm.css';
 import userService from '../../../services/userService';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../bootstrap/contexts/AuthContext';
 
 export default function LoginForm() {
     const [username, setUsername] = useState('');
@@ -11,6 +12,14 @@ export default function LoginForm() {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const [login, setLogin] = useState(true);
+
+    const { authenticateUser } = useContext(AuthContext);
+
+
+
+    const navigate = useNavigate();
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -31,16 +40,17 @@ export default function LoginForm() {
             userService.getOneUser(data)
             :
             userService.createUser(data);
-
         request
-            .then(data => {
-                localStorage.setItem("authToken", data.authToken)
-                Navigate("/")
+            .then(({ data }) => {
+                localStorage.setItem("authToken", data.token)
+                authenticateUser()
+                navigate('/')
             })
             .catch(error => {
                 console.error('Error:', error);
             });
-    }
+    };
+
 
     function handleUsernameChange(e) {
         setUsername(e.target.value);
@@ -84,8 +94,8 @@ export default function LoginForm() {
                 </p>
             </div>
         </form>
-    );
 
+    )
 }
 
 function LoginFormInput({ id, label, type, placeholder, onChange }) {
