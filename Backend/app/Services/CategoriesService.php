@@ -45,8 +45,14 @@ class CategoriesService
         }
     }
 
+    public function showCategoriesByName($data)
+    {
+        $categories=Categories::where('name', 'like', '%'. $data. '%')->get();
+        return response()->json(["Nombre" => $categories->pluck('name')]);
+    }
+
     public function destroyCategories($category)
-    { // Esta función recoge la categoria nueva creada
+    { 
         if (Categories::destroy($category->id))
             return response()->json(["mensaje" => "Categoria eliminada correctamente", 204]);
         return response()->json(["mensaje" => "Error al eliminar la categoria", 400]);

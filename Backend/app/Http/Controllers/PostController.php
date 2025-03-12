@@ -91,7 +91,4 @@ class PostController extends Controller
             'postsGroupedByMonthWithViews' => $postsGroupedByMonthWithViews
         ]);
     }
-
-
-
 }

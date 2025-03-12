@@ -24,6 +24,7 @@ Route::get('/user', [ProfileController::class, 'getUser'])->middleware('auth:api
 Route::get('/verify-token', function (Request $request) {
     return response()->json(['message' => 'Token válido', 'user' => $request->user()]);
 });
+Route::get('/categories/{data}',[CategoriesController::class, 'showCategoriesByName']);
 
 Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor');; //muestra todos los usuarios
