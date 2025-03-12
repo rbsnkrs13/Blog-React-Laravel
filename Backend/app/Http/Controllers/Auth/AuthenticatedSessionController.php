@@ -9,15 +9,13 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-
 class AuthenticatedSessionController extends Controller
 {
- 
     public function store(LoginRequest $request)
     {
         $credentials = [
             'email_user' => $request->input('email'),
-            'password' => $request->input('password'), // Laravel espera 'password', pero lo solucionamos con getAuthPassword()
+            'password' => $request->input('password'),
         ];
 
         if (!Auth::attempt($credentials)) {
@@ -25,25 +23,18 @@ class AuthenticatedSessionController extends Controller
         }
 
         $user = Auth::user();
-        $token = JWTAuth::fromUser($user);
+        if ($user->hasRole('banned')) { //verifica si el usuario esta banned, si esta banned no puede entrar y no genera el token
+            return response()->json(['error' => 'Este usuario ha sido suspendido.'], 403);
+        }
 
+        $token = JWTAuth::fromUser($user);
         return response()->json([
             'authToken' => $token,
-            'user' => [
-                '_id' => $user->id,
-                'name' => $user->name_user,
-                'role' => $user->roles->pluck('name'),
-            ]
+            // 'user' => [
+            //     '_id' => $user->id,
+            //     'name' => $user->name_user,
+            //     'role' => $user->roles->pluck('name'),
+            // ]
         ]);
     }
-    // /**
-    //  * Destroy an authenticated session.
-    //  */
-    // public function destroy(Request $request): Response
-    // {
-    //     Auth::logout(); Esta comentado porque lo realizan desde el front
-
-    //     return response()->noContent();
-    // }
-
 }
