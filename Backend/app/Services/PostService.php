@@ -80,10 +80,12 @@ class PostService
 
     public function destroyPost($post)
     { // cambia el post a estado delete
-        if ($post) {
+        if (!auth()->user()->hasRole(['admin', 'editor'])) {
+            return response()->json(['message' => 'No tienes el rol adecuado.'], 403);
+        }elseif ($post) {
             $post->update(['status' => 'deleted']);
             return response()->json(["mensaje" => "Post Cambiado a estado borrado", 200]);
-        } else {
+        } else{
             return response()->json(["mensaje" => "Error al cambiar el estado borrado", 400]);
         }
     }

@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Stmt\TryCatch;
 use Spatie\Permission\Contracts\Role;
+use Illuminate\Http\Request;
 
 class UserService
 {
@@ -76,10 +77,14 @@ class UserService
         }
     }
 
-    public function updateUser($data, $user)
+    public function updateUser(Request $request,$data, User $user)
     {  
+        $authUser = $request->user; //esto gracias al middleware creado de JWT realiza la comprobacion de que el usuario tenga el mismo token
         if (!$user) {
             return response()->json(["mensaje" => "Error al actualizar el usuario"], 404);
+        }
+        if (!$authUser->hasRole('admin') && $authUser->id !== $user->id) {
+            return response()->json(["mensaje" => "No tienes permiso para modificar este usuario"], 403);
         }
     
         if (isset($data->img_user) && $data->hasFile('img_user')) { //manejo de la imagen
@@ -97,14 +102,12 @@ class UserService
             $user->img_user = 'avatars/' . $imageName;
         }
     
-        // Actualizar usuario con la nueva info
-        $user->update([
+        $user->update([// Actualizar usuario con la nueva info
             'name_user' => $data->name_user,
             'email_user' => $data->email_user,
             'bio' => $data->bio,
             'updated_at' => now(),
         ]);
-    
         return response()->json(["mensaje" => "Usuario actualizado correctamente"], 200);
     }
 }
