@@ -6,6 +6,16 @@ class PostService {
         this.api = axios.create({
             baseURL: 'http://localhost:8000/api/posts'
         })
+        this.api.interceptors.request.use((config) => {
+
+            const storedToken = localStorage.getItem("authToken");
+
+            if (storedToken) {
+                config.headers = { Authorization: `Bearer ${storedToken}` }
+            }
+
+            return config
+        })
     }
 
     getOnePost(blog_id) {

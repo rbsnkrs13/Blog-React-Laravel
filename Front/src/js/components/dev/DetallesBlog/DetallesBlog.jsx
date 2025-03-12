@@ -5,8 +5,10 @@ import useResize from '../../../bootstrap/hooks/useResize';
 import useImageLoader from '../../../bootstrap/hooks/useImageLoader';
 import { findNearestSpace } from '../../../bootstrap/utils/textUtils';
 import Editor from '../editor/Editor';
+import { useAlert } from "../../../bootstrap/contexts/AlertContext";
 
 const DetallesBlog = ({ blog }) => {
+    const { addError, addSuccess } = useAlert();
 
     const [imagenCategoria, setImagenCategoria] = useState();
     const [nombreCategoria, setNombreCategoria] = useState()
@@ -21,7 +23,10 @@ const DetallesBlog = ({ blog }) => {
                 setNombreCategoria(data.name)
 
             })
-            .catch((err) => console.log(err));
+            .catch(error => {
+                const data = JSON.parse(error.request.response);
+                addError(data.error);
+            });
     }, [blog.id_categories]);
 
     // const cutoffIndex = blog.content.length > 400 ? findNearestSpace(blog.content, isMobile ? 90 : 400) : null;
