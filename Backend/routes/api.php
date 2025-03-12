@@ -9,8 +9,7 @@ use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Middleware\JwtMiddleware;
+
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -26,7 +25,7 @@ Route::get('/verify-token', function (Request $request) {
 });
 
 Route::controller(ProfileController::class)->group(function () {
-    Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor');; //muestra todos los usuarios
+    Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor'); //muestra todos los usuarios
     Route::get('/users/{user}', 'show')->name('users.show')->middleware('role:admin|editor|viewer'); //muestra el usuario por el id
     Route::post('/users/store', 'store')->name('users.store')->middleware('role:admin');//crea un usuario sin registro normal
     Route::put('/users/update/{user}', 'update')->name('users.update'); //middleware en el servicio
@@ -43,7 +42,7 @@ Route::controller(CategoriesController::class)->group(function () {
 });
 
 Route::controller(RoleController::class)->group(function () {
-    Route::get('/role', 'index')->middleware('role:admin'); 
+    Route::get('/role', 'index')->middleware('role:admin');
     Route::post('/role/store', 'store')->name('role.store')->middleware('role:admin');// crea un nuevo rol
     Route::get('/role/show/{role}', 'show')->name('role.show')->middleware('role:admin');// Enseña un rol 
     Route::put('/role/update/{role}', 'update')->name('role.update')->middleware('role:admin'); // Modifica un roll
