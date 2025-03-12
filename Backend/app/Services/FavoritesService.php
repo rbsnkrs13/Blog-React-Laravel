@@ -11,7 +11,6 @@ class FavoritesService {
     public function addFavorite(User $user, $postId)
     {
         $post = Post::find($postId); // Encuentra el post
-    
         if ($post) {
             $user->favorites()->create([
                 'post_id' => $post->id,
@@ -19,19 +18,16 @@ class FavoritesService {
             ]);
             return response()->json(['mensaje' => 'Post marcado como favorito']);
         }
-    
         return response()->json(['mensaje' => 'Post no encontrado']);
     }
 
     public function removeFavorite(User $user, $postId)
         {
             $post = Post::find($postId); // Encuentra el post
-        
             if ($post) {
                 $user->favorites()->where('post_id', $post->id)->delete();
                 return response()->json(['mensaje' => 'Post eliminado de favoritos']);
             }
-        
             return response()->json(['mensaje' => 'Post no encontrado']);
         }
 

@@ -11,19 +11,18 @@ use Illuminate\Http\Request;
 
 class UserService
 {
-
-    public function getAllUser()
-    { // Esta función recoge todos los datos de la tabla User
+    public function getAllUser() // Esta función recoge todos los datos de la tabla User
+    { 
         return User::all();
     }
 
-    public function getUserById($id)
-    {    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
+    public function getUserById($id)  // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
+    {   
         return User::findOrFail($id);
     }
 
-    public function createUser($data)
-    { // Devuelve el usuario recién creado, la función create recibe un array y va rellenando la BBDD. 
+    public function createUser($data)// Devuelve el usuario recién creado, la función create recibe un array y va rellenando la BBDD. 
+    { 
         try {
             if (User::where('email_user', $data->email_user)->exists()) {
                 return response()->json(['message' => 'El email ya esta registrado', 'mensaje' => 'malmalrequetemal'], 409); // 409, codigo de error de conflicto de datos
@@ -31,7 +30,6 @@ class UserService
             if (User::where('name_user', $data->name_user)->exists()) {
                 return response()->json(['message' => 'El nombre de ususario ya esta registrado'], 409); // 409, codigo de error de conflicto de datos
             }
-
             $user = User::create([
                 'name_user' => $data->name_user,
                 'email_user' => $data->email_user,
@@ -53,8 +51,8 @@ class UserService
         }
     }
 
-    public function assignRoleUser($request, $user)
-    { // Esta función, hace un shoftDelete de un usuario, devuelve mesaje OK o mensaje KO
+    public function assignRoleUser($request, $user) // Esta función, hace un shoftDelete de un usuario, devuelve mesaje OK o mensaje KO
+    { 
         if ($user->hasRole('admin'))
             return (response()->json(["mensaje" => "Error no se puede modificar el rol al usuario administrador"], 400));
         if ($request->role == 'admin')
@@ -66,8 +64,8 @@ class UserService
         return (response()->json(["mensaje" => "Rol asignado con exito"], 200));
     }
 
-    public function deleteUser($user)
-    { // Esta función, hace un shoftDelete de un usuario, devuelve mesaje OK o mensaje KO
+    public function deleteUser($user) // Esta función, hace un shoftDelete de un usuario, devuelve mesaje OK o mensaje KO
+    { 
         if ($user && !$user->hasRole('admin')) {
             $user->delete();
             return (response()->json(["mensaje" => "Usuario eliminado con exito"], 200));

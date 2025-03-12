@@ -9,6 +9,7 @@ use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Middleware\JwtMiddleware;
 
 
 // Route::get('/user', function (Request $request) {
@@ -20,20 +21,22 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 //Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:api');
 Route::get('/user', [ProfileController::class, 'getUser'])->middleware('auth:api');
-Route::get('/verify-token', function (Request $request) {
-    return response()->json(['message' => 'Token válido', 'user' => $request->user()]);
+Route::middleware('auth:api')->get('/verify-token', function (Request $request) {
+    $user = $request->user();
+    return response()->json([
+        'message' => 'Token válido',
+        'user' => [
+            'id' => $user->id,
+            'role' => $user->roles()->first(), // Obtiene el primer rol asignado
+            'email_user' => $user->email_user
+        ]
+    ]);
 });
 Route::get('/categories/{data}',[CategoriesController::class, 'showCategoriesByName']);
 
-<<<<<<< HEAD
-Route::controller(ProfileController::class)->group(function () {
-    Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor'); //muestra todos los usuarios
-    Route::get('/users/{user}', 'show')->name('users.show')->middleware('role:admin|editor|viewer'); //muestra el usuario por el id
-=======
 Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor');; //muestra todos los usuarios
     Route::get('/users/{user}', 'show')->name('users.show')->middleware('role:admin|editor|reader'); //muestra el usuario por el id
->>>>>>> 3ff1c6c4d0e0b9c9a54abe92514332cb8463751c
     Route::post('/users/store', 'store')->name('users.store')->middleware('role:admin');//crea un usuario sin registro normal
     Route::put('/users/update/{user}', 'update')->name('users.update'); //middleware en el servicio
     Route::put('/users/changeRole/{user}', 'changeRole')->name('users.changeRole')->middleware('role:admin'); //cambio de roles, solo se puede si eres adminn
