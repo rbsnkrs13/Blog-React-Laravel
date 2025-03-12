@@ -10,7 +10,7 @@ const DetallesBlog = ({ blog }) => {
 
     const [imagenCategoria, setImagenCategoria] = useState();
     const [nombreCategoria, setNombreCategoria] = useState()
-    const isMobile = useResize();
+    // const isMobile = useResize();
     const loadedImage = useImageLoader(imagenCategoria);
 
     useEffect(() => {
@@ -33,12 +33,12 @@ const DetallesBlog = ({ blog }) => {
             <h3>{blog.title}</h3>
             <div className="tag">{nombreCategoria}</div>
             <div className="contenidoEntero">
-                {/* <div className="blogContImg">
+                <div className="blogContImg">
                     <div className="blogContenido">{primerosCaracteres}</div>
                     <div className="imagenBlog">
                         {loadedImage && <img src={loadedImage} alt={blog.title} />}
                     </div>
-                </div> */}
+                </div>
                 <Editor isEditable={false} post={blog} />
                 {/* {resto ?? <div className="blogContenido2 blogContenido">{resto}</div>} */}
                 <div className="autorNombre">{blog.autor}</div>

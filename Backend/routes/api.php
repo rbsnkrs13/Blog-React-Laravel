@@ -9,8 +9,7 @@ use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Middleware\JwtMiddleware;
+
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -26,9 +25,15 @@ Route::get('/verify-token', function (Request $request) {
 });
 Route::get('/categories/{data}',[CategoriesController::class, 'showCategoriesByName']);
 
+<<<<<<< HEAD
+Route::controller(ProfileController::class)->group(function () {
+    Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor'); //muestra todos los usuarios
+    Route::get('/users/{user}', 'show')->name('users.show')->middleware('role:admin|editor|viewer'); //muestra el usuario por el id
+=======
 Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor');; //muestra todos los usuarios
     Route::get('/users/{user}', 'show')->name('users.show')->middleware('role:admin|editor|reader'); //muestra el usuario por el id
+>>>>>>> 3ff1c6c4d0e0b9c9a54abe92514332cb8463751c
     Route::post('/users/store', 'store')->name('users.store')->middleware('role:admin');//crea un usuario sin registro normal
     Route::put('/users/update/{user}', 'update')->name('users.update'); //middleware en el servicio
     Route::put('/users/changeRole/{user}', 'changeRole')->name('users.changeRole')->middleware('role:admin'); //cambio de roles, solo se puede si eres adminn
@@ -44,7 +49,7 @@ Route::controller(CategoriesController::class)->middleware([JwtMiddleware::class
 });
 
 Route::controller(RoleController::class)->group(function () {
-    Route::get('/role', 'index')->middleware('role:admin'); 
+    Route::get('/role', 'index')->middleware('role:admin');
     Route::post('/role/store', 'store')->name('role.store')->middleware('role:admin');// crea un nuevo rol
     Route::get('/role/show/{role}', 'show')->name('role.show')->middleware('role:admin');// Enseña un rol 
     Route::put('/role/update/{role}', 'update')->name('role.update')->middleware('role:admin'); // Modifica un roll
