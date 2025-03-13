@@ -3,11 +3,14 @@ import './Categorycarousel.css';
 import servicioCategorias from '../../../services/categoriesService';
 import Category from '../CategoryCarouselItem/CategoryItem';
 import Loader from '../Loader/Loader';
+import { useAlert } from "../../../bootstrap/contexts/AlertContext";
 
 
 
 
 export default function CategoryCarrousel() {
+    const { addError, addSuccess } = useAlert();
+
     const [categories, setCategories] = useState([]);
     useEffect(() => {
         servicioCategorias
@@ -15,7 +18,10 @@ export default function CategoryCarrousel() {
             .then(({ data }) => {
                 setCategories(data);
             })
-            .catch(err => console.log(err));
+            .catch(error => {
+                const data = JSON.parse(error.request.response);
+                addError(data.error);
+            });
     }, []);
     return (
         <div className="flex justify-center items-center">

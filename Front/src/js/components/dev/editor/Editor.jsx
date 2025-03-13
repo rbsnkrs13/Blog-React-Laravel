@@ -1,7 +1,11 @@
-import React, { useEffect, useMemo, useState, useCallback, useRef } from "react";
+import React, { useEffect, useMemo, useState, useCallback, useRef, useContext } from "react";
 import axios from "axios";
 import postService from "../../../services/postService";
 import servicioCategorias from "../../../services/categoriesService";
+import { AuthContext } from '../../../bootstrap/contexts/AuthContext';
+import { useAlert } from "../../../bootstrap/contexts/AlertContext";
+import { ErrorAlert, SuccessAlert } from '../Alerts/Alerts';
+
 
 import { html } from '@yoopta/exports';
 import YooptaEditor, { createYooptaEditor } from "@yoopta/editor";
@@ -47,6 +51,8 @@ const TOOLS = {
 };
 
 export default function Editor({ isEditable = true, post = null }) {
+  // const { addError, addSuccess } = useAlert();
+
   const editor = useMemo(() => createYooptaEditor(), []);
   const [value, setValue] = useState({});
   // const [isPreview, setIsPreview] = useState(false);
@@ -54,6 +60,10 @@ export default function Editor({ isEditable = true, post = null }) {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(post ? post.id_categories : 0);
   // if (post) { console.log("selectedcat", selectedCategory); }
+  const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+
+  const { loggedUser } = useContext(AuthContext);
 
   function changeTitle(event) {
     setTitle(event.target.value);
@@ -86,7 +96,7 @@ export default function Editor({ isEditable = true, post = null }) {
 
   const handleSave = async (status) => {
     serializeHTML();
-    const userId = localStorage.getItem('userId');
+    const userId = loggedUser.id;
     let data = {};
     let request = "";
     if (!post) {
@@ -98,15 +108,16 @@ export default function Editor({ isEditable = true, post = null }) {
       request = postService.editPost(post.id, data);
     }
     if (!selectedCategory) {
-      alert('Please select a category before saving.');
+      setErrorMsg('Please select a category before saving.');
       return;
     }
     request
       .then(response => {
-        console.log('Published:', response.data);
+        setSuccessMsg(response.data);
       })
       .catch(error => {
-        console.error('Error publishing:', error);
+        const data = JSON.parse(error.request.response);
+        setErrorMsg(data.error);
       });
   };
 
@@ -124,7 +135,8 @@ export default function Editor({ isEditable = true, post = null }) {
         console.log('Deleted:', response.data);
       })
       .catch(error => {
-        console.error('Error deleting:', error);
+        const data = JSON.parse(error.request.response);
+        setErrorMsg(data.error);
       });
   };
 
@@ -141,7 +153,8 @@ export default function Editor({ isEditable = true, post = null }) {
         setCategories(response.data);
       })
       .catch(error => {
-        console.error('Error fetching categories:', error);
+        const data = JSON.parse(error.request.response);
+        setErrorMsg(data.error);
       });
   }, [categories.length]);
 
@@ -190,6 +203,8 @@ export default function Editor({ isEditable = true, post = null }) {
           </select>
         </label>
       </div>)}
+      {errorMsg && <ErrorAlert msg={errorMsg} />}
+      {successMsg && <SuccessAlert msg={successMsg} />}
       <div className="editor">
         <YooptaEditor
           editor={editor}

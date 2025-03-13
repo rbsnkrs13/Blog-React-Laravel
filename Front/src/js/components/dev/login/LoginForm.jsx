@@ -4,6 +4,8 @@ import './LoginForm.css';
 import userService from '../../../services/userService';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../bootstrap/contexts/AuthContext';
+import { Navigate } from 'react-router-dom';
+import { ErrorAlert, SuccessAlert } from '../Alerts/Alerts';
 
 export default function LoginForm() {
     const [username, setUsername] = useState('');
@@ -15,11 +17,10 @@ export default function LoginForm() {
 
     const { authenticateUser } = useContext(AuthContext);
 
-
-
     const navigate = useNavigate();
 
-
+    const [errorMsg, setErrorMsg] = useState('');
+    const [successMsg, setSuccessMsg] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,7 +29,7 @@ export default function LoginForm() {
         // console.log('email:', email);
         // console.log('confirmPassword:', confirmPassword);
         if (!login && password !== confirmPassword) {
-            alert('Las contraseñas no coinciden');
+            setErrorMsg('Las contraseñas no coinciden');
             return;
         }
 
@@ -44,10 +45,12 @@ export default function LoginForm() {
             .then(({ data }) => {
                 localStorage.setItem("authToken", data.authToken)
                 authenticateUser()
+                setSuccessMsg('Credenciales correctas, serás redirigido en unos segundos.');
                 navigate('/')
             })
             .catch(error => {
-                console.error('Error:', error);
+                const data = JSON.parse(error.request.response);
+                setErrorMsg(data.error);
             });
     };
 
@@ -83,6 +86,8 @@ export default function LoginForm() {
                         <span className="ml-2">Recuerdame</span>
                     </label>
                 </div>}
+                {errorMsg && <ErrorAlert msg={errorMsg} />}
+                {successMsg && <SuccessAlert msg={successMsg} />}
                 <button
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline submit-btn">
