@@ -34,6 +34,12 @@ Route::middleware('auth:api')->get('/verify-token', function (Request $request) 
     ]);
 });
 Route::get('/categories/{data}',[CategoriesController::class, 'showCategoriesByName']);
+Route::middleware('auth:api')->post('/refresh-token', function () { //renueva el token para que no se expire a los 60 minutos
+    return response()->json([
+        'token' => auth()->refresh(),
+        'message' => 'Token actualizado correctamente'
+    ]);
+});
 
 Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor'); //muestra todos los usuarios
