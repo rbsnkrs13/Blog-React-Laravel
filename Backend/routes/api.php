@@ -37,9 +37,9 @@ Route::get('/categories/{data}',[CategoriesController::class, 'showCategoriesByN
 
 Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor'); //muestra todos los usuarios
-    Route::get('/users/{user}', 'show')->name('users.show')->middleware('role:admin,editor,reader'); //muestra el usuario por el id
+    Route::get('/users/{user}', 'show')->name('users.show')->middleware('role:admin|editor|reader'); //muestra el usuario por el id
     Route::post('/users/store', 'store')->name('users.store')->middleware('role:admin');//crea un usuario sin registro normal
-    Route::put('/users/update/{user}', 'update')->name('users.update')->middleware('role:admin,editor,reader');; //middleware en el servicio
+    Route::put('/users/update/{user}', 'update')->name('users.update')->middleware('role:admin|editor|reader');; //middleware en el servicio
     Route::put('/users/changeRole/{user}', 'changeRole')->name('users.changeRole')->middleware('role:admin'); //cambio de roles, solo se puede si eres adminn
     Route::delete('/users/destroy/{user}', 'destroy')->name('users.destroy')->middleware('role:admin'); //eliminar un perfil
 });
