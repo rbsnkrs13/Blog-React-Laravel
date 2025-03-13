@@ -21,8 +21,16 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 //Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:api');
 Route::get('/user', [ProfileController::class, 'getUser'])->middleware('auth:api');
-Route::get('/verify-token', function (Request $request) {
-    return response()->json(['message' => 'Token válido', 'user' => $request->user()]);
+Route::middleware('auth:api')->get('/verify-token', function (Request $request) {
+    $user = $request->user();
+    return response()->json([
+        'message' => 'Token válido',
+        'user' => [
+            'id' => $user->id,
+            'role' => $user->roles()->first()->name, // Obtiene el primer rol asignado
+            'email' => $user->email_user
+        ]
+    ]);
 });
 
 Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
@@ -34,7 +42,9 @@ Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])-
     Route::put('/users/changeRole/{user}', 'changeRole')->name('users.changeRole')->middleware('role:admin'); //cambio de roles, solo se puede si eres adminn
     Route::delete('/users/destroy/{user}', 'destroy')->name('users.destroy')->middleware('role:admin'); //eliminar un perfil
 });
-
+Route::controller(CategoriesController::class)->group(function () {
+    Route::get('/categories', 'index');
+});
 Route::controller(CategoriesController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/categories', 'index');//->middleware('role:admin|editor|reader');//ver todas categorias
     Route::post('/categories/store', 'store')->name('categories.store')->middleware('role:admin');//crear una categoria

@@ -31,15 +31,13 @@ class PostController extends Controller
         return response()->json($this->postService->getAllPost());
     }
 
-<<<<<<< HEAD
     public function showOne(Post $id): JsonResponse
     {
         return response()->json($this->postService->showPost(post: $id));
-=======
-    public function getPostById($id): JsonResponse
-    {
-        return response()->json($this->postService->getPostById($id));
->>>>>>> raul2
+
+        //     public function getPostById($id): JsonResponse
+        // {
+        //     return response()->json($this->postService->getPostById($id));
     }
 
     /**
