@@ -6,7 +6,6 @@ import { AuthContext } from "../bootstrap/contexts/AuthContext";
 const PrivateRoutes = () => {
     const { loggedUser, isLoading } = useContext(AuthContext);
 
-    console.log('loggedUser HOLAAAAAAAA----------->:', loggedUser)
 
     if (isLoading) {
         return <Loader />

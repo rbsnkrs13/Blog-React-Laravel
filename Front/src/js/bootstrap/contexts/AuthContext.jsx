@@ -14,6 +14,7 @@ function AuthProviderWrapper(props) {
             userService
                 .verifyUser(token)
                 .then(({ data }) => {
+                    console.log(data)
                     setLoggedUser(data.user);
                 })
                 .catch(error => {

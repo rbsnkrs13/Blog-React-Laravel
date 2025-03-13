@@ -42,7 +42,7 @@ export default function LoginForm() {
             userService.createUser(data);
         request
             .then(({ data }) => {
-                localStorage.setItem("authToken", data.token)
+                localStorage.setItem("authToken", data.authToken)
                 authenticateUser()
                 navigate('/')
             })

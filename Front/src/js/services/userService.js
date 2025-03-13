@@ -5,6 +5,16 @@ class UserService {
         this.api = axios.create({
             baseURL: 'http://localhost:8000/api'
         })
+        this.api.interceptors.request.use((config) => {
+
+            const storedToken = localStorage.getItem("authToken");
+
+            if (storedToken) {
+                config.headers = { Authorization: `Bearer ${storedToken}` }
+            }
+
+            return config
+        })
     }
     getUsers() {
         return this.api.get('/')
