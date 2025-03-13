@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Categories;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class PostService
@@ -132,6 +133,21 @@ class PostService
             ->orderByDesc('year')
             ->orderByDesc('month')
             ->get();
+    }
+
+    public function getCountPost()
+    {
+        return Post::where('status','published')->count();  
+    }
+
+    public function getViewsPost()
+    {
+        return Post::sum('views');  
+    }
+
+    public function getCountUsers()
+    {
+        return User::count();
     }
 }
 

@@ -40,6 +40,8 @@ Route::middleware('auth:api')->post('/refresh-token', function () { //renueva el
         'message' => 'Token actualizado correctamente'
     ]);
 });
+Route::get('/categories', [CategoriesController::class,'index']);
+Route::get('/posts/footer', [PostController::class, 'getStatsForFooter']);
 
 Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor'); //muestra todos los usuarios
@@ -51,7 +53,7 @@ Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])-
 });
 
 Route::controller(CategoriesController::class)->middleware([JwtMiddleware::class])->group(function () {
-    Route::get('/categories', 'index');//->middleware('role:admin|editor|reader');//ver todas categorias
+   // Route::get('/categories', 'index');//->middleware('role:admin|editor|reader');//ver todas categorias
     Route::post('/categories/store', 'store')->name('categories.store')->middleware('role:admin');//crear una categoria
     Route::get('/categories/show/{categories}', 'show')->name('categories.show')->middleware('role:admin|editor|reader');//motrar todos los post de una categoria
     Route::put('/categories/update/{categories}', 'update')->name('categories.update')->middleware('role:admin');//modificar una categoria
@@ -69,7 +71,7 @@ Route::controller(RoleController::class)->middleware([JwtMiddleware::class])->gr
 Route::controller(PostController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/posts', 'index')->name('posts.index')->middleware('role:admin|editor|reader'); // enseña los 10 últimos
     Route::get('/posts/show', 'show')->middleware('role:admin|editor|reader'); // Enseña todos los posts
-    Route::get('/posts/show/{post}', 'getPostByIdfad')->middleware('role:admin|editor|reader'); // Enseña un post por un id
+    Route::get('/posts/show/{post}', 'getPostById')->middleware('role:admin|editor|reader'); // Enseña un post por un id
     Route::get('/posts/user/{id}', 'postUser')->middleware('role:admin|editor|reader');    //Enseña los post a traves del id del usuario
     Route::get('/posts/searchPosts', 'searchPosts')->middleware('role:admin|editor|reader');    //Ruta para buscar posts BARRA DE BÚSQUEDA
     Route::get('/posts/posts-overview/{userId}', 'getUserPostsOverview')->middleware('role:admin|editor|reader');    // Devuelve las estadísticas para el Dashboard

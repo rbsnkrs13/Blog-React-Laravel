@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
+use App\Models\User;
 use App\Services\PostService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -89,6 +90,18 @@ class PostController extends Controller
             'postsOrderedByViews' => $postsOrderedByViews,
             'postsGroupedByMonth' => $postsGroupedByMonth,
             'postsGroupedByMonthWithViews' => $postsGroupedByMonthWithViews
+        ]);
+    }
+
+    public function getStatsForFooter(): JsonResponse
+    {
+        $postscounts= $this->postService->getCountPost();
+        $postsviewss= $this->postService->getViewsPost();
+        $usercounts= $this->postService->getCountUsers();
+        return response()->json([
+            'Total posts' => $postscounts,
+            'Total views' => $postsviewss,
+            'Total users' => $usercounts
         ]);
     }
 }
