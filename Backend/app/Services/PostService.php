@@ -142,7 +142,7 @@ class PostService
 
     public function getViewsPost()
     {
-        return Post::sum('views');  
+        return Post::where('status','published')->sum('views');  
     }
 
     public function getCountUsers()
