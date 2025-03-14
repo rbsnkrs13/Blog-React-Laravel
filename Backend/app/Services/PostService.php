@@ -4,13 +4,13 @@ namespace App\Services;
 
 use App\Models\Categories;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class PostService
 {
-
-    public function getAllPost()
-    { // Esta función recoge todos los datos de la tabla Post
+    public function getAllPost()// Esta función recoge todos los datos de la tabla Post
+    { 
         return Post::all();
     }
 
@@ -22,9 +22,11 @@ class PostService
             ->get(); // Obtiene los posts
     }
 
-    public function showPost($post)
-    {   // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
+    public function getPostById($id) // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
+    {    
+        $post = Post::findOrFail($id);
         $post->increment('views'); // contador para que cuando alguien entre en el post especificado aumenten las visitas en la tabla de post
+        $post->refresh();           //actualiza el campo para mostrarlo correctamente
         return response()->json([
             "post" => $post,
             "message" => "Visita incrementada en 1"
@@ -33,9 +35,19 @@ class PostService
 
     public function createPost($data)
     { // Esta función recoge el post y lo crea
-        if ($data) {
-            $data = Post::create(
-                [
+        if (!$data) {
+            return response()->json(["mensaje" => "Error al crear el post"], 400);
+        }
+        if (empty($data->id_categories)) {
+            return response()->json(["Error" => "La categoría es obligatoria"], 400);
+        }
+        if (empty($data->title)) {
+            return response()->json(["Error" => "El título es necesario"], 400);
+        }
+        if (empty($data->content)) {
+            return response()->json(["Error" => "El contenido del post es obligatorio"], 400);
+        }
+            $post = Post::create([
                     'id_categories' => $data->id_categories,
                     'user_id' => $data->user_id,
                     'title' => $data->title,
@@ -44,10 +56,14 @@ class PostService
                 ]
             );
             return response()->json(["mensaje" => "Post creado con exito", 201]);
+<<<<<<< HEAD
         } else {
             return response()->json(["mensaje" => "Error al crear el post", 400]);
         }
     }
+=======
+        } 
+>>>>>>> raul2
 
     public function getPostByCategory($cat)
     {    // 
@@ -62,6 +78,7 @@ class PostService
 
     public function updatePost($data, $post)
     {
+<<<<<<< HEAD
         // Usamos updateOrCreate para actualizar o crear un nuevo post
         $updatedPost = Post::updateOrCreate(
             ['id' => $post->id],  // Condición para encontrar el post
@@ -75,11 +92,23 @@ class PostService
         );
 
         return response()->json(["mensaje" => "Post actualizado correctamente", "post" => $updatedPost], 200);
+=======
+    if ($post) { // Actualizar campos manualmente y guardar el modelo
+        $post->id_categories = $data['id_categories'] ?? $post->id_categories;
+        $post->user_id = $data['user_id'] ?? $post->user_id;
+        $post->title = $data['title'] ?? $post->title;
+        $post->content = $data['content'] ?? $post->content;
+        $post->status = $data['status'] ?? $post->status;
+        $post->save();
+        return response()->json(["mensaje" => "Post actualizado correctamente"], 200);
+    } else {
+        return response()->json(["mensaje" => "Error al actualizar el post"], 400);
+        }
+>>>>>>> raul2
     }
 
-
-    public function destroyPost($post)
-    { // cambia el post a estado delete
+    public function destroyPost($post) // cambia el post a estado delete
+    {
         if (!auth()->user()->hasRole(['admin', 'editor'])) {
             return response()->json(['message' => 'No tienes el rol adecuado.'], 403);
         }elseif ($post) {
@@ -89,8 +118,9 @@ class PostService
             return response()->json(["mensaje" => "Error al cambiar el estado borrado", 400]);
         }
     }
-    public function searchBarPosts($search, $perPage)
-    { // Buscamos tanto por título como por contenido.
+
+    public function searchBarPosts($search, $perPage)// Buscamos tanto por título como por contenido.
+    { 
         return Post::where('title', 'like', '%' . $search . '%')
             ->orWhere('content', 'like', '%' . $search . '%')
             ->latest()->paginate($perPage);
@@ -105,13 +135,11 @@ class PostService
             $post->percentage = $totalViews > 0 ? ($post->views / $totalViews) * 100 : 0;
             return $post;
         });
-
         return $postsWithPercentage;
     }
 
-
-    public function getPostsByUserGroupedByMonth($userId)
-    { // En esta función obtenemos la cantidad de post mensuales hechos por el user  
+    public function getPostsByUserGroupedByMonth($userId) // En esta función obtenemos la cantidad de post mensuales hechos por el user 
+    {  
         return Post::where('user_id', $userId)
             ->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as total_posts, ? as user_id', [$userId]) // Selecciona año, mes, total_posts y agrega el user_id
             ->groupBy('year', 'month')
@@ -120,13 +148,28 @@ class PostService
             ->get();
     }
 
-    public function getPostsByUserGroupedByMonthByViews($userId)
-    { // En esta función obtenemos la cantidad de post mensuales y sus visitas totales no por cada post
+    public function getPostsByUserGroupedByMonthByViews($userId) // En esta función obtenemos la cantidad de post mensuales y sus visitas totales no por cada post
+    { 
         return Post::where('user_id', $userId)
             ->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as total_posts, SUM(views) as total_views, ? as user_id', [$userId]) // Selecciona año, mes, total_posts, total_views y agrega el user_id
             ->groupBy('year', 'month')
             ->orderByDesc('year')
             ->orderByDesc('month')
             ->get();
+    }
+
+    public function getCountPost()
+    {
+        return Post::where('status','published')->count();  
+    }
+
+    public function getViewsPost()
+    {
+        return Post::where('status','published')->sum('views');  
+    }
+
+    public function getCountUsers()
+    {
+        return User::count();
     }
 }

@@ -5,8 +5,7 @@ namespace App\Http;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Authenticate;
 use App\Http\Middleware\JwtMiddleware;
-use Spatie\Permission\Middlewares\RoleMiddleware;
-use Spatie\Permission\Middlewares\PermissionMiddleware;
+use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -32,8 +31,8 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         'auth' => AuthenticatedSessionController::class, // Middleware de autenticación básica
-        'JwtMiddleware' => JwtMiddleware::class,  // Tu middleware JWT
-        'role' => RoleMiddleware::class,          // Middleware de roles de Spatie
-        'permission' => PermissionMiddleware::class, // Middleware de permisos de Spatie
+        'jwt' => \App\Http\Middleware\JwtMiddleware::class,  // Tu middleware JWT
+        'role' => \App\Http\Middleware\RoleMiddleware::class,          // Middleware de roles de Spatie
+        //'permission' => PermissionMiddleware::class, // Middleware de permisos de Spatie, sale en rojo por que no esta creado
     ];
 }

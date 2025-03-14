@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
         $token = JWTAuth::fromUser($user);
         return response()->json([
             'authToken' => $token,
-            // 'user' => [
+            // 'user' => [ //para mostrar a parte del token info del usuario
             //     '_id' => $user->id,
             //     'name' => $user->name_user,
             //     'role' => $user->roles->pluck('name'),
