@@ -56,14 +56,7 @@ class PostService
                 ]
             );
             return response()->json(["mensaje" => "Post creado con exito", 201]);
-<<<<<<< HEAD
-        } else {
-            return response()->json(["mensaje" => "Error al crear el post", 400]);
-        }
-    }
-=======
         } 
->>>>>>> raul2
 
     public function getPostByCategory($cat)
     {    // 
@@ -78,21 +71,6 @@ class PostService
 
     public function updatePost($data, $post)
     {
-<<<<<<< HEAD
-        // Usamos updateOrCreate para actualizar o crear un nuevo post
-        $updatedPost = Post::updateOrCreate(
-            ['id' => $post->id],  // Condición para encontrar el post
-            [                       // Valores a actualizar o crear
-                'id_categories' => $data['id_categories'] ?? $post->id_categories,
-                'user_id' => $data['user_id'] ?? $post->user_id,
-                'title' => $data['title'] ?? $post->title,
-                'content' => $data['content'] ?? $post->content,
-                'status' => $data['status'] ?? $post->status
-            ]
-        );
-
-        return response()->json(["mensaje" => "Post actualizado correctamente", "post" => $updatedPost], 200);
-=======
     if ($post) { // Actualizar campos manualmente y guardar el modelo
         $post->id_categories = $data['id_categories'] ?? $post->id_categories;
         $post->user_id = $data['user_id'] ?? $post->user_id;
@@ -104,7 +82,6 @@ class PostService
     } else {
         return response()->json(["mensaje" => "Error al actualizar el post"], 400);
         }
->>>>>>> raul2
     }
 
     public function destroyPost($post) // cambia el post a estado delete
