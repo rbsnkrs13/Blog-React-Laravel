@@ -1,10 +1,13 @@
 // import Container from 'react-bootstrap/Container';
 // import Nav from 'react-bootstrap/Nav';
 // import Navbar from 'react-bootstrap/Navbar';
+import { useContext } from 'react';
 import './NavigationMobile.css'
 import logoPluma from '../../../../assets/logo_pluma.svg';
+import { AuthContext } from '../../../bootstrap/contexts/AuthContext';
 
 function NavigationMobile() {
+  const { loggedUser, logOut } = useContext(AuthContext);
 
   return (
 
@@ -18,7 +21,7 @@ function NavigationMobile() {
           <ul
             tabIndex={0}
             className="menu dropdown-content bg-base-100 rounded-box z-[1] mt-4 w-70 p-2 shadow collapseNav">
-            <li>
+            {/* <li>
               <a>
                 <div className="linksNavMob">estadisticas de autor</div>
               </a>
@@ -27,12 +30,16 @@ function NavigationMobile() {
               <a>
                 <div className="linksNavMob">favoritos</div>
               </a>
-            </li>
-            <li>
-              <a href="">
-                <div className="linksNavMob">pefil</div>
-              </a>
-            </li>
+            </li> */}
+            <a href="/"><li><div className="linksNavMob">Inicio</div></li></a>
+            <a href="/novedades"><li><div className="linksNavMob">Novedades</div></li></a>
+            {loggedUser && (<>
+              <a href="#about" ><li><div className="linksNavMob">Favoritos</div></li></a>
+              <a href="#services" ><li><div className="linksNavMob">Perfil</div></li></a>
+              <a href='/crearBlog'><li><div className="linksNavMob">Crear Post</div></li></a>
+              <a href="#" onClick={logOut}><li><div className="linksNavMob">Cerrar sesion</div></li></a>
+            </>)}
+            {!loggedUser && (<a href="/logIn" ><li><div className="linksNavMob">Iniciar Sesion</div></li></a>)}
           </ul>
         </div>
       </div>
