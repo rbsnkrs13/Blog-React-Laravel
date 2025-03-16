@@ -16,10 +16,12 @@ function AuthProviderWrapper(props) {
                 .then(({ data }) => {
                     console.log(data)
                     setLoggedUser(data.user);
+                    //setIsLoading(false); // Podemos quitar el .finally
                 })
                 .catch(error => {
                     console.error("Error:", error);
-                    setLoggedUser(null); // En caso de error, aseguramos que no haya usuario logueado
+                    logOut(); // En caso de error, aseguramos que no haya usuario logueado
+                    //setLoggedUser(null); 
                 })
                 .finally(() => {
                     setIsLoading(false); // Se ejecuta siempre, con éxito o error
