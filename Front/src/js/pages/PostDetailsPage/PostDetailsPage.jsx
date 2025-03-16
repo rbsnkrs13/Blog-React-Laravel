@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
 
-import DetallesBlog from '../../components/dev/DetallesBlog/DetallesBlog';
-import postService from '../../services/postService';
+import PostDetails from '../../components/dev/PostDetails/PostDetails.jsx';
+import postService from '../../services/postService.js';
 import { useState, useEffect } from 'react';
 import Loader from '../../components/dev/Loader/Loader.jsx'
-import { useAlert } from "../../bootstrap/contexts/AlertContext";
+import { useAlert } from "../../bootstrap/contexts/AlertContext.jsx";
 
-const DetallesBlogPage = () => {
+const PostDetailsPage = () => {
   const { addError, addSuccess } = useAlert();
 
   const { blog_id } = useParams();
@@ -36,10 +36,10 @@ const DetallesBlogPage = () => {
 
   return (
     <div>
-      {blog ? <DetallesBlog blog={blog} /> : <Loader />}
+      {blog ? <PostDetails blog={blog} /> : <Loader />}
     </div >
 
   );
 };
 
-export default DetallesBlogPage;
+export default PostDetailsPage;

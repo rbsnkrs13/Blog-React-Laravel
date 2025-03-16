@@ -32,11 +32,11 @@ function NavigationMobile() {
               </a>
             </li> */}
             <a href="/"><li><div className="linksNavMob">Inicio</div></li></a>
-            <a href="/novedades"><li><div className="linksNavMob">Novedades</div></li></a>
+            <a href="/news"><li><div className="linksNavMob">Novedades</div></li></a>
             {loggedUser && (<>
-              <a href="#about" ><li><div className="linksNavMob">Favoritos</div></li></a>
+              <a href="/favorites" ><li><div className="linksNavMob">Favoritos</div></li></a>
               <a href="#services" ><li><div className="linksNavMob">Perfil</div></li></a>
-              <a href='/crearBlog'><li><div className="linksNavMob">Crear Post</div></li></a>
+              <a href='/createPost'><li><div className="linksNavMob">Crear Post</div></li></a>
               <a href="#" onClick={logOut}><li><div className="linksNavMob">Cerrar sesion</div></li></a>
             </>)}
             {!loggedUser && (<a href="/logIn" ><li><div className="linksNavMob">Iniciar Sesion</div></li></a>)}

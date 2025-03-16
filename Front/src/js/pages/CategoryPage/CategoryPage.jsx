@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import CreatePost from "../../components/dev/createPost/createPost";
+import CreatePost from "../../components/dev/CreatePost/createPost";
 import BackToTop from "../../components/dev/BackToTop/BackToTop";
 import ArticleFinder from "../../components/dev/article_finder/ArticleFinder";
-import DetallesBlog from "../../components/dev/DetallesBlog/DetallesBlog";
+import PostDetails from "../../components/dev/PostDetails/PostDetails";
 import './CategoryPage.css';
 
 const CategoryPage = () => {
@@ -49,7 +49,7 @@ const CategoryPage = () => {
         {articulos.map((articulo) => (
           <li key={articulo.id} className="enlace-item">
             <a href={`/detallesBlog/${articulo.id}`}>
-              <DetallesBlog blog={articulo} />
+              <PostDetails blog={articulo} />
             </a>
           </li>
         ))}

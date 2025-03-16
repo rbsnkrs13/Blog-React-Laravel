@@ -28,7 +28,7 @@ import ActionMenu, { DefaultActionMenuRender } from '@yoopta/action-menu-list';
 import Toolbar, { DefaultToolbarRender } from '@yoopta/toolbar';
 import { Bold, Italic, CodeMark, Underline, Strike, Highlight } from '@yoopta/marks';
 
-// import DeatallesBlog from "./DetallesBlog";
+// import DeatallesBlog from "./PostDetails";
 import "./Editor.css";
 
 const MARKS = [Bold, Italic, CodeMark, Underline, Strike, Highlight];

@@ -14,12 +14,12 @@ const NavigationPC = () => {
             <div className="listaPc">
                 <ul>
                     <a href="/"><li><div className="textoNavbar">Inicio</div></li></a>
-                    <a href="/novedades"><li><div className="textoNavbar">Novedades</div></li></a>
+                    <a href="/news"><li><div className="textoNavbar">Novedades</div></li></a>
                     {loggedUser && (
                         <>
-                            <a href="#about" ><li><div className="textoNavbar">Favoritos</div></li></a>
+                            <a href="/favorite_posts" ><li><div className="textoNavbar">Favoritos</div></li></a>
                             <a href="#services" ><li><div className="textoNavbar">Perfil</div></li></a>
-                            <a href='/crearBlog'><li><div className="textoNavbar">Crear Post</div></li></a>
+                            <a href='/createPost'><li><div className="textoNavbar">Crear Post</div></li></a>
                             <a href="#" onClick={logOut} >  <li><div className="textoNavbar">Cerrar sesion</div></li></a>
                         </>)}
                     {!loggedUser && (<a href="/logIn" >  <li><div className="textoNavbar">Iniciar Sesion</div></li></a>)}

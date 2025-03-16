@@ -1,13 +1,13 @@
 import servicioCategorias from '../../../services/categoriesService';
-import './DetallesBlog.css';
+import './PostDetails.css';
 import { useState, useEffect } from 'react';
 import useResize from '../../../bootstrap/hooks/useResize';
 import useImageLoader from '../../../bootstrap/hooks/useImageLoader';
 import { findNearestSpace } from '../../../bootstrap/utils/textUtils';
-import Editor from '../editor/Editor';
+import Editor from '../Editor/Editor';
 import { useAlert } from "../../../bootstrap/contexts/AlertContext";
 
-const DetallesBlog = ({ blog }) => {
+const PostDetails = ({ blog }) => {
     const { addError, addSuccess } = useAlert();
 
     const [imagenCategoria, setImagenCategoria] = useState();
@@ -49,4 +49,4 @@ const DetallesBlog = ({ blog }) => {
         </div>
     );
 }
-export default DetallesBlog;
+export default PostDetails;

@@ -16,7 +16,7 @@ export default function Category({ title, imageUrl, description }) {
 
     return (
         <div className="relative category-Carrousel-container">
-            <a href={`/categorias/${title}`}>
+            <a href={`/categories/${title}`}>
                 <img
                     src={loadedImage}
                     alt={title}

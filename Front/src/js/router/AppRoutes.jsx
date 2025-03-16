@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import AuthorPage from "../pages/AuthorPage/AuthorPage";
-import CrearBlogPage from "../pages/CrearBlogPage/CrearBlogPage";
-import DetallesBlogPage from "../pages/DetallesBlogPage/DetallesBlogPage";
+import CreatePostPage from "../pages/CreatePostPage/CreatePostPage";
+import PostDetailsPage from "../pages/PostDetailsPage/PostDetailsPage";
 import LogInPage from "../pages/LogInPage/LogInPage";
-import PerfilPage from "../pages/PerfilPage/PerfilPage";
+import AccPage from "../pages/AccPage/AccPage";
 import HomePage from "../pages/HomePage/HomePage";
-import NovedadesPage from "../pages/NovedadesPage/NovedadesPage";
+import NewsPage from "../pages/NewsPage/NewsPage";
 import FavPage from "../pages/FavPage/FavPage";
 import CategoryPage from "../pages/CategoryPage/CategoryPage";
 // import EditarBlogPage from "../pages/EditarBlogPage/EditarBlogPage";
@@ -20,19 +20,19 @@ const AppRoutes = () => {
 
       <Route element={<PrivateRoutes />} >
 
-        <Route path={"/detallesblog/:blog_id"} element={<DetallesBlogPage />} />
-        <Route path={"/perfil/:id_usuario"} element={<PerfilPage />} />
-        <Route path={"/blogs/:tipo_blog"} element={<h1>HOlaaaa</h1>} />
-        <Route path={"/crearBlog"} element={<CrearBlogPage />} />
+        <Route path={"/postDetails/:blog_id"} element={<PostDetailsPage />} />
+        <Route path={"/acc/:id_usuario"} element={<AccPage />} />
+        {/* <Route path={"/blogs/:tipo_blog"} element={<h1>HOlaaaa</h1>} /> */}
+        <Route path={"/createPost"} element={<CreatePostPage />} />
         <Route path={"/author/:authorId"} element={<AuthorPage />} />
-        <Route path={"/novedades"} element={<NovedadesPage />} />
-        <Route path={"/favoritos"} element={<FavPage />} />
+        <Route path={"/news"} element={<NewsPage />} />
+        <Route path={"/favorite_posts"} element={<FavPage />} />
         <Route path={"/dashboard"} element={<DashboardPage />} />
         <Route path={"/categorias/:id_categoria"} element={<CategoryPage />} />
         {/* <Route path={"/editarBlog/:blog_id"} element={<h1>editar</h1>} /> */}
       </Route>
 
-      <Route path={"*"} element={<h1>this page doesnt't exist :(</h1>} />
+      <Route path={"*"} element={<h1>Esta pagina no existe :(</h1>} />
     </Routes>
   );
 };
