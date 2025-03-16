@@ -1,7 +1,6 @@
 import CreatePost from "../../components/dev/createPost/createPost";
 import Title from "../../components/dev/title/TitleBlog";
 import BackToTop from "../../components/dev/backToTop/BackToTop";
-import LikeButton from "../../components/dev/likeButton/LikeButton";
 import Categorycarousel from "../../components/dev/Categorycarousel/Categorycarousel";
 import Separador from "../../components/dev/Separador/Separador";
 import ArticleFinder from "../../components/dev/article_finder/ArticleFinder";
@@ -24,7 +23,6 @@ const HomePage = () => {
       <Counter />
       <BackToTop />
       <CreatePost />
-      {/* <LikeButton /> */}
     </div>
   );
 };
