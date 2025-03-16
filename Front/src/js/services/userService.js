@@ -26,6 +26,10 @@ class UserService {
     getOneUser(data) {
         return this.api.post(`/login`, data)
     }
+    getUserById(id) {
+        return this.api.get(`/users/${id}`)
+    }
+    
     editUser(id, data) {
         return this.api.put(`/${id}`, data)
     }

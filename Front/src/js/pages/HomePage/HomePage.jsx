@@ -1,5 +1,5 @@
 import CreatePost from "../../components/dev/createPost/createPost";
-import Title from "../../components/dev/title/TitleBlog";
+import Title from "../../components/dev/Title/TitleBlog";
 import BackToTop from "../../components/dev/backToTop/BackToTop";
 import Categorycarousel from "../../components/dev/Categorycarousel/Categorycarousel";
 import Separador from "../../components/dev/Separador/Separador";

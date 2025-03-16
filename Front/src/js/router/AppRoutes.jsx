@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import AutorPage from "../pages/AutorPage/AutorPage";
+import AuthorPage from "../pages/AuthorPage/AuthorPage";
 import CrearBlogPage from "../pages/CrearBlogPage/CrearBlogPage";
 import DetallesBlogPage from "../pages/DetallesBlogPage/DetallesBlogPage";
 import LogInPage from "../pages/LogInPage/LogInPage";
@@ -24,7 +24,7 @@ const AppRoutes = () => {
         <Route path={"/perfil/:id_usuario"} element={<PerfilPage />} />
         <Route path={"/blogs/:tipo_blog"} element={<h1>HOlaaaa</h1>} />
         <Route path={"/crearBlog"} element={<CrearBlogPage />} />
-        <Route path={"/autor/:id_usuario"} element={<AutorPage />} />
+        <Route path={"/author/:authorId"} element={<AuthorPage />} />
         <Route path={"/novedades"} element={<NovedadesPage />} />
         <Route path={"/favoritos"} element={<FavPage />} />
         <Route path={"/dashboard"} element={<DashboardPage />} />
