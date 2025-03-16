@@ -99,13 +99,13 @@ class PostController extends Controller
 
     public function getStatsForFooter(): JsonResponse
     {
-        $postscounts= $this->postService->getCountPost();
-        $postsviewss= $this->postService->getViewsPost();
-        $usercounts= $this->postService->getCountUsers();
+        $postscounts = $this->postService->getCountPost();
+        $postsviewss = $this->postService->getViewsPost();
+        $usercounts = $this->postService->getCountUsers();
         return response()->json([
-            'Total posts' => $postscounts,
-            'Total views' => $postsviewss,
-            'Total users' => $usercounts
+            'Articulos' => $postscounts,
+            'Vistas' => $postsviewss,
+            'Usuarios' => $usercounts
         ]);
     }
 }
