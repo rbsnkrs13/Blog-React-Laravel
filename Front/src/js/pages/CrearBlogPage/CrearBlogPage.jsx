@@ -6,7 +6,7 @@ import PostTable from "../../components/dev/PostsTable/PostTable";
 import Editor from "../../components/dev/editor/Editor";
 import Separador from "../../components/dev/Separador/Separador";
 import postService from "../../services/postService";
-import { useAlert } from "../../../bootstrap/contexts/AlertContext";
+import { useAlert } from "../../bootstrap/contexts/AlertContext";
 
 // import Separador from "../../components/dev/separador/Separador";
 

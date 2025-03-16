@@ -4,7 +4,7 @@ import DetallesBlog from '../../components/dev/DetallesBlog/DetallesBlog';
 import postService from '../../services/postService';
 import { useState, useEffect } from 'react';
 import Loader from '../../components/dev/Loader/Loader.jsx'
-import { useAlert } from "../../../bootstrap/contexts/AlertContext";
+import { useAlert } from "../../bootstrap/contexts/AlertContext";
 
 const DetallesBlogPage = () => {
   const { addError, addSuccess } = useAlert();

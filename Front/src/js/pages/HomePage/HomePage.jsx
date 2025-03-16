@@ -19,12 +19,12 @@ const HomePage = () => {
       <Separador />
       <ArticleFinder />
       <Separador />
-      <Authors/>
+      <Authors />
       <Separador />
       <Counter />
       <BackToTop />
       <CreatePost />
-      <LikeButton />
+      {/* <LikeButton /> */}
     </div>
   );
 };

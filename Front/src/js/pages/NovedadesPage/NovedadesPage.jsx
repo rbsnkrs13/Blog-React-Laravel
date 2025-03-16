@@ -4,7 +4,7 @@ import postService from '../../services/postService';
 import Loader from '../../components/dev/Loader/Loader';
 import DetallesBlog from '../../components/dev/DetallesBlog/DetallesBlog';
 import { redirect } from 'react-router-dom';
-import { useAlert } from "../../../bootstrap/contexts/AlertContext";
+import { useAlert } from "../../bootstrap/contexts/AlertContext";
 
 
 const NovedadesPage = () => {
