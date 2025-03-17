@@ -33,7 +33,7 @@ class FavoritesService {
 
      public function getFavoritesForUser($user)
         {
-            return $user->favorites()->with('post')->get();
+            return $user->favorites()->with('post')->get()->pluck('post');
         }
 
     public function getFavoritesByID($userId)
