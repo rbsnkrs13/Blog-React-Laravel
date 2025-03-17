@@ -8,18 +8,46 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoritesService {
     
+    // public function addFavorite(User $user, $postId)
+    // {
+    //     $post = Post::find($postId); // Encuentra el post
+    //     if ($post) {
+    //         $user->favorites()->create([
+    //             'post_id' => $post->id,
+    //             'created_at' => now(),
+    //         ]);
+    //         return response()->json(['mensaje' => 'Post marcado como favorito']);
+    //     }
+    //     return response()->json(['mensaje' => 'Post no encontrado']);
+    // }
+
     public function addFavorite(User $user, $postId)
     {
-        $post = Post::find($postId); // Encuentra el post
-        if ($post) {
-            $user->favorites()->create([
-                'post_id' => $post->id,
-                'created_at' => now(),
-            ]);
-            return response()->json(['mensaje' => 'Post marcado como favorito']);
+        // Buscar el post
+        $post = Post::find($postId);
+    
+        if (!$post) {
+            return response()->json(['mensaje' => 'Post no encontrado']);
         }
-        return response()->json(['mensaje' => 'Post no encontrado']);
+    
+        // Verificar si ya está en favoritos
+        $exists = $user->favorites()->where('post_id', $postId)->exists();
+    
+        if ($exists) {
+            return response()->json(['mensaje' => 'Este post ya está en favoritos']);
+        }
+    
+        // Si no existe, lo añadimos
+        $user->favorites()->create([
+            'post_id' => $post->id,
+            'created_at' => now(),
+        ]);
+    
+        return response()->json(['mensaje' => 'Post marcado como favorito']);
     }
+    
+
+
 
     public function removeFavorite(User $user, $postId)
         {
