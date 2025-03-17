@@ -7,7 +7,7 @@ import PostDetails from "../../components/dev/PostDetails/PostDetails";
 import './CategoryPage.css';
 
 const CategoryPage = () => {
-  const { id_categoria } = useParams();
+  const { id_categorie } = useParams();
   const [numArticulos, setNumArticulos] = useState(0);
   const [articulos, setArticulos] = useState([]);
 
@@ -31,12 +31,12 @@ const CategoryPage = () => {
 
     setNumArticulos(data.numArticulos);
     setArticulos(data.articulos);
-  }, [id_categoria]);
+  }, [id_categorie]);
 
   return (
     <div>
       <div className="Titulo_Sin_Fondo text-center p-2">
-        {id_categoria}
+        {id_categorie}
       </div>
       <div className="numArticulos">
         <p>{numArticulos} artículos</p>
