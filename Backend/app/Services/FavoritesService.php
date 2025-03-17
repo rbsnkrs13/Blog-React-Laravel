@@ -7,21 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class FavoritesService {
-    
-    // public function addFavorite(User $user, $postId)
-    // {
-    //     $post = Post::find($postId); // Encuentra el post
-    //     if ($post) {
-    //         $user->favorites()->create([
-    //             'post_id' => $post->id,
-    //             'created_at' => now(),
-    //         ]);
-    //         return response()->json(['mensaje' => 'Post marcado como favorito']);
-    //     }
-    //     return response()->json(['mensaje' => 'Post no encontrado']);
-    // }
 
-    public function addFavorite(User $user, $postId)
+    public function addFavorite(User $user, $postId) // Esta función permite no duplicar los post en la tabla favoritos
     {
         // Buscar el post
         $post = Post::find($postId);
