@@ -71,16 +71,19 @@ class PostController extends Controller
     }
 
 
-    public function searchPosts(Request $request)
+    public function searchPosts(Request $request, $page = 1)
     { // En esta función cogemos la búsqueda y damos un número de post para pintar por pantalla
         $search = $request->input('search');
         $perPage = $request->input('perPage', 10);
         if ($search) {
-            $posts = $this->postService->searchBarPosts($search, $perPage);
+            $posts = $this->postService->searchBarPosts($search, $perPage,$page);
             if ($posts->isEmpty()) {
                 return response()->json(["mensaje" => "No existen posts con '$search' como busqueda", 200]);
             } else {
-                return response()->json($posts);
+                return response()->json([
+                    'current_page' => $page,
+                    'posts' =>$posts
+            ]);
             }
         }
     }
