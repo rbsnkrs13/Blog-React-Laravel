@@ -60,6 +60,13 @@ class CategoriesService
     {    // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
         return Categories::findOrFail($id);
     }
+    public function getPostsForCategory($name) //devuelve todos los posts de una categoria a traves del nombre
+    {
+        $category = Categories::where('name', $name)->firstOrFail();
+        return Post::where('id_categories', $category->id)
+            ->where('status', 'published')
+            ->get();
+    }
 }
 
 ?>

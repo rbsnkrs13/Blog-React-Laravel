@@ -96,7 +96,7 @@ class PostService
         }
     }
 
-    public function searchBarPosts($search, $perPage)// Buscamos tanto por título como por contenido.
+    public function searchBarPosts($search, $perPage)// Buscamos tanto por título como por contenido. esta NO es, la que funciona esta en el controlador directamente hecha, NO FUNSIONA
     { 
         return Post::where('title', 'like', '%' . $search . '%')
             ->orWhere('content', 'like', '%' . $search . '%')

@@ -63,4 +63,10 @@ class CategoriesController extends Controller
     {
         return $this->categoriesService->destroyCategories($categories);
     }
+    
+    public function PostForCategory($name)
+    {
+        $posts = $this->categoriesService->getPostsForCategory($name);
+        return response()->json(["Post" => $posts]);
+    }
 }
