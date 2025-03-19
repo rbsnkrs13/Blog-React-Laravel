@@ -9,6 +9,7 @@ use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Middleware\JwtMiddleware;
 use App\Http\Kernel;
 use App\Http\Middleware\RoleMiddleware;
@@ -69,6 +70,11 @@ Route::controller(RoleController::class)->middleware([JwtMiddleware::class])->gr
     Route::get('/role/show/{role}', 'show')->name('role.show')->middleware('role:admin'); // Enseña un rol 
     Route::put('/role/update/{role}', 'update')->name('role.update')->middleware('role:admin'); // Modifica un roll
     Route::delete('/role/destroy/{role}', 'destroy')->name('role.destroy')->middleware('role:admin'); // Elimina un roll
+});
+
+Route::controller(PermissionController::class)->middleware([JwtMiddleware::class])->group(function () {
+    Route::get('/permission', 'index')->middleware('role:admin');
+
 });
 
 Route::controller(PostController::class)->middleware([JwtMiddleware::class])->group(function () {
