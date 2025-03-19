@@ -5,32 +5,44 @@ import BackToTop from "../../components/dev/backToTop/BackToTop";
 import ArticleFinder from "../../components/dev/article_finder/ArticleFinder";
 import PostDetails from "../../components/dev/PostDetails/PostDetails";
 import './CategoryPage.css';
-import postService from '../../services/postService';
+import categoriesService from '../../services/categoriesService';
 
 const CategoryPage = () => {
   const location = useLocation();
-  const id_categorie = location.state?.id_categorie;
+//     const id_categorie = location.state?.id_categorie;
+const title = location.state?.title;
 
-  const {title} = useParams();
-  console.log(  id_categorie
-);
+//     const { title } = useParams();
+  console.log(title);
   const [numArticulos, setNumArticulos] = useState(0);
   const [articulos, setArticulos] = useState([]);
 
-    useEffect(() => {
-      postService.getCategoryPosts(id_categorie)
+  useEffect(() => {
+    if (title) {
+      categoriesService.gerPostForCategory(title)
         .then(({ data }) => {
           console.log(data);
-          setArticulos(data);
-          setNumArticulos(data.length); // Set the number of articles based on the data length
+          const posts = data.Post; // Accede a la propiedad Post
+          if (Array.isArray(posts)) {
+            setArticulos(posts);
+            setNumArticulos(posts.length); // Set the number of articles based on the data length
+          } else {
+            console.error('La respuesta de la API no es un array:', posts);
+          }
+        })
+        .catch(error => {
+          console.error('Error al obtener los artículos de la categoría:', error);
         });
-    }, []);
+    } else {
+      console.error('title es undefined');
+    }
+  }, [title]);
+  console.log(articulos);
   return (
     <div>
       <div className="Titulo_Sin_Fondo text-center p-2">
-        
         {title}
-        {id_categorie}
+{/*                 {id_categorie} */}
       </div>
       <div className="numArticulos">
         <p>{numArticulos} artículos</p>
