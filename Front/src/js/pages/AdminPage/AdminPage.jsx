@@ -7,16 +7,14 @@ const AdminPage = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    userService
-      .getUsers()
+    userService.getUsers()
       .then(({ data }) => {
         setUsers(data);
       });
   }, []);
 
   const handleDelete = (userId) => {
-    userService
-      .deleteUser(userId)
+    userService.deleteUser(userId)
       .then(() => {
         setUsers(users.filter(user => user.id !== userId));
       })
