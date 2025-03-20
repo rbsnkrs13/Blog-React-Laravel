@@ -35,7 +35,7 @@ export default function PostTable({ posts }) {
           {posts.slice(0, 10).map((item, index) => (
             <tr
               key={index}
-              onClick={() => navigate(`/detallesBlog/${item.id}`)}
+              onClick={() => navigate(`/postDetails/${item.id}`)}
             >
               <th>{index + 1}</th>
               <td>{item.title}</td>

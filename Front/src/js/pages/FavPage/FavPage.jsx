@@ -21,7 +21,7 @@ const FavPage = () => {
   }, []);
 
   return (
-    <div className='favourites-page'>
+    <div className="mt-4 mb-4 favourites-page">
       <h1 className='favourites'>Favoritos:</h1>
       {/* <NewsCarousel className="carousel-news" newsItems={newsItems} /> */}
       {favPosts && <PostTable posts={favPosts} />}

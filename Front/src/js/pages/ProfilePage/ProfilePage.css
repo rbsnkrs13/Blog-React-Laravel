@@ -6,7 +6,7 @@
  --grisOscuro: #353b3c;
  } 
 
- .favourites-page{
+ .profile-page{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,13 +14,13 @@
     overflow: hidden;
     height: 80vw;
 
-    div{
+    >div{
         width: 80%;
     }
  }
 
 
-.favourites{
+.profile{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

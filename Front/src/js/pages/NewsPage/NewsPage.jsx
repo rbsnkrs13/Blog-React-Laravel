@@ -41,7 +41,7 @@ const NewsPage = () => {
   };
 
   return (
-    <div className='novedades-page'>
+    <div className='mb-4 mt-4 novedades-page'>
       <h1 className='novedades'>Novedades:</h1>
       <div className="carousel w-full carousel-news">
         {newsItems && newsItems.length > 0 ? (
