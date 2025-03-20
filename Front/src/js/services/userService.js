@@ -34,7 +34,7 @@ class UserService {
         return this.api.put(`/${id}`, data)
     }
     deleteUser(id) {
-        return this.api.delete(`/${id}`)
+        return this.api.delete(`/users/destroy/${id}`)
     }
     verifyUser(token) {
         return this.api.get('/verify-token',
