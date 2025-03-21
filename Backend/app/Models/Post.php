@@ -4,28 +4,28 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory; // Añadimos esta linea y la siguiente para que la linea 12 funcione
+use Illuminate\Database\Eloquent\Factories\HasFactory; 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+
 
 class Post extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $appends = ['isFav', 'nombre_categoria']; // Agregamos al JSON el apartado isFav y el nombre de la categoria
+    protected $appends = ['category_name','isFav'];
 
-    public function getIsFavAttribute() // esta función se utiliza para devolver true si el user está autentificado y si tiene post fav
+    protected $hidden = ['categories'];  //se utiliza para poder ocultar en el json cosas del campo category
+
+    public function getIsFavAttribute()
     {
+        $user = Auth::user();
+        if (!$user) {
+            return false; // Si no hay usuario autenticado, no puede marcarse como favorito
+        }
 
-        return Auth::check() 
-            ? Favorites::where('user_id', Auth::id())->where('post_id', $this->id)->exists() 
-            : false;
+        return $this->favorites()->where('user_id', $user->id)->exists();
     }
-
-    public function getNombreCategoriaAttribute() { // Devuelve para cada post el nombre de la categoria al final del JSON
-        return Categories::where('id', $this->id_categories)->value('name') ?? 'Sin categoría';
-    }
-    
 
     /**
      * The attributes that are mass assignable.
@@ -47,5 +47,21 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'favorites') // 'favorites' es la tabla intermedia
                     ->withPivot('categories_id') // Si necesitas campos adicionales
                     ->withTimestamps();
+    }
+    
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'post_id', 'user_id');
+    }
+
+    public function categories() //funcion que gracias al hidden permite mostrar un campo de categories
+    {
+        return $this->belongsTo(Categories::class, 'id_categories');
+    }
+
+    public function getCategoryNameAttribute() //esto se puede hacer aqui porque hemos creado la relacion entre ambas tablas y podemos llamar asi al category
+    {
+      //  return $this->categories->name;
+        return $this->categories ? $this->categories->name : null; // Devuelve el nombre de la categoría
     }
 }
