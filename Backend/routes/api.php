@@ -45,6 +45,9 @@ Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/stats/counter', [PostController::class, 'getStatsForFooter']);
 
 Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
+    Route::get('/users/infouser','getInfoUser')->name('users.getInfoUser')->middleware('role:admin|editor|viewer'); //muestra info no sensible del user
+    Route::get('/users/infofav','getInfoFavUser')->name('users.getInfoFavUser')->middleware('role:admin|editor'); //muestra los favs que tienen los post de un user editor/admin
+    Route::get('/users/infoviews','getInfoViewUser')->name('users.getInfoViewUser')->middleware('role:admin|editor'); //cantidad de visitas que tienen todos sus posts
     Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor'); //muestra todos los usuarios
     Route::get('/users/{user}', 'show')->name('users.show')->middleware('role:admin|editor|reader'); //muestra el usuario por el id
     Route::post('/users/store', 'store')->name('users.store')->middleware('role:admin'); //crea un usuario sin registro normal
@@ -73,8 +76,10 @@ Route::controller(RoleController::class)->middleware([JwtMiddleware::class])->gr
 });
 
 Route::controller(PermissionController::class)->middleware([JwtMiddleware::class])->group(function () {
-    Route::get('/permission', 'index')->middleware('role:admin');
-
+    Route::get('/permission', 'index')->middleware('role:admin'); //enseña todos los permisos
+    Route::post('/permission/create', 'create')->name('permission.create')->middleware('role:admin'); //crea un nuevo permiso
+    Route::post('/permission/{role}/permissions','assignPermissionToRole')->name('permission.assignPermissionToRole')->middleware('role:admin');
+    Route::post('/roles/{role}/permissions/revoke','revokePermissionFromRole')->name('permission.revokePermissionFromRole')->middleware('role:admin');
 });
 
 Route::controller(PostController::class)->middleware([JwtMiddleware::class])->group(function () {

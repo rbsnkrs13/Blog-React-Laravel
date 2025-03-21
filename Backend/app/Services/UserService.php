@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Models\Favorites;
+use App\Models\Post;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -108,6 +110,50 @@ class UserService
             'updated_at' => now(),
         ]);
         return response()->json(["mensaje" => "Usuario actualizado correctamente"], 200);
+    }
+
+    public function getInfoUser()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+        return response()->json([
+            'name_user' => $user->name_user,
+            'img_user' => $user->img_user,
+        ]);
+    }
+
+    public function getInfoFavUser()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+
+        $posts = $user->posts()->withCount('favorites')->get(); //funcion automatica de laravel que hace que pueda contar la cantidad de favoritos que tiene ese post
+    
+        return response()->json($posts->map(function ($post) {
+            return [
+                'post_id' => $post->id,
+                'title' => $post->title, // Opcional, si quieres mostrar el título
+                'favorites_count' => $post->favorites_count,
+            ];
+        }));
+    }
+
+    public function getInfoViewUser()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+        $totalViews = $user->posts()->sum('views');
+
+        return response()->json([
+            'User_id' => $user->id,
+            'total_views' => $totalViews
+        ]);
     }
 }
 ?>

@@ -83,6 +83,21 @@ class ProfileController extends Controller
         return response()->json($this->userService->deleteUser($user));
     }
 
+    public function getInfoUser():JsonResponse
+    {
+        return response()->json($this->userService)->getInfoUser();
+    }
+
+    public function getInfoFavUser():JsonResponse
+    {
+        return response()->json($this->userService)->getInfoFavUser();
+    }
+
+    public function getInfoViewUser():JsonResponse
+    {
+        return response()->json($this->userService)->getInfoViewUser();
+    }
+
 
 
 }
