@@ -83,6 +83,8 @@ Route::controller(PostController::class)->middleware([JwtMiddleware::class])->gr
     Route::delete('/posts/destroy/{post}', 'destroy')->name('posts.destroy'); //->middleware('role:admin|editor'); //Borra 
 });
 
+Route::get('/posts/news', [PostController::class, 'index'])->name('posts.index');
+
 Route::controller(FavoritesController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/favorites', 'getFavoritesForAuthenticatedUser')->name('favorites.getFavoritesForAuthenticatedUser')->middleware('role:admin|editor|reader'); //solo enseña los del usuario verificado
     Route::get('/favorites/{userId}', 'index')->name('favorites.index')->middleware('role:admin'); // enseña todos los favoritos se puede modificar para que salgan todos del tiron o como esta por user_id
