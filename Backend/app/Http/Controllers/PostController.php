@@ -27,18 +27,14 @@ class PostController extends Controller
         return response()->json($this->postService->getLastTenPosts());
     }
 
+    public function getPostById($id)
+    {
+        return $this->postService->getPostById($id);
+    }
+
     public function show(): JsonResponse
     {
         return response()->json($this->postService->getAllPost());
-    }
-
-    public function showOne(Post $id): JsonResponse
-    {
-        return response()->json($this->postService->showPost(post: $id));
-
-        //     public function getPostById($id): JsonResponse
-        // {
-        //     return response()->json($this->postService->getPostById($id));
     }
 
     /**
@@ -100,7 +96,7 @@ class PostController extends Controller
         ]);
     }
 
-    public function getStatsForFooter(): JsonResponse
+    public function getStatsForCounter(): JsonResponse
     {
         $postscounts = $this->postService->getCountPost();
         $postsviewss = $this->postService->getViewsPost();

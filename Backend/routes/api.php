@@ -41,7 +41,7 @@ Route::middleware('auth:api')->post('/refresh-token', function () { //renueva el
     ]);
 });
 Route::get('/categories', [CategoriesController::class, 'index']);
-Route::get('/stats/counter', [PostController::class, 'getStatsForFooter']);
+Route::get('/stats/counter', [PostController::class, 'getStatsForCounter']);
 
 Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor'); //muestra todos los usuarios

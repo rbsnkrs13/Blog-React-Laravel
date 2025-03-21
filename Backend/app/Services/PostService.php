@@ -14,6 +14,7 @@ class PostService
         return Post::all();
     }
 
+
     public function getLastTenPosts()
     {
         return Post::where('status', 'published') // Filtra solo los posts con el status 'published'
