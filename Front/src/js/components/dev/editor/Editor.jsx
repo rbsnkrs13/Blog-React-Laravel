@@ -33,7 +33,22 @@ import "./Editor.css";
 
 const MARKS = [Bold, Italic, CodeMark, Underline, Strike, Highlight];
 
-const plugins = [Paragraph, Blockquote, Accordion, Code, Embed, Image, Link, File, Callout, Video, NumberedList, BulletedList, TodoList, HeadingOne, HeadingTwo, HeadingThree, Table, Divider];
+const plugins = [Paragraph, Blockquote, Accordion, Code, Embed, Image.extend({
+  options: {
+    async onUpload(file) {
+      const data = await uploadToCloudinary(file, 'image');
+
+      return {
+        src: data.secure_url,
+        alt: 'cloudinary',
+        sizes: {
+          width: data.width,
+          height: data.height,
+        },
+      };
+    },
+  },
+}), Link, File, Callout, Video, NumberedList, BulletedList, TodoList, HeadingOne, HeadingTwo, HeadingThree, Table, Divider];
 
 const TOOLS = {
   Toolbar: {

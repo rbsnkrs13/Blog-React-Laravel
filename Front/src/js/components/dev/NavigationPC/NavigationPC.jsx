@@ -1,14 +1,14 @@
-// import { Container, Row, Col } from 'react-bootstrap';
 import './NavigationPC.css';
 import LogoPrincipal from '../../../../assets/Logo-principal.png';
 import { useContext } from 'react';
 import { AuthContext } from '../../../bootstrap/contexts/AuthContext';
-
+import { FaUser } from 'react-icons/fa';
 const NavigationPC = () => {
     const { loggedUser, logOut } = useContext(AuthContext);
     return (
         <div className="navigatorPc" style={{ backgroundColor: 'black', color: 'white' }}>
             <div className='logoDiv'>
+                // TODO onClick go to /
                 <img src={LogoPrincipal} alt="" className='logoPrincipal' />
             </div>
             <div className="listaPc">
@@ -20,7 +20,14 @@ const NavigationPC = () => {
                             {loggedUser.role === "admin"
                                 && (<a href="/admin" ><li><div className="textoNavbar">Admin</div></li></a>)}
                             <a href="/favorite_posts" ><li><div className="textoNavbar">Favoritos</div></li></a>
-                            <a href={`/acc/${loggedUser.id}`} ><li><div className="textoNavbar">Perfil</div></li></a>
+                            <a href={`/profile`}>
+                                <li>
+                                    <div className="textoNavbar flex items-center">
+                                        <FaUser className="mr-2" />
+                                        <p>Perfil</p>
+                                    </div>
+                                </li>
+                            </a>
                             <a href='/createPost'><li><div className="textoNavbar">Crear Post</div></li></a>
                             <a href="#" onClick={logOut} >  <li><div className="textoNavbar">Cerrar sesion</div></li></a>
                         </>

@@ -8,11 +8,15 @@ import CategoryFinder from "../../components/dev/categoryFinder/CategoryFinder";
 import Authors from "../../components/dev/Authors/authors";
 import Counter from "../../components/dev/Counter/Counter";
 
+import NewsPage from "../NewsPage/NewsPage";
+
 const HomePage = () => {
   return (
-    <div>
+    <div className="flex flex-col items-center">
       {/* f_size y h_num son opcionales */}
       <Title texto="C-Blog, donde el limite de las ideas, lo pones tú" f_size={43} h_num={1} />
+      <Separador />
+      <NewsPage />
       <Separador />
       <Categorycarousel />
       <Separador />

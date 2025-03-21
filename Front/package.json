@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.14.1",
+    "@cloudinary/url-gen": "^1.21.0",
     "@tailwindcss/vite": "^4.0.7",
     "@yoopta/accordion": "^4.9.4",
     "@yoopta/action-menu-list": "^4.9.4",

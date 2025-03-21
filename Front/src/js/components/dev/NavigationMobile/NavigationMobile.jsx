@@ -13,6 +13,7 @@ function NavigationMobile() {
 
     <div className="navbar bg-base-300 rounded-box">
       <div className="flex-1 justify-start px-2 lg:flex-none brand">
+        // TODO onClick go to /
         <img src={logoPluma} className="navbarLogo" alt="hola" />CB
       </div>
       <div className="flex flex-1 justify-end px-2 pr-0">
@@ -33,14 +34,13 @@ function NavigationMobile() {
             </li> */}
             <a href="/"><li><div className="linksNavMob">Inicio</div></li></a>
             <a href="/news"><li><div className="linksNavMob">Novedades</div></li></a>
-            {console.log(loggedUser)}
             {loggedUser && (<>
               {loggedUser.role === "admin"
                 && (<a href="/admin" ><li><div className="linksNavMob">Admin</div></li></a>)}
               <a href="/favorites" ><li><div className="linksNavMob">Favoritos</div></li></a>
               <a href={`/acc/${loggedUser.id}`} ><li><div className="linksNavMob">Perfil</div></li></a>
               <a href='/createPost'><li><div className="linksNavMob">Crear Post</div></li></a>
-              <a href="#" onClick={logOut}><li><div className="linksNavMob">Cerrar sesion</div></li></a>
+              <a href="#" onClick={logOut}><li><div className="linksNavMob color-error">Cerrar sesion</div></li></a>
             </>)}
             {!loggedUser && (<a href="/logIn" ><li><div className="linksNavMob">Iniciar Sesion</div></li></a>)}
           </ul>
