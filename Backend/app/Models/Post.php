@@ -6,10 +6,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory; // Añadimos esta linea y la siguiente para que la linea 12 funcione
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
     use HasFactory, Notifiable;
+
+    protected $appends = ['isFav']; // Agregamos isFav a la respuesta JSON
+
+    public function getIsFavAttribute() // esta función se utiliza para devolver true si el user está autentificado y si tiene post fav
+    {
+        
+        return Auth::check() 
+            ? Favorites::where('user_id', Auth::id())->where('post_id', $this->id)->exists() 
+            : false;
+    }
 
     /**
      * The attributes that are mass assignable.
