@@ -3,7 +3,7 @@ import "./NewsPage.css";
 import postService from '../../services/postService';
 import Loader from '../../components/dev/Loader/Loader';
 import PostDetails from '../../components/dev/PostDetails/PostDetails';
-import { redirect } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { useAlert } from "../../bootstrap/contexts/AlertContext";
 
 
@@ -53,9 +53,9 @@ const NewsPage = () => {
               id={`slide${item.id}`}
               className={`carousel-item relative w-full ${index === currentSlide ? 'block' : 'hidden'}`}
             >
-              <a key={item.id} href={`/detallesBlog/${item.id}`}>
+              <Link key={item.id} to={`/detallesBlog/${item.id}`}>
                 <PostDetails className="w-full" blog={item} />
-              </a>
+              </Link>
             </div>
 
           ))

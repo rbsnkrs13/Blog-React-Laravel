@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import CreatePost from "../../components/dev/createPost/createPost";
+import { Link, useParams } from 'react-router-dom';
+import CreatePost from "../../components/dev/CreatePost/CreatePost";
 import BackToTop from "../../components/dev/backToTop/BackToTop";
 import postService from '../../services/postService'; // Importa el servicio de posts
 import './UsersPosts.css';
@@ -27,9 +27,9 @@ const UsersPosts = () => {
       <ul className="enlaces-lista">
         {articulos.map((articulo) => (
           <li key={articulo.id} className="enlace-item">
-            <a href={`/postDetails/${articulo.id}`}>
+            <Link to={`/postDetails/${articulo.id}`}>
               <PostDetails blog={articulo} />
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

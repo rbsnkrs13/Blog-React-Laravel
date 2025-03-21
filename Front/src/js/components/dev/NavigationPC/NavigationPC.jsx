@@ -3,36 +3,39 @@ import LogoPrincipal from '../../../../assets/Logo-principal.png';
 import { useContext } from 'react';
 import { AuthContext } from '../../../bootstrap/contexts/AuthContext';
 import { FaUser } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+
 const NavigationPC = () => {
     const { loggedUser, logOut } = useContext(AuthContext);
     return (
         <div className="navigatorPc" style={{ backgroundColor: 'black', color: 'white' }}>
             <div className='logoDiv'>
-                // TODO onClick go to /
-                <img src={LogoPrincipal} alt="" className='logoPrincipal' />
+                <Link to="/">
+                    <img src={LogoPrincipal} alt="Logo Principal" className='logoPrincipal' />
+                </Link>
             </div>
             <div className="listaPc">
                 <ul>
-                    <a href="/"><li><div className="textoNavbar">Inicio</div></li></a>
-                    <a href="/news"><li><div className="textoNavbar">Novedades</div></li></a>
+                    <Link to="/"><li><div className="textoNavbar">Inicio</div></li></Link>
+                    {/* <Link to="/news"><li><div className="textoNavbar">Novedades</div></li></Link> */}
                     {loggedUser && (
                         <>
                             {loggedUser.role === "admin"
-                                && (<a href="/admin" ><li><div className="textoNavbar">Admin</div></li></a>)}
-                            <a href="/favorite_posts" ><li><div className="textoNavbar">Favoritos</div></li></a>
-                            <a href={`/profile`}>
+                                && (<Link to="/admin" ><li><div className="textoNavbar">Admin</div></li></Link>)}
+                            <Link to="/favorite_posts" ><li><div className="textoNavbar">Favoritos</div></li></Link>
+                            <Link to={`/profile`}>
                                 <li>
                                     <div className="textoNavbar flex items-center">
                                         <FaUser className="mr-2" />
                                         <p>Perfil</p>
                                     </div>
                                 </li>
-                            </a>
-                            <a href='/createPost'><li><div className="textoNavbar">Crear Post</div></li></a>
-                            <a href="#" onClick={logOut} >  <li><div className="textoNavbar">Cerrar sesion</div></li></a>
+                            </Link>
+                            <Link to='/createPost'><li><div className="textoNavbar">Crear Post</div></li></Link>
+                            <Link to="#" onClick={logOut} >  <li><div className="textoNavbar">Cerrar sesion</div></li></Link>
                         </>
                     )}
-                    {!loggedUser && (<a href="/logIn" >  <li><div className="textoNavbar">Iniciar Sesion</div></li></a>)}
+                    {!loggedUser && (<Link to="/logIn" >  <li><div className="textoNavbar">Iniciar Sesion</div></li></Link>)}
                 </ul>
             </div>
         </div>

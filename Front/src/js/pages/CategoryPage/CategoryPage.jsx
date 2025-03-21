@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import CreatePost from "../../components/dev/CreatePost/CreatePost";
 import BackToTop from "../../components/dev/backToTop/BackToTop";
 import ArticleFinder from "../../components/dev/article_finder/ArticleFinder";
@@ -9,10 +9,10 @@ import categoriesService from '../../services/categoriesService';
 
 const CategoryPage = () => {
   const location = useLocation();
-//     const id_categorie = location.state?.id_categorie;
-const title = location.state?.title;
+  //     const id_categorie = location.state?.id_categorie;
+  const title = location.state?.title;
 
-//     const { title } = useParams();
+  //     const { title } = useParams();
   console.log(title);
   const [numArticulos, setNumArticulos] = useState(0);
   const [articulos, setArticulos] = useState([]);
@@ -42,7 +42,7 @@ const title = location.state?.title;
     <div>
       <div className="Titulo_Sin_Fondo text-center p-2">
         {title}
-{/*                 {id_categorie} */}
+        {/*                 {id_categorie} */}
       </div>
       <div className="numArticulos">
         <p>{numArticulos} artículos</p>
@@ -55,9 +55,9 @@ const title = location.state?.title;
         <ul className="enlaces-lista">
           {articulos.map((articulo) => (
             <li key={articulo.id} className="enlace-item">
-              <a href={`/postDetails/${articulo.id}`}>
+              <Link to={`/postDetails/${articulo.id}`}>
                 <PostDetails blog={articulo} />
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
