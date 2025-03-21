@@ -4,12 +4,28 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory; // Añadimos esta linea y la siguiente para que la linea 12 funcione
+use Illuminate\Database\Eloquent\Factories\HasFactory; 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+
 
 class Post extends Model
 {
     use HasFactory, Notifiable;
+
+    protected $appends = ['category_name','isFav'];
+
+    protected $hidden = ['category']; 
+
+    public function getIsFavAttribute()
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return false; // Si no hay usuario autenticado, no puede marcarse como favorito
+        }
+
+        return $this->favorites()->where('user_id', $user->id)->exists();
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -36,5 +52,15 @@ class Post extends Model
     public function favorites()
     {
         return $this->belongsToMany(User::class, 'favorites', 'post_id', 'user_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class, 'id_categories');
+    }
+
+    public function getCategoryNameAttribute()
+    {
+        return $this->category ? $this->category->name : null; // Devuelve el nombre de la categoría
     }
 }
