@@ -13,6 +13,8 @@ function Profile() {
     const [isEditingEmail, setIsEditingEmail] = useState(false);
     const [isEditingPassword, setIsEditingPassword] = useState(false);
 
+    const [email, setEmail] = useState(userData.email);
+
     const [provisionalBio, setProvisionalBio] = useState("");
     const [provisionalEmail, setProvisionalEmail] = useState("");
     const [provisionalPass, setProvisionalPass] = useState("");
@@ -22,6 +24,10 @@ function Profile() {
     const { addError, addSuccess } = useAlert();
 
     const ofuscateEmail = (email) => {
+        if (!email || email === "") {
+            console.log("dentro ????", email);
+            email = "ejemplo@email.com";
+        }
         const [user, domain] = email.split("@");
         const ofuscatedUser = user[0] + "*".repeat(user.length - 1);
         const ofuscatedDomain = domain[0] + "*".repeat(domain.length - 1);
@@ -33,6 +39,7 @@ function Profile() {
             .then(({ data }) => {
                 console.log(data);
                 setUserData(data);
+                setEmail(ofuscateEmail(data?.email_user));
             }).catch((error) => {
                 console.log(error);
                 addError(error.response.data.message);
@@ -143,8 +150,8 @@ function Profile() {
     return (
         <div className="container mx-auto p-4">
             <div className="card mx-auto">
-                <div className="card-body flex flex-col gap-4 justify-center items-center mx-auto">
-                    <div className="flex flex-col gap-8 sm:flex-row justify-between items-center max-w-sm">
+                <div className="card-body flex flex-col gap-4 justify-center items-center w-full">
+                    <div className="flex flex-row gap-8 sm:flex-row justify-between items-center max-w-sm">
                         {loggedUser.role !== "reader" && (
                             <div className="text-center">
                                 <p className="text-2xl font-bold">{additionalData.likes}</p>
@@ -152,7 +159,7 @@ function Profile() {
                             </div>
                         )}
                         <div className="avatar">
-                            <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                            <div className="w-24 rounded-full">
                                 {/* <img src="/path-to-profile-image.jpg" alt="Profile" /> */}
                                 <FaUser className='w-full h-full' />
                             </div>
@@ -165,14 +172,16 @@ function Profile() {
                         )}
                     </div>
 
-                    <div className="text-center md:text-left w-full">
-                        <h2 className="text-2xl font-boldtext-2xl font-bold text-center">{userData.userName + userData.lastName ? " " + userData.lastName : ""}</h2>
+                    <div className="text-center md:text-left w-full max-w-md">
+                        <h2 className="text-2xl font-boldtext-2xl font-bold text-center">{userData.name_user} {userData.name_lastName ? " " + userData.name_lastName : ""}</h2>
                         <div className="mt-2 flex items-center mx-auto" >
                             {isEditingDesc ? (
                                 <textarea
-                                    className="textarea textarea-bordered w-full"
+                                    className="textarea textarea-bordered w-full out-of-range:border-red-500"
                                     defaultValue={userData.bio ? userData.bio : ""}
                                     onChange={(e) => setProvisionalBio((bio) => bio = e.target.value)}
+                                    maxLength={200}
+                                    minLength={0}
                                 ></textarea>
                             ) : (
                                 <p className='text-center'>{userData.bio ? userData.bio : "Haz click para editar tu descripción"}</p>
@@ -190,7 +199,7 @@ function Profile() {
                             </label>
                             {!isEditingEmail && (
                                 <div className="flex items-center justify-between w-full">
-                                    <span className="text-lg">{ofuscateEmail(userData.email ? userData.email : "email@gmail.com")}</span>
+                                    <span className="text-lg">{email}</span>
                                     <button className="btn btn-square btn-sm" onClick={handleEmailChange}>
                                         <FaEdit />
                                     </button>
