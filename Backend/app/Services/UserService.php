@@ -133,7 +133,10 @@ class UserService
 
         $posts = $user->posts()->withCount('favorites')->get(); //funcion automatica de laravel que hace que pueda contar la cantidad de favoritos que tiene ese post
     
-        return response()->json($posts->map(function ($post) {
+        $filteredPosts = $posts->filter(function ($post) {
+            return $post->favorites_count > 0;
+        });
+        return response()->json($filteredPosts->map(function ($post) {
             return [
                 'post_id' => $post->id,
                 'title' => $post->title, // Opcional, si quieres mostrar el título
@@ -148,24 +151,19 @@ class UserService
         if (!$user) {
             return response()->json(['error' => 'Usuario no autenticado'], 401);
         }
-        $totalViews = $user->posts()->sum('views');
-
-        return response()->json([
-            'User_id' => $user->id,
-            'total_views' => $totalViews
-        ]);
+        
+        $posts = $user->posts;
+        $postViews = $posts->map(function ($post) {
+            return [
+                'post_id' => $post->id,
+                'title' => $post->title,
+                'views' => $post->views, // Si el campo views_count existe
+            ];
+        });
+    
+        return response()->json($postViews);
     }
 
-    public function getEditorInfo($id)
-    {
-        $user= User::findOrFail($id);
-
-        if ($user->hasRole(['admin', 'editor'])) {
-            return response()->json($user);
-        }
-
-        return response()->json(['error' => 'Usuario no autorizado'], 403);
-    }
 
     public function getInfoUserCrypted()
     {
@@ -203,8 +201,9 @@ class UserService
         }
     
         $user->save();
-    
-        return response()->json(['message' => 'Información actualizada correctamente', 'user' => $user]);
+        return response()->json([
+            'message' => 'Información actualizada correctamente', 
+            'user' => $user]);
     }
 }
 ?>

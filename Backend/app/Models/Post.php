@@ -32,4 +32,9 @@ class Post extends Model
                     ->withPivot('categories_id') // Si necesitas campos adicionales
                     ->withTimestamps();
     }
+    
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'post_id', 'user_id');
+    }
 }

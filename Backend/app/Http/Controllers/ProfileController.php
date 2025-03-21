@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Favorites;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -88,19 +89,15 @@ class ProfileController extends Controller
         return $this->userService->getInfoUser();
     }
 
-    public function getInfoFavUser(): JsonResponse
-    {
-        return $this->userService->getInfoFavUser();
-    }
+    public function getInfoViewUser(): JsonResponse //contiene la funcion para saber la cantidad de favs que tiene cada post
+    {                                               //Y la cantidad de visitas que tiene cada post
+        $favUser = $this->userService->getInfoFavUser();
+        $viewUser = $this->userService->getInfoViewUser();
 
-    public function getInfoViewUser(): JsonResponse
-    {
-        return $this->userService->getInfoViewUser();
-    }
-
-    public function getEditorInfo($id): JsonResponse
-    {
-        return $this->userService->getEditorInfo($id);
+        return response()->json([
+            'favorites' => $favUser,
+            'views' => $viewUser
+        ]);
     }
 
     public function getInfoUserCrypted(): JsonResponse
