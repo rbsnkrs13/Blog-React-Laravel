@@ -9,7 +9,6 @@ export default function Counter() {
   useEffect(() => {
     statService.getCounterStats()
       .then(response => {
-        console.log(response);
         setStats(response.data);
       })
       .catch(error => {

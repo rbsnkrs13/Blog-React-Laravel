@@ -48,7 +48,7 @@ const CreatePostPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="mt-4 mb-4">
       <Box title="Borrador">
         <DraftTab tabs={dataDraft} />
       </Box>
