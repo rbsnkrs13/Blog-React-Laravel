@@ -27,6 +27,11 @@ class PostController extends Controller
         return response()->json($this->postService->getLastTenPosts());
     }
 
+    public function getTenNewsPost(): JsonResponse
+    {
+        return response()->json($this->postService->getLastTenPopularPosts());
+    }
+
     public function getPostById($id)
     {
         return $this->postService->getPostById($id);
@@ -107,4 +112,6 @@ class PostController extends Controller
             'Usuarios' => $usercounts
         ]);
     }
+
+
 }

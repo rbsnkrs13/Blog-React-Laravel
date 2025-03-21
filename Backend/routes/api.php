@@ -83,7 +83,7 @@ Route::controller(PostController::class)->middleware([JwtMiddleware::class])->gr
     Route::delete('/posts/destroy/{post}', 'destroy')->name('posts.destroy'); //->middleware('role:admin|editor'); //Borra 
 });
 
-Route::get('/posts/news', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/news', [PostController::class, 'getTenNewsPost'])->name('posts.getTenNewsPost');
 
 Route::controller(FavoritesController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/favorites', 'getFavoritesForAuthenticatedUser')->name('favorites.getFavoritesForAuthenticatedUser')->middleware('role:admin|editor|reader'); //solo enseña los del usuario verificado

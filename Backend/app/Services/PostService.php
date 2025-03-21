@@ -23,6 +23,16 @@ class PostService
             ->get(); // Obtiene los posts
     }
 
+    public function getLastTenPopularPosts()
+    {
+        return Post::where('status', 'published') // Solo los publicados
+        ->orderBy('created_at', 'desc') // Ordena por fecha (últimos 50)
+        ->take(50)
+        ->orderBy('views', 'desc') // Luego, ordena por vistas
+        ->take(10) // Se queda solo con los 10 más vistos
+        ->get();
+    }
+
     public function getPostById($id) // Devuelve el post con el ID especificado, o lanza un error 404 si no existe
     {    
         $post = Post::findOrFail($id);
