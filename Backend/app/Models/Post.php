@@ -15,7 +15,7 @@ class Post extends Model
 
     protected $appends = ['category_name','isFav'];
 
-    protected $hidden = ['category']; 
+    protected $hidden = ['categories'];  //se utiliza para poder ocultar en el json cosas del campo category
 
     public function getIsFavAttribute()
     {
@@ -54,13 +54,13 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'favorites', 'post_id', 'user_id');
     }
 
-    public function category()
+    public function categories() //funcion que gracias al hidden permite mostrar un campo de categories
     {
         return $this->belongsTo(Categories::class, 'id_categories');
     }
 
-    public function getCategoryNameAttribute()
+    public function getCategoryNameAttribute() //esto se puede hacer aqui porque hemos creado la relacion entre ambas tablas y podemos llamar asi al category
     {
-        return $this->category ? $this->category->name : null; // Devuelve el nombre de la categoría
+        return $this->categories ? $this->categories->name : null; // Devuelve el nombre de la categoría
     }
 }
