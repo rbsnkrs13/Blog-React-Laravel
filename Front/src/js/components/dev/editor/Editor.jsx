@@ -6,6 +6,7 @@ import { AuthContext } from '../../../bootstrap/contexts/AuthContext';
 import { useAlert } from "../../../bootstrap/contexts/AlertContext";
 import { ErrorAlert, SuccessAlert } from '../Alerts/Alerts';
 
+// import { Cloudinary } from 'cloudinary-react';
 
 import { html, plainText } from '@yoopta/exports';
 import YooptaEditor, { createYooptaEditor } from "@yoopta/editor";
@@ -31,21 +32,57 @@ import { Bold, Italic, CodeMark, Underline, Strike, Highlight } from '@yoopta/ma
 // import DeatallesBlog from "./PostDetails";
 import "./Editor.css";
 
+// const cloudinary = new Cloudinary({
+//   cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+//   api_key: process.env.REACT_APP_CLOUDINARY_API_KEY,
+//   api_secret: process.env.REACT_APP_CLOUDINARY_API_SECRET
+// });
+
 const MARKS = [Bold, Italic, CodeMark, Underline, Strike, Highlight];
 
+// Image.extend({
+//   options: {
+//     async onUpload(file) {
+//       const data = await uploadToCloudinary(file, 'image');
+
+//       return {
+//         src: data.secure_url,
+//         alt: 'cloudinary',
+//         sizes: {
+//           width: data.width,
+//           height: data.height,
+//         },
+//       };
+//     },
+//   },
+// }),
 const plugins = [Paragraph, Blockquote, Accordion, Code, Embed, Image.extend({
   options: {
     async onUpload(file) {
-      const data = await uploadToCloudinary(file, 'image');
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', 'your_upload_preset'); // Configura esto en tu cuenta de Cloudinary
 
-      return {
-        src: data.secure_url,
-        alt: 'cloudinary',
-        sizes: {
-          width: data.width,
-          height: data.height,
-        },
-      };
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudinary.config().cloud_name}/image/upload`, {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        return {
+          src: data.secure_url,
+          alt: data.original_filename,
+          sizes: {
+            width: data.width,
+            height: data.height,
+          },
+        };
+      } catch (error) {
+        console.error('Error uploading image to Cloudinary:', error);
+        throw error;
+      }
     },
   },
 }), Link, File, Callout, Video, NumberedList, BulletedList, TodoList, HeadingOne, HeadingTwo, HeadingThree, Table, Divider];
@@ -105,25 +142,6 @@ export default function Editor({ isEditable = true, post = null, maxLenght = nul
     return htmlString;
   };
 
-  // from plain text to @yoopta content
-  // const deserializeText = () => {
-  //   const textString = '# First title';
-  //   const value = plainText.deserialize(editor, textString);
-
-  //   editor.setEditorValue(value);
-  // };
-
-  // // from @yoopta content to plain text string
-  // const serializeText = () => {
-  //   const data = editor.getEditorValue();
-  //   const textString = plainText.serialize(editor, data);
-  //   console.log('plain text string', textString);
-  // };
-
-  // const handlePreview = () => {
-  //   setIsPreview(isPreview => !isPreview);
-  // };
-
   const handleSave = async (status) => {
     serializeHTML();
     const userId = loggedUser.id;
@@ -173,20 +191,17 @@ export default function Editor({ isEditable = true, post = null, maxLenght = nul
   const hasFetched = useRef(false);
 
   useEffect(() => {
-    if (hasFetched.current || categories.length > 0) return;
+    if (!isEditable || hasFetched.current || categories.length > 0) return;
 
-    const request = servicioCategorias.getCategorias();
-    hasFetched.current = true;
-
-    request
-      .then(response => {
-        setCategories(response.data);
-      })
-      .catch(error => {
+    servicioCategorias.getCategorias()
+      .then(({ data }) => {
+        hasFetched.current = true;
+        setCategories(data);
+      }).catch(error => {
         const data = JSON.parse(error.request.response);
         setErrorMsg(data.error);
       });
-  }, [categories.length]);
+  }, [isEditable, categories.length]);
 
   useEffect(() => {
     if (post && post.content) {
