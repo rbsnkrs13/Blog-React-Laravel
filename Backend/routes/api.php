@@ -48,6 +48,8 @@ Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])-
     Route::get('/users/infouser','getInfoUser')->name('users.getInfoUser')->middleware('role:admin|editor|viewer'); //muestra info no sensible del user
     Route::get('/users/infofav','getInfoFavUser')->name('users.getInfoFavUser')->middleware('role:admin|editor'); //muestra los favs que tienen los post de un user editor/admin
     Route::get('/users/infoviews','getInfoViewUser')->name('users.getInfoViewUser')->middleware('role:admin|editor'); //cantidad de visitas que tienen todos sus posts
+    Route::get('/users/infoeditor/{id}','getEditorInfo')->name('users.getEditorInfo')->middleware('role:admin|editor'); //muestra toda la info de admins y editor
+    Route::get('/users/infousercrypt','getInfoUserCrypted')->name('users.getInfoUserCrypted')->middleware('role:admin|editor|viewer'); //muestra toda la info del user pero cryptada
     Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor'); //muestra todos los usuarios
     Route::get('/users/{user}', 'show')->name('users.show')->middleware('role:admin|editor|reader'); //muestra el usuario por el id
     Route::post('/users/store', 'store')->name('users.store')->middleware('role:admin'); //crea un usuario sin registro normal

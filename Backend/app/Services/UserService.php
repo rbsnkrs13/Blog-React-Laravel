@@ -155,5 +155,56 @@ class UserService
             'total_views' => $totalViews
         ]);
     }
+
+    public function getEditorInfo($id)
+    {
+        $user= User::findOrFail($id);
+
+        if ($user->hasRole(['admin', 'editor'])) {
+            return response()->json($user);
+        }
+
+        return response()->json(['error' => 'Usuario no autorizado'], 403);
+    }
+
+    public function getInfoUserCrypted()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+
+        $encryptedData = encrypt($user->toArray());
+        return response()->json(['data' => $encryptedData]);
+    }
+
+    public function getUpdateInfo(Request $request)
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+        $request->validate([
+            'mail_user' => 'nullable|email|unique:users,mail_user,' . $user->id,
+            'bio' => 'nullable|string',
+            'password_user' => 'nullable|min:8'
+        ]);
+    
+        if ($request->has('mail_user')) { //solo actualiza si hay valores enel request
+            $user->mail_user = $request->mail_user;
+        }
+    
+        if ($request->has('bio')) {
+            $user->bio = $request->bio;
+        }
+    
+        if ($request->has('password_user')) {
+            $user->password_user = bcrypt($request->password_user);
+        }
+    
+        $user->save();
+    
+        return response()->json(['message' => 'Información actualizada correctamente', 'user' => $user]);
+    }
 }
 ?>
