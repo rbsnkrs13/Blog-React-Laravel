@@ -12,15 +12,20 @@ class Post extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $appends = ['isFav']; // Agregamos isFav a la respuesta JSON
+    protected $appends = ['isFav', 'nombre_categoria']; // Agregamos al JSON el apartado isFav y el nombre de la categoria
 
     public function getIsFavAttribute() // esta función se utiliza para devolver true si el user está autentificado y si tiene post fav
     {
-        
+
         return Auth::check() 
             ? Favorites::where('user_id', Auth::id())->where('post_id', $this->id)->exists() 
             : false;
     }
+
+    public function getNombreCategoriaAttribute() { // Devuelve para cada post el nombre de la categoria al final del JSON
+        return Categories::where('id', $this->id_categories)->value('name') ?? 'Sin categoría';
+    }
+    
 
     /**
      * The attributes that are mass assignable.
