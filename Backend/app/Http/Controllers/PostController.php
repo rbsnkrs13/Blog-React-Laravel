@@ -67,22 +67,45 @@ class PostController extends Controller
     }
 
 
-    public function searchPosts(Request $request, $page = 1)
-    { // En esta función cogemos la búsqueda y damos un número de post para pintar por pantalla
+    // public function searchPosts(Request $request, $page = 1)
+    // { // En esta función cogemos la búsqueda y damos un número de post para pintar por pantalla
+    //     $search = $request->input('search');
+    //     $perPage = $request->input('perPage', 10);
+    //     if ($search) {
+    //         $posts = $this->postService->searchBarPosts($search, $perPage,$page);
+    //         if ($posts->isEmpty()) {
+    //             return response()->json(["mensaje" => "No existen posts con '$search' como busqueda", 200]);
+    //         } else {
+    //             return response()->json([
+    //                 'current_page' => $page,
+    //                 'posts' =>$posts
+    //         ]);
+    //         }
+    //     }
+    // }
+
+    public function searchPosts(Request $request) //controlador para la barra de busqueda
+    { 
         $search = $request->input('search');
-        $perPage = $request->input('perPage', 10);
-        if ($search) {
-            $posts = $this->postService->searchBarPosts($search, $perPage,$page);
-            if ($posts->isEmpty()) {
-                return response()->json(["mensaje" => "No existen posts con '$search' como busqueda", 200]);
-            } else {
-                return response()->json([
-                    'current_page' => $page,
-                    'posts' =>$posts
-            ]);
-            }
+
+        if (!$search || strlen($search) < 4) {
+            return response()->json(["error" => "La búsqueda debe tener al menos 4 caracteres"], 400);
         }
+
+        $posts = Post::where('status', 'published') //funcion waparda para una barra de busqueda que filtra con el request que pasamos "search" y devuelve todos los post
+                        ->where(function ($query) use ($search) {
+                            $query->where('title', 'like', "%$search%")
+                                ->orWhere('content', 'like', "%$search%");
+                        })
+                        ->get();
+
+        if ($posts->isEmpty()) {
+            return response()->json(["mensaje" => "No existen posts con '$search' como búsqueda"], 200);
+        }
+
+        return response()->json(['posts' => $posts]);
     }
+
     public function getUserPostsOverview($userId): JsonResponse // Obtenemos los post ordenados por visitas y su porcentaje, también los posts agrupados por mes y por último obtenemos posts agrupados por mes y sus visitas
     {
         $postsOrderedByViews = $this->postService->getPostsByUserOrderedByViews($userId);
@@ -107,4 +130,39 @@ class PostController extends Controller
             'Usuarios' => $usercounts
         ]);
     }
+
+    public function getPublishedPostById($id)
+    {
+        $posts = Post::where('user_id', $id) 
+                    ->where('status', 'published')
+                    ->get();
+
+        if ($posts->isEmpty()) {
+            return response()->json(["error" => "No existen posts publicados para este usuario"], 200);
+        }
+
+        return response()->json(['posts' => $posts]);
+    }
+
+    public function getPublishedOrDraftOrDeletedPosts(Request $request)
+    {
+        $user = auth()->user(); 
+        $status = $request->input('status'); // Obtiene el estado desde el front, status en el json
+
+        if (!in_array($status, ['published', 'draft', 'deleted'])) {
+            return response()->json(["error" => "No existen post con ese status"], 400);
+        }
+
+        $posts = Post::where('user_id', $user->id)
+                    ->where('status', $status)
+                    ->get();
+
+        if ($posts->isEmpty()) {
+            return response()->json(["mensaje" => "No tienes posts en este estado"], 200);
+        }
+
+        return response()->json(['posts' => $posts]);
+    }
+
+    
 }
