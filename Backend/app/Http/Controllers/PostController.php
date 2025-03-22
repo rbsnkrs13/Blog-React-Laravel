@@ -42,10 +42,6 @@ class PostController extends Controller
         return response()->json($this->postService->getAllPost());
     }
 
-    public function getPostById($id)
-    {
-        return $this->postService->getPostById($id);
-    }
 
     /**
      * Store a newly created resource in storage.
