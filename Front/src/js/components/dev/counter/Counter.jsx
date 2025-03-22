@@ -17,7 +17,7 @@ export default function Counter() {
   }, []);
 
   return (
-    <div className="counter">
+    <div className="counter w-full">
       {/* <img src="" alt=""></img> */}
       <h3>Contador</h3>
       <Stats stats={stats} />

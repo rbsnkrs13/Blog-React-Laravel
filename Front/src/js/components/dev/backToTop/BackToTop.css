@@ -10,8 +10,8 @@
     cursor: pointer;
     overflow: hidden;
     position: fixed;
-    bottom: 3%;
-    right: 3%;
+    bottom: 2%;
+    right: 2%;
     z-index: 999;
 }
 
