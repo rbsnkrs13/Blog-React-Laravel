@@ -37,7 +37,7 @@ class rolesSeeder extends Seeder
         $bannerRole = Role::create(['name' => 'banned']);
 
         // Asignar permisos a los roles
-        $adminRole->givePermissionTo(Permission::all());
+        $adminRole->givePermissionTo(['create_post','delete_post','update_post','publish_post','view_post','create_user','delete_user','update_user','view_user']);
         $editorRole->givePermissionTo(['create_post', 'update_post', 'publish_post', 'view_post']);
         $readerRole->givePermissionTo(['view_post']);
         $bannerRole->givePermissionTo(['banned_user']);

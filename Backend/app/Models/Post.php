@@ -61,7 +61,6 @@ class Post extends Model
 
     public function getCategoryNameAttribute() //esto se puede hacer aqui porque hemos creado la relacion entre ambas tablas y podemos llamar asi al category
     {
-      //  return $this->categories->name;
         return $this->categories ? $this->categories->name : null; // Devuelve el nombre de la categoría
     }
 }

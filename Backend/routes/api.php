@@ -9,6 +9,7 @@ use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Middleware\JwtMiddleware;
 use App\Http\Kernel;
 use App\Http\Middleware\RoleMiddleware;
@@ -44,6 +45,10 @@ Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/stats/counter', [PostController::class, 'getStatsForCounter']);
 
 Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
+    Route::get('/users/infouser','getInfoUser')->name('users.getInfoUser')->middleware('role:admin|editor|viewer'); //muestra info no sensible del user
+    //Route::get('/users/infofav','getInfoFavUser')->name('users.getInfoFavUser')->middleware('role:admin|editor'); //muestra los favs que tienen los post de un user editor/admin
+    Route::get('/users/infoviews','getInfoViewUser')->name('users.getInfoViewUser')->middleware('role:admin|editor'); //cantidad de visitas que tienen todos sus posts
+    Route::get('/users/infousercrypt','getInfoUserCrypted')->name('users.getInfoUserCrypted')->middleware('role:admin|editor|viewer'); //muestra toda la info del user pero cryptada
     Route::get('/users', 'index')->name('users.index')->middleware('role:admin|editor'); //muestra todos los usuarios
     Route::get('/users/{user}', 'show')->name('users.show')->middleware('role:admin|editor|reader'); //muestra el usuario por el id
     Route::post('/users/store', 'store')->name('users.store')->middleware('role:admin'); //crea un usuario sin registro normal
@@ -71,12 +76,21 @@ Route::controller(RoleController::class)->middleware([JwtMiddleware::class])->gr
     Route::delete('/role/destroy/{role}', 'destroy')->name('role.destroy')->middleware('role:admin'); // Elimina un roll
 });
 
+Route::controller(PermissionController::class)->middleware([JwtMiddleware::class])->group(function () {
+    Route::get('/permission', 'index')->middleware('role:admin'); //enseña todos los permisos
+    Route::post('/permission/create', 'create')->name('permission.create')->middleware('role:admin'); //crea un nuevo permiso
+    Route::post('/permission/{role}/permissions','assignPermissionToRole')->name('permission.assignPermissionToRole')->middleware('role:admin');
+    Route::post('/roles/{role}/permissions/revoke','revokePermissionFromRole')->name('permission.revokePermissionFromRole')->middleware('role:admin');
+});
+
 Route::controller(PostController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/posts', 'index')->name('posts.index')->middleware('role:admin|editor|reader'); // enseña los 10 últimos
+    Route::get('/posts/{id}','getPublishedPostById')->name('posts.getPublishedPostById')->middleware('role:admin|editor|reader');//enseña los posts published de un user
+    Route::get('/posts/status','getPublishedOrDraftOrDeletedPosts')->name('posts.getPublishedOrDraftOrDeletedPosts')->middleware('role:admin|editor|reader');//elige y enseña los posts published draft o deleted del user auth
     Route::get('/posts/show', 'show')->middleware('role:admin|editor|reader'); // Enseña todos los posts
     Route::get('/posts/show/{post}', 'getPostById')->middleware('role:admin|editor|reader'); // Enseña un post por un id
     Route::get('/posts/user/{id}', 'postUser')->middleware('role:admin|editor|reader');    //Enseña los post a traves del id del usuario
-    Route::get('/posts/searchPosts/{page}', 'searchPosts')->middleware('role:admin|editor|reader');    //Ruta para buscar posts BARRA DE BÚSQUEDA
+    Route::get('/posts/searchPosts', 'searchPosts')->middleware('role:admin|editor|reader');    //Ruta para buscar posts BARRA DE BÚSQUEDA
     Route::get('/posts/posts-overview/{userId}', 'getUserPostsOverview')->middleware('role:admin|editor|reader');    // Devuelve las estadísticas para el Dashboard
     Route::post('/posts/store', 'store')->name('posts.store')->middleware('role:admin|editor'); //Crea un post
     Route::put('/posts/update/{post}', 'update')->name('posts.update')->middleware('role:admin|editor'); //Actualiza Post

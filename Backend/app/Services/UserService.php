@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Models\Favorites;
+use App\Models\Post;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -108,6 +110,100 @@ class UserService
             'updated_at' => now(),
         ]);
         return response()->json(["mensaje" => "Usuario actualizado correctamente"], 200);
+    }
+
+    public function getInfoUser()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+        return response()->json([
+            'name_user' => $user->name_user,
+            'img_user' => $user->img_user,
+        ]);
+    }
+
+    public function getInfoFavUser()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+
+        $posts = $user->posts()->withCount('favorites')->get(); //funcion automatica de laravel que hace que pueda contar la cantidad de favoritos que tiene ese post
+    
+        $filteredPosts = $posts->filter(function ($post) {
+            return $post->favorites_count > 0;
+        });
+        return response()->json($filteredPosts->map(function ($post) {
+            return [
+                'post_id' => $post->id,
+                'title' => $post->title, // Opcional, si quieres mostrar el título
+                'favorites_count' => $post->favorites_count,
+            ];
+        }));
+    }
+
+    public function getInfoViewUser()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+        
+        $posts = $user->posts;
+        $postViews = $posts->map(function ($post) {
+            return [
+                'post_id' => $post->id,
+                'title' => $post->title,
+                'views' => $post->views, // Si el campo views_count existe
+            ];
+        });
+    
+        return response()->json($postViews);
+    }
+
+
+    public function getInfoUserCrypted()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+
+        $encryptedData = encrypt($user->toArray());
+        return response()->json(['data' => $encryptedData]);
+    }
+
+    public function getUpdateInfo(Request $request)
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+        $request->validate([
+            'mail_user' => 'nullable|email|unique:users,mail_user,' . $user->id,
+            'bio' => 'nullable|string',
+            'password_user' => 'nullable|min:8'
+        ]);
+    
+        if ($request->has('mail_user')) { //solo actualiza si hay valores enel request
+            $user->mail_user = $request->mail_user;
+        }
+    
+        if ($request->has('bio')) {
+            $user->bio = $request->bio;
+        }
+    
+        if ($request->has('password_user')) {
+            $user->password_user = bcrypt($request->password_user);
+        }
+    
+        $user->save();
+        return response()->json([
+            'message' => 'Información actualizada correctamente', 
+            'user' => $user]);
     }
 }
 ?>
