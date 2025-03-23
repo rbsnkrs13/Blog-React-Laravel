@@ -41,7 +41,7 @@ function NavigationMobile() {
             {loggedUser && (<>
               {loggedUser.role === "admin"
                 && (<Link to="/admin" ><li><div className="linksNavMob">Admin</div></li></Link>)}
-              <Link to="/favorites" ><li><div className="linksNavMob">Favoritos</div></li></Link>
+              <Link to="/favorite_posts" ><li><div className="linksNavMob">Favoritos</div></li></Link>
               <Link to={`/profile`} ><li><div className="linksNavMob">Perfil</div></li></Link>
               <Link to='/createPost'><li><div className="linksNavMob">Crear Post</div></li></Link>
               <Link to="#" onClick={logOut}><li><div className="linksNavMob color-error">Cerrar sesion</div></li></Link>
