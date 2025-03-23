@@ -4,7 +4,7 @@ import postService from '../../../services/postService';
 import favService from '../../../services/favService';
 import { AuthContext } from '../../../bootstrap/contexts/AuthContext';
 
-export default function PostTablePagination({ filter, id = 0 }) {
+export default function PostTablePagination({ filter, id = 0 }) { //, search = ""
     const { loggedUser } = useContext(AuthContext);
     const [posts, setPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -14,6 +14,9 @@ export default function PostTablePagination({ filter, id = 0 }) {
         const fetchPosts = () => {
             let postPromise;
 
+            // if (search !== "") {
+            //     postPromise = postService.getPosts();
+            // } else {
             switch (filter) {
                 case 'favs':
                     postPromise = favService.getUserFavs();
@@ -31,6 +34,7 @@ export default function PostTablePagination({ filter, id = 0 }) {
                     postPromise = postService.getPosts();
                     break;
             }
+            // }
 
             postPromise
                 .then(({ data }) => {

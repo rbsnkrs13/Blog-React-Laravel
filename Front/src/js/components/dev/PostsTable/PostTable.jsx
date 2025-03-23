@@ -17,8 +17,18 @@ const formatDate = (dateString) => {
 
 export default function PostTable({ posts, currentPage, postsPerPage, onPageChange }) {
   const navigate = useNavigate();
+
+  if (!Array.isArray(posts)) {
+    return (
+      <div className="alert alert-warning">
+        {posts?.error || "Error desconocido al cargar los posts"}
+      </div>
+    );
+  }
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  console.log("POSTS", posts);
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
   const pageCount = Math.ceil(posts.length / postsPerPage);
