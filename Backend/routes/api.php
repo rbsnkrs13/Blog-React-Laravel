@@ -80,6 +80,7 @@ Route::post('/email/resend', function (Request $request) {
 });
 
 Route::post('/password/email', [PasswordResetController::class, 'sendResetLinkEmail']);
+Route::post('password/reset', [PasswordResetController::class, 'resetPassword']);
 
 Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/stats/counter', [PostController::class, 'getStatsForFooter']);
