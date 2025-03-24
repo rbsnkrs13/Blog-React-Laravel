@@ -15,7 +15,8 @@ use App\Http\Kernel;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\User;
-
+use App\Mail\CustomEmailVerification;
+use Illuminate\Support\Facades\Mail;
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:passport');
@@ -71,7 +72,7 @@ Route::post('/email/resend', function (Request $request) {
         return response()->json(['message' => 'El email ya ha sido verificado'], 200);
     }
 
-    $user->sendEmailVerificationNotification();
+    Mail::to($user->email_user)->send(new CustomEmailVerification($user));
 
     return response()->json(['message' => 'Correo de verificación reenviado']);
 });
