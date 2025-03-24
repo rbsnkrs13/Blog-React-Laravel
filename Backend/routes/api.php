@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\PasswordResetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriesController;
@@ -77,6 +78,8 @@ Route::post('/email/resend', function (Request $request) {
 
     return response()->json(['message' => 'Correo de verificación reenviado']);
 });
+
+Route::post('/password/email', [PasswordResetController::class, 'sendResetLinkEmail']);
 
 Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/stats/counter', [PostController::class, 'getStatsForFooter']);
