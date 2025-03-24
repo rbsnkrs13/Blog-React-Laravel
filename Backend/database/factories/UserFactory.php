@@ -29,6 +29,8 @@ class UserFactory extends Factory
             'password_user' => static::$password ??= Hash::make('password'),
             'bio' => $this->faker->sentence(10),
             'remember_token' => Str::random(10),
+            'email_verified_at' => now(), 
+            'img_user' => 'avatars/default.png',
         ];
     }
 

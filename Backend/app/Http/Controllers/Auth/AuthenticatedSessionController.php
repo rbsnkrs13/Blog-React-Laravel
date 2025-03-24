@@ -26,7 +26,10 @@ class AuthenticatedSessionController extends Controller
         if ($user->hasRole('banned')) { //verifica si el usuario esta banned, si esta banned no puede entrar y no genera el token
             return response()->json(['error' => 'Este usuario ha sido suspendido.'], 403);
         }
-
+        
+        if (!$user->hasVerifiedEmail()) {
+            return response()->json(['message' => 'Debes verificar tu email antes de iniciar sesión.'], 403);
+        }
         $token = JWTAuth::fromUser($user);
         return response()->json([
             'authToken' => $token,
