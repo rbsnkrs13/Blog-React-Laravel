@@ -7,7 +7,7 @@
 </head>
 <body>
     <h2>¡Hola, {{ $user->name_user }}!</h2>
-    <p>Gracias por registrarte en nuestra plataforma. Por favor, haz clic en el siguiente enlace para verificar tu correo electrónico:</p>
+    <p>Gracias por registrarte en C-Blog. Por favor, haz clic en el siguiente enlace para verificar tu correo electrónico:</p>
     <p>
         <a href="{{ $verificationUrl }}">Verificar mi correo</a>
     </p>

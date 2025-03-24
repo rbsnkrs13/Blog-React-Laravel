@@ -26,10 +26,8 @@ class CustomEmailVerification extends Mailable
     {
         $this->user = $user;
 
-        // Generamos el hash para el enlace de verificación
-        $hash = sha1($this->user->getEmailForVerification());
-        // Generamos el enlace de verificación firmado
-        $this->verificationUrl = URL::temporarySignedRoute(
+        $hash = sha1($this->user->getEmailForVerification()); // Generamos el hash para el enlace de verificación
+        $this->verificationUrl = URL::temporarySignedRoute( // Generamos el enlace de verificación firmado
             'verification.verify', Carbon::now()->addMinutes(60), [
                 'id' => $this->user->id,
                 'hash' => $hash,//sha1($this->user->getEmailForVerification()), 
@@ -37,7 +35,7 @@ class CustomEmailVerification extends Mailable
         );
 
        // $this->verificationUrl = str_replace('http://127.0.0.1:8000/', url('api/') . '/', $this->verificationUrl);
-        Log::debug('Generated Verification URL: ' . $this->verificationUrl);
+        // Log::debug('Generated Verification URL: ' . $this->verificationUrl);
        
     }
 
