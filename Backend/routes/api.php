@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\PasswordResetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriesController;
@@ -26,6 +27,7 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 //Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:api');
 Route::get('/user', [ProfileController::class, 'getUser'])->middleware('auth:api');
+
 Route::middleware('auth:api')->get('/verify-token', function (Request $request) {
     $user = $request->user();
     return response()->json([
@@ -37,7 +39,7 @@ Route::middleware('auth:api')->get('/verify-token', function (Request $request) 
         ]
     ]);
 });
-Route::get('/categories/{data}', [CategoriesController::class, 'showCategoriesByName']);
+
 Route::middleware('auth:api')->post('/refresh-token', function () { //renueva el token para que no se expire a los 60 minutos
     return response()->json([
         'token' => auth()->refresh(),
@@ -77,7 +79,12 @@ Route::post('/email/resend', function (Request $request) {
     return response()->json(['message' => 'Correo de verificación reenviado']);
 });
 
+Route::post('/password/email', [PasswordResetController::class, 'sendResetLinkEmail']);
+Route::post('password/reset', [PasswordResetController::class, 'resetPassword']);
+
 Route::get('/categories', [CategoriesController::class, 'index']);
+Route::get('/stats/counter', [PostController::class, 'getStatsForFooter']);
+Route::get('/categories/{data}', [CategoriesController::class, 'showCategoriesByName']);
 Route::get('/stats/counter', [PostController::class, 'getStatsForCounter']);
 
 
