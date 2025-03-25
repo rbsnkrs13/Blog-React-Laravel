@@ -42,25 +42,21 @@ Route::get('/categories', [CategoriesController::class, 'index']); //muestra las
 Route::get('/stats/counter', [PostController::class, 'getStatsForFooter']); //stats para el footer
 Route::get('/categories/{data}', [CategoriesController::class, 'showCategoriesByName']); //muestra el nombre de las categorias
 
-//Route::middleware('auth:api')->get('/verify-token', [AuthController::class, 'verifyToken']);
+Route::middleware('auth:api')->get('/verify-token', [AuthController::class, 'verifyToken']);
 Route::middleware('auth:api')->post('/refresh-token', [AuthController::class, 'refreshToken']);
 
-Route::middleware('auth:api')->get('/verify-token', function () {
-    $user = auth()->user(); // Usa auth()->user() en lugar de $request->user()
-    
-    if (!$user) {
-        return response()->json(['error' => 'Usuario no autenticado'], 403);
-    }
-
+Route::middleware('auth:api')->get('/verify-token', function (Request $request) {
+    $user = $request->user();
     return response()->json([
         'message' => 'Token válido',
         'user' => [
             'id' => $user->id,
-            'role' => $user->roles()->first()->name,
+            'role' => $user->roles()->first()->name, // Obtiene el primer rol asignado
             'email_user' => $user->email_user
         ]
     ]);
 });
+
 
 Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/users/infouser','getInfoUser')->name('users.getInfoUser')->middleware('role:admin|editor|viewer'); //muestra info no sensible del user
