@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\PasswordResetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriesController;
@@ -12,12 +9,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Middleware\JwtMiddleware;
+use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\AuthController;
 use App\Http\Kernel;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\User;
 use App\Mail\CustomEmailVerification;
 use Illuminate\Support\Facades\Mail;
+
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:passport');
@@ -28,66 +31,30 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 //Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:api');
 Route::get('/user', [ProfileController::class, 'getUser'])->middleware('auth:api');
 
-Route::middleware('auth:api')->get('/verify-token', function (Request $request) {
-    $user = $request->user();
-    return response()->json([
-        'message' => 'Token válido',
-        'user' => [
-            'id' => $user->id,
-            'role' => $user->roles()->first()->name, // Obtiene el primer rol asignado
-            'email_user' => $user->email_user
-        ]
-    ]);
-});
+Route::get('/verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify'); //verifica la cuenta del user una vez se crea
+Route::post('/email/resend', [EmailVerificationController::class, 'resend']); //reenvia el email para que pueda verificar cuenta
 
-Route::middleware('auth:api')->post('/refresh-token', function () { //renueva el token para que no se expire a los 60 minutos
-    return response()->json([
-        'token' => auth()->refresh(),
-        'message' => 'Token actualizado correctamente'
-    ]);
-});
+Route::post('/password/email', [PasswordResetController::class, 'sendResetLinkEmail']); //envia el correo con el link para restablecer la pass
+Route::post('password/reset', [PasswordResetController::class, 'resetPassword']); //ruta que verifica los datos para poder cambiar la contraseña
 
-Route::get('/verify-email/{id}/{hash}', function ($id, $hash) {
-    $user = User::findOrFail($id);
+Route::get('/categories', [CategoriesController::class, 'index']); //muestra las categorias
+Route::get('/stats/counter', [PostController::class, 'getStatsForFooter']); //stats para el footer
+Route::get('/categories/{data}', [CategoriesController::class, 'showCategoriesByName']); //muestra el nombre de las categorias
 
-    if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
-        return response()->json(['message' => 'Enlace de verificación no válido'], 403);
-    }
+Route::middleware('auth:api')->get('/verify-token', [AuthController::class, 'verifyToken']);
+Route::middleware('auth:api')->post('/refresh-token', [AuthController::class, 'refreshToken']);
 
-    if ($user->hasVerifiedEmail()) {
-        return response()->json(['message' => 'El email ya ha sido verificado'], 200);
-    }
-
-    $user->markEmailAsVerified();
-
-    return response()->json(['message' => 'Cuenta verificada con exito']);
-})->name('verification.verify'); //->middleware(['signed'])
-
-Route::post('/email/resend', function (Request $request) {
-    $user = User::where('email_user', $request->email_user)->first();
-
-    if (!$user) {
-        return response()->json(['message' => 'Usuario no encontrado'], 404);
-    }
-
-    if ($user->hasVerifiedEmail()) {
-        return response()->json(['message' => 'El email ya ha sido verificado'], 200);
-    }
-
-    Mail::to($user->email_user)->send(new CustomEmailVerification($user));
-
-    return response()->json(['message' => 'Correo de verificación reenviado']);
-});
-
-Route::post('/password/email', [PasswordResetController::class, 'sendResetLinkEmail']);
-Route::post('password/reset', [PasswordResetController::class, 'resetPassword']);
-
-Route::get('/categories', [CategoriesController::class, 'index']);
-Route::get('/stats/counter', [PostController::class, 'getStatsForFooter']);
-Route::get('/categories/{data}', [CategoriesController::class, 'showCategoriesByName']);
-Route::get('/stats/counter', [PostController::class, 'getStatsForCounter']);
-
-
+// Route::middleware('auth:api')->get('/verify-token', function (Request $request) {
+//     $user = $request->user();
+//     return response()->json([
+//         'message' => 'Token válido',
+//         'user' => [
+//             'id' => $user->id,
+//             'role' => $user->roles()->first()->name, // Obtiene el primer rol asignado
+//             'email_user' => $user->email_user
+//         ]
+//     ]);
+// });
 
 Route::controller(ProfileController::class)->middleware([JwtMiddleware::class])->group(function () {
     Route::get('/users/infouser','getInfoUser')->name('users.getInfoUser')->middleware('role:admin|editor|viewer'); //muestra info no sensible del user

@@ -12,79 +12,81 @@ use App\Notifications\PasswordResetNotification;
 use Illuminate\Support\Facades\Mail; 
 use App\Mail\PasswordResetMail;
 use Illuminate\Support\Facades\Hash;
-
+use Carbon\Carbon; 
 
 class PasswordResetController extends Controller
 {
     public function sendResetLinkEmail(Request $request)
     {
-        // Validamos el correo que se recibe en la solicitud
-        $request->validate([
-            'email_user' => 'required|email',  // Usamos 'email_user' en vez de 'email'
+        $request->validate([ // valida la info que le llega
+            'email_user' => 'required|email',  
         ]);
 
-        // Buscamos al usuario por 'email_user' en vez de 'email'
         $user = User::where('email_user', $request->email_user)->first();
+
+        DB::table('password_reset_tokens')
+        ->where('email_users', $user->email_user)
+        ->where('created_at', '<', Carbon::now()->subMinutes(5)) // si el token es más antiguo de 1 hora, lo eliminamos
+        ->delete();
+
+        if (DB::table('password_reset_tokens')->where('email_users', $user->email_user)->exists()) { //si el user ya tenia un token pedido para reestablecer contraseña se borra de la base de datos para que se pueda generar uno nuevo
+            DB::table('password_reset_tokens')
+                ->where('email_users', $user->email_user)
+                ->delete();
+        }
 
         if (!$user) {
             return response()->json(['message' => 'Usuario no encontrado'], 404);
         }
 
-        // Generamos el token para el restablecimiento de la contraseña
-        $token = Str::random(60);
 
-        // Insertamos el token en la tabla de password_reset_tokens
-        DB::table('password_reset_tokens')->insert([
+        $token = Str::random(60); // creamos el token nosotros mismos con una combi random
+
+        
+        DB::table('password_reset_tokens')->insert([ 
             'email_users' => $user->email_user,  // Usamos 'email_user' para hacer la inserción
             'token' => $token,
             'created_at' => now(),
         ]);
 
-        // Enviamos el correo de restablecimiento usando la notificación personalizada
         //$user->notify(new PasswordResetNotification($token));
        // Mail::to($user->email_user)->send(new PasswordResetNotification($token)); 
-       $url = url(config('app.url') . '/api/password/reset/' . $token . '?email=' . $user->email_user);
+       $url = url(config('app.url') . '/api/password/reset/' . $token . '?email=' . $user->email_user); //creamos la url a mano con los datos que queremos mandar para que los recoja el front
 
-       // Enviamos el correo utilizando el Mailable
-       Mail::to($user->email_user)->send(new PasswordResetMail($url));
+       Mail::to($user->email_user)->send(new PasswordResetMail($url)); //funcion pa llamar al mail
 
-        // Respondemos con un mensaje de éxito
         return response()->json(['message' => 'Correo de restablecimiento enviado']);
     }
 
     public function resetPassword(Request $request)
     {
-        // Validamos que el correo, el token y la nueva contraseña estén presentes
-        $request->validate([
+        $request->validate([ //campos que deberia de tener el request mas el password_confirmation
             'email_user' => 'required|email',
             'token' => 'required',
-            'password' => 'required|confirmed|min:6',  // Confirmación y validación mínima de la contraseña
+            'password' => 'required|confirmed|min:6',  
         ]);
 
-        // Buscamos el token en la base de datos
-        $tokenRecord = DB::table('password_reset_tokens')->where('token', $request->token)->first();
+        $tokenRecord = DB::table('password_reset_tokens')->where('token', $request->token)->first(); //busca el token creado para compararlo despues con el del link
 
-        // Verificamos si el token es válido y corresponde al correo
         if (!$tokenRecord || $tokenRecord->email_users != $request->email_user) {
             return response()->json(['message' => 'Token inválido o correo incorrecto'], 400);
         }
 
-        // Encontramos al usuario
         $user = User::where('email_user', $request->email_user)->first();
 
-        // Si no existe el usuario, respondemos con error
         if (!$user) {
             return response()->json(['message' => 'Usuario no encontrado'], 404);
         }
 
-        // Actualizamos la contraseña
-        $user->password_user = Hash::make($request->password);
+        if (Carbon::parse($tokenRecord->created_at)->addMinutes(5)->isPast()) { //comprueba si ha pasao 5 min en la duracion del tokkken
+            return response()->json(['message' => 'El enlace ha caducado, vuelva a pedir otro'], 400);
+        }
+
+        $user->password_user = Hash::make($request->password); 
         $user->save();
 
-        // Eliminamos el token de la tabla (opcional, ya que el token ya se ha utilizado)
-        DB::table('password_reset_tokens')->where('token', $request->token)->delete();
+        DB::table('password_reset_tokens')->where('token', $request->token)->delete(); //se borra el token una vez usado ya que no admite mas mails iguales 
 
-        // Respondemos con éxito
         return response()->json(['message' => 'Contraseña restablecida correctamente']);
     }
 }
