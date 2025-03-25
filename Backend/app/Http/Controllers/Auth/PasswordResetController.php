@@ -39,10 +39,8 @@ class PasswordResetController extends Controller
             return response()->json(['message' => 'Usuario no encontrado'], 404);
         }
 
-
         $token = Str::random(60); // creamos el token nosotros mismos con una combi random
 
-        
         DB::table('password_reset_tokens')->insert([ 
             'email_users' => $user->email_user,  // Usamos 'email_user' para hacer la inserción
             'token' => $token,
@@ -63,7 +61,7 @@ class PasswordResetController extends Controller
         $request->validate([ //campos que deberia de tener el request mas el password_confirmation
             'email_user' => 'required|email',
             'token' => 'required',
-            'password' => 'required|confirmed|min:6',  
+            'password' => 'required|min:6',  
         ]);
 
         $tokenRecord = DB::table('password_reset_tokens')->where('token', $request->token)->first(); //busca el token creado para compararlo despues con el del link
