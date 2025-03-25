@@ -24,7 +24,7 @@ class PasswordResetNotification extends Notification
 
     public function toMail($notifiable)
     {
-        \Log::info("Enviando correo de restablecimiento a: " . $notifiable->email_user); 
+       
         // Generamos la URL de la API de restablecimiento de contraseña
         $url = url(config('app.url') . '/api/password/reset/' . $this->token . '?email=' . $notifiable->email_user);
 
