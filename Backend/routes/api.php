@@ -21,6 +21,7 @@ use App\Models\User;
 use App\Mail\CustomEmailVerification;
 use Illuminate\Support\Facades\Mail;
 
+
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:passport');
