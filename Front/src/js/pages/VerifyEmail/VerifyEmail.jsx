@@ -9,7 +9,7 @@ export default function VerifyEmail() {
     useEffect(() => {
         axios.get(`http://127.0.0.1:8000/api/email/verify/${id}/${hash}`)
             .then(() => navigate("/login?verified=success"))  // Redirige a login si la verificación es exitosa
-            .catch(() => navigate("/login")); // Redirige si hay error
+            .catch(() => navigate("/loginfekoso")); // Redirige si hay error o si ya esta verificada la ruta?
     }, [id, hash, navigate]);
 
     return <p>Verificando cuenta...</p>;
