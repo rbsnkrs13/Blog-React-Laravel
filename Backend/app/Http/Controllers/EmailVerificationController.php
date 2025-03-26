@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Mail\CustomEmailVerification;
+use Illuminate\Support\Facades\Log;
+
 
 class EmailVerificationController extends Controller
 {
@@ -28,18 +30,44 @@ class EmailVerificationController extends Controller
 
     public function verify($id, $hash)
     {
+        // $user = User::findOrFail($id);
+
+        // if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+        //     return response()->json(['message' => 'Enlace de verificación no válido'], 403);
+        // }
+
+        // if ($user->hasVerifiedEmail()) {
+        //     return response()->json(['message' => 'El email ya ha sido verificado'], 200);
+        // }
+
+        // $user->markEmailAsVerified();
+
+        // return response()->json(['message' => 'Cuenta verificada con éxito']);
+
+        // $user = User::findOrFail($id);
+        // $generatedHash = sha1($user->getEmailForVerification());
+        // Log::info("Hash generado: $generatedHash");
+        // Log::info("Hash recibido en la URL: $hash");
+
+        // if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+        //     return redirect('http://localhost:5173/verify-failed'); // Redirige si el hash no es válido
+        // }
+
+        // if ($user->hasVerifiedEmail()) {
+        //     return redirect('http://localhost:5173/login'); // Si ya estaba verificado, redirige al login
+        // }
+
+        // $user->markEmailAsVerified();
+
+        // return redirect()->to('http://localhost:5173');; // Redirige al login con un query param
+
         $user = User::findOrFail($id);
 
-        if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
-            return response()->json(['message' => 'Enlace de verificación no válido'], 403);
+        if (!$user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
         }
 
-        if ($user->hasVerifiedEmail()) {
-            return response()->json(['message' => 'El email ya ha sido verificado'], 200);
-        }
-
-        $user->markEmailAsVerified();
-
-        return response()->json(['message' => 'Cuenta verificada con éxito']);
+        // Redirige al usuario a la página principal (o cualquier otra página que prefieras)
+        return redirect('http://localhost:5173');
     }
 }

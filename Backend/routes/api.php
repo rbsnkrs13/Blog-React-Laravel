@@ -32,7 +32,7 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 //Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:api');
 Route::get('/user', [ProfileController::class, 'getUser'])->middleware('auth:api');
 
-Route::get('/verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify'); //verifica la cuenta del user una vez se crea
+Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify'); //verifica la cuenta del user una vez se crea
 Route::post('/email/resend', [EmailVerificationController::class, 'resend']); //reenvia el email para que pueda verificar cuenta
 
 Route::post('/password/email', [PasswordResetController::class, 'sendResetLinkEmail']); //envia el correo con el link para restablecer la pass
