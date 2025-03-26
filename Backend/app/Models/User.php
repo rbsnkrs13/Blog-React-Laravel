@@ -102,13 +102,13 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail  // Im
         return $this->hasMany(PasswordResetToken::class, 'email', 'email_user');
     }
 
-    public function getEmailForVerification()
-    {
-        return $this->email_user;
-    }
-    public function getAuthIdentifierName()
-    {
-        return 'email_user';
-    }
+     public function getEmailForVerification()
+     {
+         return $this->email_user;
+     }
+    // public function getAuthIdentifierName()
+    // {
+    //     return 'email_user';
+    // }
 }
 
